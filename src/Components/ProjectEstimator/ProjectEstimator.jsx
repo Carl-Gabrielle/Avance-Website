@@ -1,7 +1,11 @@
 
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { ArrowLeft, ArrowRight, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  ArrowLeft,
+  ArrowRight,
+  X,
+} from "lucide-react";
 
 import EstimatorProgress from "./EstimatorProgress";
 import ProjectTypeStep from "./ProjectTypeStep";
@@ -15,13 +19,13 @@ import { calculateEstimate } from "../../utils/calculateEstimate";
 
 const TOTAL_STEPS = 5;
 
-const INITIAL_ANSWERS = {
+const createInitialAnswers = () => ({
   projectType: "",
   pages: "",
   design: "",
   features: [],
   timeline: "",
-};
+});
 
 function ProjectEstimator({
   isOpen,
@@ -31,42 +35,44 @@ function ProjectEstimator({
 }) {
   const [step, setStep] = useState(1);
 
-  const [answers, setAnswers] = useState(
-    INITIAL_ANSWERS
-  );
+  const [answers, setAnswers] =
+    useState(createInitialAnswers);
 
-  const [estimate, setEstimate] = useState(null);
+  const [estimate, setEstimate] =
+    useState(null);
 
   /*
   |--------------------------------------------------------------------------
-  | Reset estimator whenever it opens
+  | Reset when opened
   |--------------------------------------------------------------------------
   */
 
   useEffect(() => {
-    if (!isOpen) return;
+    if (!isOpen) {
+      return;
+    }
 
     setStep(1);
-
-    setAnswers({
-      ...INITIAL_ANSWERS,
-      features: [],
-    });
-
+    setAnswers(createInitialAnswers());
     setEstimate(null);
-  }, [isOpen, initialPackage]);
+  }, [isOpen]);
 
   /*
   |--------------------------------------------------------------------------
-  | Lock background scrolling
+  | Prevent background scrolling
   |--------------------------------------------------------------------------
   */
 
   useEffect(() => {
-    if (!isOpen) return;
+    if (!isOpen) {
+      return;
+    }
 
-    const html = document.documentElement;
-    const body = document.body;
+    const html =
+      document.documentElement;
+
+    const body =
+      document.body;
 
     const previousHtmlOverflow =
       html.style.overflow;
@@ -74,8 +80,20 @@ function ProjectEstimator({
     const previousBodyOverflow =
       body.style.overflow;
 
+    const previousHtmlOverscroll =
+      html.style.overscrollBehavior;
+
+    const previousBodyOverscroll =
+      body.style.overscrollBehavior;
+
     html.style.overflow = "hidden";
     body.style.overflow = "hidden";
+
+    html.style.overscrollBehavior =
+      "none";
+
+    body.style.overscrollBehavior =
+      "none";
 
     return () => {
       html.style.overflow =
@@ -83,14 +101,14 @@ function ProjectEstimator({
 
       body.style.overflow =
         previousBodyOverflow;
+
+      html.style.overscrollBehavior =
+        previousHtmlOverscroll;
+
+      body.style.overscrollBehavior =
+        previousBodyOverscroll;
     };
   }, [isOpen]);
-
-  /*
-  |--------------------------------------------------------------------------
-  | Don't render when closed
-  |--------------------------------------------------------------------------
-  */
 
   if (!isOpen) {
     return null;
@@ -102,7 +120,10 @@ function ProjectEstimator({
   |--------------------------------------------------------------------------
   */
 
-  function updateAnswer(key, value) {
+  function updateAnswer(
+    key,
+    value
+  ) {
     setAnswers((current) => ({
       ...current,
       [key]: value,
@@ -111,7 +132,7 @@ function ProjectEstimator({
 
   /*
   |--------------------------------------------------------------------------
-  | Validate current step
+  | Validate step
   |--------------------------------------------------------------------------
   */
 
@@ -133,7 +154,6 @@ function ProjectEstimator({
         );
 
       case 4:
-        // Features are optional.
         return true;
 
       case 5:
@@ -157,22 +177,18 @@ function ProjectEstimator({
       return;
     }
 
-    /*
-     * Final question.
-     * Calculate the estimate before showing
-     * the result screen.
-     */
-
     if (step === TOTAL_STEPS) {
       try {
         const result =
-          calculateEstimate(answers);
+          calculateEstimate(
+            answers
+          );
 
         setEstimate(result);
         setStep(6);
       } catch (error) {
         console.error(
-          "Estimator calculation error:",
+          "Project estimator error:",
           error
         );
       }
@@ -180,11 +196,12 @@ function ProjectEstimator({
       return;
     }
 
-    setStep((current) =>
-      Math.min(
-        current + 1,
-        TOTAL_STEPS
-      )
+    setStep(
+      (current) =>
+        Math.min(
+          current + 1,
+          TOTAL_STEPS
+        )
     );
   }
 
@@ -200,25 +217,26 @@ function ProjectEstimator({
       return;
     }
 
-    setStep((current) =>
-      Math.max(current - 1, 1)
+    setStep(
+      (current) =>
+        Math.max(
+          current - 1,
+          1
+        )
     );
   }
 
   /*
   |--------------------------------------------------------------------------
-  | Restart estimator
+  | Restart
   |--------------------------------------------------------------------------
   */
 
   function restartEstimator() {
     setStep(1);
-
-    setAnswers({
-      ...INITIAL_ANSWERS,
-      features: [],
-    });
-
+    setAnswers(
+      createInitialAnswers()
+    );
     setEstimate(null);
   }
 
@@ -228,30 +246,36 @@ function ProjectEstimator({
   |--------------------------------------------------------------------------
   */
 
-  function handleRequestProject(data = {}) {
+  function handleRequestProject(
+    data = {}
+  ) {
     onRequestProject?.({
       ...data,
       answers,
       estimate,
+      package: initialPackage,
     });
   }
 
   /*
   |--------------------------------------------------------------------------
-  | Close when clicking the backdrop
+  | Close backdrop
   |--------------------------------------------------------------------------
   */
 
-  function handleBackdropMouseDown(event) {
+  function handleBackdropClick(
+    event
+  ) {
     if (
-      event.target === event.currentTarget
+      event.target ===
+      event.currentTarget
     ) {
       onClose();
     }
   }
 
   return (
-    <motion.div
+    <div
       className="
         fixed
         inset-0
@@ -264,11 +288,8 @@ function ProjectEstimator({
         sm:items-center
         sm:p-5
       "
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
       onMouseDown={
-        handleBackdropMouseDown
+        handleBackdropClick
       }
     >
       {/* ================================================================
@@ -278,7 +299,7 @@ function ProjectEstimator({
       <motion.div
         initial={{
           opacity: 0,
-          y: 24,
+          y: 40,
         }}
         animate={{
           opacity: 1,
@@ -286,12 +307,15 @@ function ProjectEstimator({
         }}
         exit={{
           opacity: 0,
-          y: 24,
+          y: 40,
         }}
         transition={{
-          duration: 0.35,
+          duration: 0.3,
           ease: [0.22, 1, 0.36, 1],
         }}
+        onMouseDown={(event) =>
+          event.stopPropagation()
+        }
         className="
           relative
           flex
@@ -304,6 +328,7 @@ function ProjectEstimator({
           bg-[#f5f5f2]
           text-[#171817]
           shadow-2xl
+
           sm:h-auto
           sm:max-h-[90dvh]
           sm:rounded-[28px]
@@ -313,7 +338,7 @@ function ProjectEstimator({
             HEADER
         ============================================================== */}
 
-        <div
+        <header
           className="
             flex
             shrink-0
@@ -327,25 +352,21 @@ function ProjectEstimator({
           "
         >
           <div>
-            <p
-              className="
-                text-[10px]
-                font-bold
-                uppercase
-                tracking-[0.16em]
-                text-[#7c9825]
-              "
-            >
+            <p className="
+              text-[10px]
+              font-bold
+              uppercase
+              tracking-[0.16em]
+              text-[#7c9825]
+            ">
               Avance
             </p>
 
-            <p
-              className="
-                mt-1
-                text-[10px]
-                text-[#999999]
-              "
-            >
+            <p className="
+              mt-1
+              text-[10px]
+              text-[#999999]
+            ">
               Estimate your project
             </p>
           </div>
@@ -365,19 +386,21 @@ function ProjectEstimator({
               bg-white
               text-[#555555]
               transition-colors
+              duration-200
               hover:bg-[#171817]
               hover:text-white
+              active:scale-95
             "
           >
             <X size={17} />
           </button>
-        </div>
+        </header>
 
         {/* ==============================================================
-            CONTENT
+            SCROLLABLE CONTENT
         ============================================================== */}
 
-        <div
+        <main
           className="
             min-h-0
             flex-1
@@ -390,8 +413,6 @@ function ProjectEstimator({
             sm:py-7
           "
         >
-          {/* Progress */}
-
           {step <= TOTAL_STEPS && (
             <EstimatorProgress
               currentStep={step}
@@ -401,6 +422,7 @@ function ProjectEstimator({
 
           <AnimatePresence
             mode="wait"
+            initial={false}
           >
             {/* ==========================================================
                 STEP 1
@@ -411,7 +433,7 @@ function ProjectEstimator({
                 key="project-type"
                 initial={{
                   opacity: 0,
-                  x: 12,
+                  x: 10,
                 }}
                 animate={{
                   opacity: 1,
@@ -419,7 +441,7 @@ function ProjectEstimator({
                 }}
                 exit={{
                   opacity: 0,
-                  x: -12,
+                  x: -10,
                 }}
                 transition={{
                   duration: 0.2,
@@ -448,7 +470,7 @@ function ProjectEstimator({
                 key="pages"
                 initial={{
                   opacity: 0,
-                  x: 12,
+                  x: 10,
                 }}
                 animate={{
                   opacity: 1,
@@ -456,7 +478,7 @@ function ProjectEstimator({
                 }}
                 exit={{
                   opacity: 0,
-                  x: -12,
+                  x: -10,
                 }}
                 transition={{
                   duration: 0.2,
@@ -485,7 +507,7 @@ function ProjectEstimator({
                 key="design"
                 initial={{
                   opacity: 0,
-                  x: 12,
+                  x: 10,
                 }}
                 animate={{
                   opacity: 1,
@@ -493,7 +515,7 @@ function ProjectEstimator({
                 }}
                 exit={{
                   opacity: 0,
-                  x: -12,
+                  x: -10,
                 }}
                 transition={{
                   duration: 0.2,
@@ -522,7 +544,7 @@ function ProjectEstimator({
                 key="features"
                 initial={{
                   opacity: 0,
-                  x: 12,
+                  x: 10,
                 }}
                 animate={{
                   opacity: 1,
@@ -530,7 +552,7 @@ function ProjectEstimator({
                 }}
                 exit={{
                   opacity: 0,
-                  x: -12,
+                  x: -10,
                 }}
                 transition={{
                   duration: 0.2,
@@ -559,7 +581,7 @@ function ProjectEstimator({
                 key="timeline"
                 initial={{
                   opacity: 0,
-                  x: 12,
+                  x: 10,
                 }}
                 animate={{
                   opacity: 1,
@@ -567,7 +589,7 @@ function ProjectEstimator({
                 }}
                 exit={{
                   opacity: 0,
-                  x: -12,
+                  x: -10,
                 }}
                 transition={{
                   duration: 0.2,
@@ -591,45 +613,48 @@ function ProjectEstimator({
                 RESULT
             ========================================================== */}
 
-            {step === 6 && estimate && (
-              <motion.div
-                key="result"
-                initial={{
-                  opacity: 0,
-                  y: 10,
-                }}
-                animate={{
-                  opacity: 1,
-                  y: 0,
-                }}
-                exit={{
-                  opacity: 0,
-                  y: -10,
-                }}
-                transition={{
-                  duration: 0.25,
-                }}
-              >
-                <EstimateResult
-                  estimate={estimate}
-                  onRestart={
-                    restartEstimator
-                  }
-                  onRequestProposal={
-                    handleRequestProject
-                  }
-                />
-              </motion.div>
-            )}
+            {step === 6 &&
+              estimate && (
+                <motion.div
+                  key="result"
+                  initial={{
+                    opacity: 0,
+                    y: 10,
+                  }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                  }}
+                  exit={{
+                    opacity: 0,
+                    y: -10,
+                  }}
+                  transition={{
+                    duration: 0.25,
+                  }}
+                >
+                  <EstimateResult
+                    estimate={
+                      estimate
+                    }
+                    onRestart={
+                      restartEstimator
+                    }
+                    onRequestProposal={
+                      handleRequestProject
+                    }
+                  />
+                </motion.div>
+              )}
           </AnimatePresence>
-        </div>
+        </main>
 
         {/* ==============================================================
-            FOOTER NAVIGATION
+            FOOTER
         ============================================================== */}
 
         {step <= TOTAL_STEPS && (
-          <div
+          <footer
             className="
               flex
               shrink-0
@@ -646,8 +671,6 @@ function ProjectEstimator({
               sm:pb-4
             "
           >
-            {/* Back */}
-
             <button
               type="button"
               onClick={previousStep}
@@ -664,20 +687,17 @@ function ProjectEstimator({
                 font-semibold
                 text-[#666666]
                 transition-colors
+                duration-200
                 hover:bg-white
                 hover:text-[#171817]
+                active:scale-95
                 disabled:pointer-events-none
                 disabled:opacity-30
               "
             >
-              <ArrowLeft
-                size={15}
-              />
-
+              <ArrowLeft size={15} />
               Back
             </button>
-
-            {/* Continue */}
 
             <motion.button
               type="button"
@@ -686,7 +706,7 @@ function ProjectEstimator({
                 !canContinue()
               }
               whileTap={{
-                scale: 0.98,
+                scale: 0.97,
               }}
               className="
                 group
@@ -704,6 +724,7 @@ function ProjectEstimator({
                 font-semibold
                 text-white
                 transition-colors
+                duration-200
                 hover:bg-[#d8ff63]
                 hover:text-[#171817]
                 disabled:cursor-not-allowed
@@ -718,15 +739,15 @@ function ProjectEstimator({
                 size={15}
                 className="
                   transition-transform
-                  duration-300
+                  duration-200
                   group-hover:translate-x-1
                 "
               />
             </motion.button>
-          </div>
+          </footer>
         )}
       </motion.div>
-    </motion.div>
+    </div>
   );
 }
 

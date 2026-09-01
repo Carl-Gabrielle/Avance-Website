@@ -1,5 +1,6 @@
+
 import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   ArrowRight,
   Check,
@@ -79,7 +80,6 @@ const packages = [
 
 const containerVariants = {
   hidden: {},
-
   visible: {
     transition: {
       staggerChildren: 0.12,
@@ -96,7 +96,6 @@ const itemVariants = {
   visible: {
     opacity: 1,
     y: 0,
-
     transition: {
       duration: 0.7,
       ease: [0.22, 1, 0.36, 1],
@@ -108,57 +107,17 @@ function Pricing() {
   const [estimatorOpen, setEstimatorOpen] =
     useState(false);
 
-  /*
-   * This stores the package the user clicked.
-   *
-   * IMPORTANT:
-   * The estimator does not use this to calculate
-   * the final estimate.
-   *
-   * It is only contextual information.
-   */
-
   const [selectedPackage, setSelectedPackage] =
     useState(null);
-
-  /*
-   |--------------------------------------------------------------------------
-   | Open estimator
-   |--------------------------------------------------------------------------
-   */
 
   function openEstimator(packageId = null) {
     setSelectedPackage(packageId);
     setEstimatorOpen(true);
   }
 
-  /*
-   |--------------------------------------------------------------------------
-   | Close estimator
-   |--------------------------------------------------------------------------
-   */
-
   function closeEstimator() {
     setEstimatorOpen(false);
   }
-
-  /*
-   |--------------------------------------------------------------------------
-   | Request project
-   |--------------------------------------------------------------------------
-   |
-   | The estimator will pass the collected answers
-   | and estimate here.
-   |
-   | You can later connect this to:
-   |
-   | - Contact form
-   | - Email
-   | - Supabase
-   | - Laravel API
-   | - CRM
-   |
-   */
 
   function handleRequestProject(data) {
     console.log(
@@ -167,10 +126,6 @@ function Pricing() {
     );
 
     setEstimatorOpen(false);
-
-    /*
-     * Scroll to contact section.
-     */
 
     setTimeout(() => {
       document
@@ -186,12 +141,21 @@ function Pricing() {
     <>
       <section
         id="pricing"
-        className="border-y border-black/[0.07] bg-[#f5f5f2] px-5 py-24 text-[#171817] sm:px-8 sm:py-32"
+        className="
+          border-y
+          border-black/[0.07]
+          bg-[#f5f5f2]
+          px-5
+          py-24
+          text-[#171817]
+          sm:px-8
+          sm:py-32
+        "
       >
         <div className="mx-auto max-w-7xl">
 
           {/* ============================================================
-              SECTION HEADER
+              HEADER
           ============================================================ */}
 
           <motion.div
@@ -212,14 +176,32 @@ function Pricing() {
 
             <motion.h2
               variants={itemVariants}
-              className="mt-6 text-balance text-4xl font-semibold leading-[0.98] tracking-[-0.06em] text-[#111111] sm:text-5xl lg:text-6xl"
+              className="
+                mt-6
+                text-balance
+                text-4xl
+                font-semibold
+                leading-[0.98]
+                tracking-[-0.06em]
+                text-[#111111]
+                sm:text-5xl
+                lg:text-6xl
+              "
             >
               A clear starting point for your next digital project.
             </motion.h2>
 
             <motion.p
               variants={itemVariants}
-              className="mt-6 max-w-xl text-base font-medium leading-7 text-[#666666] sm:text-lg"
+              className="
+                mt-6
+                max-w-xl
+                text-base
+                font-medium
+                leading-7
+                text-[#666666]
+                sm:text-lg
+              "
             >
               Start with a package that fits your needs,
               or estimate your project based on the
@@ -239,7 +221,13 @@ function Pricing() {
               amount: 0.12,
             }}
             variants={containerVariants}
-            className="mt-12 grid items-stretch gap-4 lg:grid-cols-3"
+            className="
+              mt-12
+              grid
+              items-stretch
+              gap-4
+              lg:grid-cols-3
+            "
           >
             {packages.map((item) => (
               <PricingCard
@@ -274,18 +262,50 @@ function Pricing() {
               delay: 0.15,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="mt-4 flex flex-col justify-between gap-6 rounded-[24px] border border-black/[0.08] bg-[#ebe9e2] p-6 sm:flex-row sm:items-center sm:p-7"
+            className="
+              mt-4
+              flex
+              flex-col
+              justify-between
+              gap-6
+              rounded-[24px]
+              border
+              border-black/[0.08]
+              bg-[#ebe9e2]
+              p-6
+              sm:flex-row
+              sm:items-center
+              sm:p-7
+            "
           >
             <div>
-              <p className="text-[9px] font-bold uppercase tracking-[0.15em] text-[#888888]">
+              <p className="
+                text-[9px]
+                font-bold
+                uppercase
+                tracking-[0.15em]
+                text-[#888888]
+              ">
                 Need something different?
               </p>
 
-              <h3 className="mt-2 text-2xl font-semibold tracking-[-0.05em] text-[#111111]">
+              <h3 className="
+                mt-2
+                text-2xl
+                font-semibold
+                tracking-[-0.05em]
+                text-[#111111]
+              ">
                 Custom projects
               </h3>
 
-              <p className="mt-2 max-w-xl text-sm leading-6 text-[#666666]">
+              <p className="
+                mt-2
+                max-w-xl
+                text-sm
+                leading-6
+                text-[#666666]
+              ">
                 Web applications, dashboards, booking
                 systems, business platforms, and other
                 custom digital solutions.
@@ -303,19 +323,42 @@ function Pricing() {
               whileTap={{
                 scale: 0.98,
               }}
-              className="group inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 rounded-full bg-[#171817] px-6 py-3.5 text-sm font-bold text-white transition-colors duration-300 hover:bg-[#d8ff63] hover:text-[#171817]"
+              className="
+                group
+                inline-flex
+                shrink-0
+                cursor-pointer
+                items-center
+                justify-center
+                gap-2
+                rounded-full
+                bg-[#171817]
+                px-6
+                py-3.5
+                text-sm
+                font-bold
+                text-white
+                transition-colors
+                duration-300
+                hover:bg-[#d8ff63]
+                hover:text-[#171817]
+              "
             >
               Estimate custom project
 
               <ArrowRight
                 size={16}
-                className="transition-transform duration-300 group-hover:translate-x-1"
+                className="
+                  transition-transform
+                  duration-300
+                  group-hover:translate-x-1
+                "
               />
             </motion.button>
           </motion.div>
 
           {/* ============================================================
-              PRICING NOTE
+              NOTE
           ============================================================ */}
 
           <motion.p
@@ -332,7 +375,15 @@ function Pricing() {
               duration: 0.6,
               delay: 0.2,
             }}
-            className="mx-auto mt-5 max-w-2xl text-center text-xs leading-5 text-[#999999]"
+            className="
+              mx-auto
+              mt-5
+              max-w-2xl
+              text-center
+              text-xs
+              leading-5
+              text-[#999999]
+            "
           >
             Package prices are starting points. Use the
             estimator to get an initial project range
@@ -344,20 +395,22 @@ function Pricing() {
 
       {/* ================================================================
           PROJECT ESTIMATOR
+
+          IMPORTANT:
+          We intentionally do NOT use AnimatePresence here.
+          The estimator handles its own animation.
       ================================================================ */}
 
-      <AnimatePresence>
-        {estimatorOpen && (
-          <ProjectEstimator
-            isOpen={estimatorOpen}
-            onClose={closeEstimator}
-            initialPackage={selectedPackage}
-            onRequestProject={
-              handleRequestProject
-            }
-          />
-        )}
-      </AnimatePresence>
+      {estimatorOpen && (
+        <ProjectEstimator
+          isOpen={estimatorOpen}
+          onClose={closeEstimator}
+          initialPackage={selectedPackage}
+          onRequestProject={
+            handleRequestProject
+          }
+        />
+      )}
     </>
   );
 }
@@ -375,23 +428,30 @@ function PricingCard({
       variants={itemVariants}
       whileHover={{
         y: -6,
-
         transition: {
           duration: 0.3,
           ease: [0.22, 1, 0.36, 1],
         },
       }}
-      className={`group relative flex h-full min-h-[610px] flex-col overflow-hidden rounded-[24px] border p-6 sm:p-7 ${
-        item.popular
-          ? "border-[#171817] bg-[#171817] text-white shadow-[0_20px_60px_rgba(0,0,0,0.12)]"
-          : "border-black/[0.08] bg-white text-[#171817] shadow-[0_12px_40px_rgba(0,0,0,0.035)]"
-      }`}
+      className={`
+        group
+        relative
+        flex
+        h-full
+        min-h-[610px]
+        flex-col
+        overflow-hidden
+        rounded-[24px]
+        border
+        p-6
+        sm:p-7
+        ${
+          item.popular
+            ? "border-[#171817] bg-[#171817] text-white shadow-[0_20px_60px_rgba(0,0,0,0.12)]"
+            : "border-black/[0.08] bg-white text-[#171817] shadow-[0_12px_40px_rgba(0,0,0,0.035)]"
+        }
+      `}
     >
-
-      {/* ==============================================================
-          POPULAR BADGE
-      ============================================================== */}
-
       {item.popular && (
         <motion.div
           initial={{
@@ -409,110 +469,158 @@ function PricingCard({
             duration: 0.5,
             delay: 0.3,
           }}
-          className="absolute right-5 top-5 inline-flex items-center gap-1.5 rounded-full bg-[#d8ff63] px-3 py-1.5 text-[9px] font-bold uppercase tracking-[0.12em] text-[#171817]"
+          className="
+            absolute
+            right-5
+            top-5
+            inline-flex
+            items-center
+            gap-1.5
+            rounded-full
+            bg-[#d8ff63]
+            px-3
+            py-1.5
+            text-[9px]
+            font-bold
+            uppercase
+            tracking-[0.12em]
+            text-[#171817]
+          "
         >
           <Sparkles size={10} />
-
           Most popular
         </motion.div>
       )}
 
-      {/* ==============================================================
-          NUMBER
-      ============================================================== */}
-
       <span
-        className={`text-[10px] font-bold tracking-[0.15em] ${
-          item.popular
-            ? "text-[#d8ff63]"
-            : "text-[#7c9825]"
-        }`}
+        className={`
+          text-[10px]
+          font-bold
+          tracking-[0.15em]
+          ${
+            item.popular
+              ? "text-[#d8ff63]"
+              : "text-[#7c9825]"
+          }
+        `}
       >
         {item.number}
       </span>
 
-      {/* ==============================================================
-          NAME
-      ============================================================== */}
-
-      <h3 className="mt-5 text-2xl font-semibold tracking-[-0.05em]">
+      <h3 className="
+        mt-5
+        text-2xl
+        font-semibold
+        tracking-[-0.05em]
+      ">
         {item.name}
       </h3>
 
-      {/* ==============================================================
-          DESCRIPTION
-      ============================================================== */}
-
       <p
-        className={`mt-2 min-h-[60px] text-sm leading-6 ${
-          item.popular
-            ? "text-white/55"
-            : "text-[#666666]"
-        }`}
+        className={`
+          mt-2
+          min-h-[60px]
+          text-sm
+          leading-6
+          ${
+            item.popular
+              ? "text-white/55"
+              : "text-[#666666]"
+          }
+        `}
       >
         {item.description}
       </p>
 
-      {/* ==============================================================
-          PRICE
-      ============================================================== */}
-
       <div
-        className={`mt-6 border-t pt-6 ${
-          item.popular
-            ? "border-white/10"
-            : "border-black/[0.08]"
-        }`}
+        className={`
+          mt-6
+          border-t
+          pt-6
+          ${
+            item.popular
+              ? "border-white/10"
+              : "border-black/[0.08]"
+          }
+        `}
       >
         <span
-          className={`text-[9px] font-semibold uppercase tracking-[0.15em] ${
-            item.popular
-              ? "text-white/35"
-              : "text-[#888888]"
-          }`}
+          className={`
+            text-[9px]
+            font-semibold
+            uppercase
+            tracking-[0.15em]
+            ${
+              item.popular
+                ? "text-white/35"
+                : "text-[#888888]"
+            }
+          `}
         >
           Starting from
         </span>
 
-        <div className="mt-1 flex items-baseline gap-2">
-          <span className="text-4xl font-semibold tracking-[-0.06em]">
+        <div className="
+          mt-1
+          flex
+          items-baseline
+          gap-2
+        ">
+          <span className="
+            text-4xl
+            font-semibold
+            tracking-[-0.06em]
+          ">
             {item.price}
           </span>
 
           <span
-            className={`text-xs ${
-              item.popular
-                ? "text-white/30"
-                : "text-[#999999]"
-            }`}
+            className={`
+              text-xs
+              ${
+                item.popular
+                  ? "text-white/30"
+                  : "text-[#999999]"
+              }
+            `}
           >
             / project
           </span>
         </div>
       </div>
 
-      {/* ==============================================================
-          FEATURES
-      ============================================================== */}
-
       <div
-        className={`mt-6 border-t pt-6 ${
-          item.popular
-            ? "border-white/10"
-            : "border-black/[0.08]"
-        }`}
+        className={`
+          mt-6
+          border-t
+          pt-6
+          ${
+            item.popular
+              ? "border-white/10"
+              : "border-black/[0.08]"
+          }
+        `}
       >
         <p
-          className={`text-[9px] font-bold uppercase tracking-[0.15em] ${
-            item.popular
-              ? "text-white/35"
-              : "text-[#888888]"
-          }`}
+          className={`
+            text-[9px]
+            font-bold
+            uppercase
+            tracking-[0.15em]
+            ${
+              item.popular
+                ? "text-white/35"
+                : "text-[#888888]"
+            }
+          `}
         >
           Includes
         </p>
 
-        <ul className="mt-4 space-y-2.5">
+        <ul className="
+          mt-4
+          space-y-2.5
+        ">
           {item.features.map(
             (feature, index) => (
               <motion.li
@@ -534,14 +642,28 @@ function PricingCard({
                     0.15 +
                     index * 0.035,
                 }}
-                className="flex items-start gap-3 text-sm"
+                className="
+                  flex
+                  items-start
+                  gap-3
+                  text-sm
+                "
               >
                 <span
-                  className={`mt-0.5 grid h-4 w-4 shrink-0 place-items-center rounded-full ${
-                    item.popular
-                      ? "bg-[#d8ff63] text-[#171817]"
-                      : "bg-[#8aaa2c]/10 text-[#7c9825]"
-                  }`}
+                  className={`
+                    mt-0.5
+                    grid
+                    h-4
+                    w-4
+                    shrink-0
+                    place-items-center
+                    rounded-full
+                    ${
+                      item.popular
+                        ? "bg-[#d8ff63] text-[#171817]"
+                        : "bg-[#8aaa2c]/10 text-[#7c9825]"
+                    }
+                  `}
                 >
                   <Check
                     size={9}
@@ -564,23 +686,28 @@ function PricingCard({
         </ul>
       </div>
 
-      {/* ==============================================================
-          IDEAL FOR
-      ============================================================== */}
-
       <div
-        className={`mt-6 border-t pt-5 ${
-          item.popular
-            ? "border-white/10"
-            : "border-black/[0.08]"
-        }`}
+        className={`
+          mt-6
+          border-t
+          pt-5
+          ${
+            item.popular
+              ? "border-white/10"
+              : "border-black/[0.08]"
+          }
+        `}
       >
         <p
-          className={`text-xs leading-5 ${
-            item.popular
-              ? "text-white/40"
-              : "text-[#777777]"
-          }`}
+          className={`
+            text-xs
+            leading-5
+            ${
+              item.popular
+                ? "text-white/40"
+                : "text-[#777777]"
+            }
+          `}
         >
           <span className="font-semibold">
             Ideal for:
@@ -589,10 +716,6 @@ function PricingCard({
         </p>
       </div>
 
-      {/* ==============================================================
-          BUTTON
-      ============================================================== */}
-
       <div className="mt-auto pt-6">
         <motion.button
           type="button"
@@ -600,11 +723,27 @@ function PricingCard({
           whileTap={{
             scale: 0.98,
           }}
-          className={`group/button flex h-12 w-full cursor-pointer items-center justify-center gap-2 rounded-full px-5 text-sm font-semibold transition-colors duration-300 ${
-            item.popular
-              ? "bg-[#d8ff63] text-[#171817] shadow-[0_8px_25px_rgba(216,255,99,0.12)] hover:bg-white"
-              : "bg-[#171817] text-white hover:bg-[#d8ff63] hover:text-[#171817]"
-          }`}
+          className={`
+            group/button
+            flex
+            h-12
+            w-full
+            cursor-pointer
+            items-center
+            justify-center
+            gap-2
+            rounded-full
+            px-5
+            text-sm
+            font-semibold
+            transition-colors
+            duration-300
+            ${
+              item.popular
+                ? "bg-[#d8ff63] text-[#171817] shadow-[0_8px_25px_rgba(216,255,99,0.12)] hover:bg-white"
+                : "bg-[#171817] text-white hover:bg-[#d8ff63] hover:text-[#171817]"
+            }
+          `}
         >
           <span>
             Estimate your project
@@ -613,7 +752,11 @@ function PricingCard({
           <ArrowRight
             size={16}
             strokeWidth={2}
-            className="transition-transform duration-300 group-hover/button:translate-x-1"
+            className="
+              transition-transform
+              duration-300
+              group-hover/button:translate-x-1
+            "
           />
         </motion.button>
       </div>
@@ -629,7 +772,16 @@ function SectionLabel({
   children,
 }) {
   return (
-    <div className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.2em] text-[#7c9825]">
+    <div className="
+      flex
+      items-center
+      gap-3
+      text-[10px]
+      font-bold
+      uppercase
+      tracking-[0.2em]
+      text-[#7c9825]
+    ">
       <motion.span
         initial={{
           width: 0,
@@ -646,7 +798,10 @@ function SectionLabel({
           duration: 0.6,
           ease: [0.22, 1, 0.36, 1],
         }}
-        className="h-px bg-[#a8cf32]"
+        className="
+          h-px
+          bg-[#a8cf32]
+        "
       />
 
       {children}
