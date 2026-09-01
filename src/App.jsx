@@ -30,7 +30,7 @@ function App() {
         {/* <Services /> */}
          {/* <Process /> */}
          <Work />
-        <TechStack />
+        {/* <TechStack /> */}
         <Pricing />
         <CTA />
       </main>

@@ -247,11 +247,9 @@
             </motion.div>
           </motion.div>
 
-          {/* ==================================================
-              METRICS
-          ================================================== */}
+        
 
-          <motion.div
+          {/* <motion.div
             className="mx-auto mt-20 max-w-5xl"
             initial="hidden"
             whileInView="visible"
@@ -286,7 +284,7 @@
                 border
               />
             </div>
-          </motion.div>
+          </motion.div> */}
 
           {/* ==================================================
               SCROLL INDICATOR
