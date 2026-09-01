@@ -401,16 +401,12 @@ function Pricing() {
           The estimator handles its own animation.
       ================================================================ */}
 
-      {estimatorOpen && (
-        <ProjectEstimator
-          isOpen={estimatorOpen}
-          onClose={closeEstimator}
-          initialPackage={selectedPackage}
-          onRequestProject={
-            handleRequestProject
-          }
-        />
-      )}
+<ProjectEstimator
+  isOpen={estimatorOpen}
+  onClose={closeEstimator}
+  initialPackage={selectedPackage}
+  onRequestProject={handleRequestProject}
+/>
     </>
   );
 }
