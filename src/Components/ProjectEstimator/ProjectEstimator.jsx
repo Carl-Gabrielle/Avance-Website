@@ -1,20 +1,7 @@
-import {
-  useEffect,
-  useState,
-} from "react";
-
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-
-import {
-  AnimatePresence,
-  motion,
-} from "framer-motion";
-
-import {
-  ArrowLeft,
-  ArrowRight,
-  X,
-} from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowLeft, ArrowRight, X } from "lucide-react";
 
 import EstimatorProgress from "./EstimatorProgress";
 import ProjectTypeStep from "./ProjectTypeStep";
@@ -24,12 +11,9 @@ import FeaturesStep from "./FeaturesStep";
 import TimelineStep from "./TimelineStep";
 import EstimateResult from "./EstimateResult";
 
-import {
-  calculateEstimate,
-} from "../../utils/calculateEstimate";
+import { calculateEstimate } from "../../utils/calculateEstimate";
 
 const TOTAL_STEPS = 5;
-const RESULT_STEP = 6;
 
 const EMPTY_ANSWERS = {
   projectType: "",
@@ -47,15 +31,15 @@ function ProjectEstimator({
 }) {
   const [step, setStep] = useState(1);
 
-  const [answers, setAnswers] =
-    useState(EMPTY_ANSWERS);
+  const [answers, setAnswers] = useState(
+    EMPTY_ANSWERS
+  );
 
-  const [estimate, setEstimate] =
-    useState(null);
+  const [estimate, setEstimate] = useState(null);
 
   /*
   |--------------------------------------------------------------------------
-  | Reset when opened
+  | Reset estimator whenever it opens
   |--------------------------------------------------------------------------
   */
 
@@ -77,49 +61,143 @@ function ProjectEstimator({
 
   /*
   |--------------------------------------------------------------------------
-  | Prevent background scrolling
+  | Lock page without changing scroll position
   |--------------------------------------------------------------------------
   |
   | IMPORTANT:
-  | We are NOT using:
+  | We do NOT use:
   |
-  | body.style.position = "fixed"
+  | document.body.style.overflow = "hidden"
   |
-  | because that can cause mobile browser jumping.
+  | because that can cause mobile browsers and smooth-scroll libraries
+  | to reposition the page.
+  |
+  | Instead, we freeze the body at the exact scroll position.
   |
   */
 
   useEffect(() => {
     if (!isOpen) return;
 
-    const html = document.documentElement;
     const body = document.body;
 
-    const previousHtmlOverflow =
-      html.style.overflow;
+    const scrollY = window.scrollY;
 
-    const previousBodyOverflow =
-      body.style.overflow;
+    const previous = {
+      position: body.style.position,
+      top: body.style.top,
+      width: body.style.width,
+      overflow: body.style.overflow,
+    };
 
-    const previousOverscroll =
-      html.style.overscrollBehavior;
-
-    html.style.overflow = "hidden";
+    body.style.position = "fixed";
+    body.style.top = `-${scrollY}px`;
+    body.style.left = "0";
+    body.style.right = "0";
+    body.style.width = "100%";
     body.style.overflow = "hidden";
 
-    html.style.overscrollBehavior = "none";
-
     return () => {
-      html.style.overflow =
-        previousHtmlOverflow;
+      body.style.position = previous.position;
+      body.style.top = previous.top;
+      body.style.width = previous.width;
+      body.style.overflow = previous.overflow;
+      body.style.left = "";
 
-      body.style.overflow =
-        previousBodyOverflow;
+      /*
+       * Restore the exact position.
+       *
+       * requestAnimationFrame prevents the browser from briefly
+       * rendering the page at the top before restoring the position.
+       */
 
-      html.style.overscrollBehavior =
-        previousOverscroll;
+      requestAnimationFrame(() => {
+        window.scrollTo({
+          top: scrollY,
+          left: 0,
+          behavior: "instant",
+        });
+      });
     };
   }, [isOpen]);
+
+  /*
+  |--------------------------------------------------------------------------
+  | Escape key
+  |--------------------------------------------------------------------------
+  */
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    function handleKeyDown(event) {
+      if (event.key === "Escape") {
+        onClose?.();
+      }
+    }
+
+    window.addEventListener(
+      "keydown",
+      handleKeyDown
+    );
+
+    return () => {
+      window.removeEventListener(
+        "keydown",
+        handleKeyDown
+      );
+    };
+  }, [isOpen, onClose]);
+
+  /*
+  |--------------------------------------------------------------------------
+  | Prevent background touch scrolling
+  |--------------------------------------------------------------------------
+  */
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    function preventTouchMove(event) {
+      /*
+       * Allow scrolling inside the estimator.
+       * The estimator itself handles overscroll.
+       */
+
+      const modal = event.target.closest(
+        "[data-estimator-modal]"
+      );
+
+      if (!modal) {
+        event.preventDefault();
+      }
+    }
+
+    document.addEventListener(
+      "touchmove",
+      preventTouchMove,
+      {
+        passive: false,
+      }
+    );
+
+    return () => {
+      document.removeEventListener(
+        "touchmove",
+        preventTouchMove
+      );
+    };
+  }, [isOpen]);
+
+  /*
+  |--------------------------------------------------------------------------
+  | Don't render when closed
+  |--------------------------------------------------------------------------
+  */
+
+  if (!isOpen) {
+    return null;
+  }
 
   /*
   |--------------------------------------------------------------------------
@@ -136,34 +214,26 @@ function ProjectEstimator({
 
   /*
   |--------------------------------------------------------------------------
-  | Validate
+  | Validate current step
   |--------------------------------------------------------------------------
   */
 
   function canContinue() {
     switch (step) {
       case 1:
-        return Boolean(
-          answers.projectType
-        );
+        return Boolean(answers.projectType);
 
       case 2:
-        return Boolean(
-          answers.pages
-        );
+        return Boolean(answers.pages);
 
       case 3:
-        return Boolean(
-          answers.design
-        );
+        return Boolean(answers.design);
 
       case 4:
         return true;
 
       case 5:
-        return Boolean(
-          answers.timeline
-        );
+        return Boolean(answers.timeline);
 
       default:
         return false;
@@ -172,7 +242,7 @@ function ProjectEstimator({
 
   /*
   |--------------------------------------------------------------------------
-  | Next
+  | Next step
   |--------------------------------------------------------------------------
   */
 
@@ -186,7 +256,7 @@ function ProjectEstimator({
         calculateEstimate(answers);
 
       setEstimate(result);
-      setStep(RESULT_STEP);
+      setStep(6);
 
       return;
     }
@@ -201,21 +271,18 @@ function ProjectEstimator({
 
   /*
   |--------------------------------------------------------------------------
-  | Previous
+  | Previous step
   |--------------------------------------------------------------------------
   */
 
   function previousStep() {
-    if (step === RESULT_STEP) {
+    if (step === 6) {
       setStep(TOTAL_STEPS);
       return;
     }
 
     setStep((current) =>
-      Math.max(
-        current - 1,
-        1
-      )
+      Math.max(current - 1, 1)
     );
   }
 
@@ -245,9 +312,7 @@ function ProjectEstimator({
   |--------------------------------------------------------------------------
   */
 
-  function handleRequestProject(
-    data = {}
-  ) {
+  function handleRequestProject(data = {}) {
     onRequestProject?.({
       ...data,
       answers,
@@ -258,549 +323,507 @@ function ProjectEstimator({
 
   /*
   |--------------------------------------------------------------------------
-  | Don't render
+  | Modal
   |--------------------------------------------------------------------------
   */
 
-  if (!isOpen) {
-    return null;
-  }
+  const modal = (
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          key="estimator-overlay"
+          className="
+            fixed
+            inset-0
+            z-[9999]
+            flex
+            items-end
+            justify-center
+            bg-black/45
+            p-0
+            sm:items-center
+            sm:p-5
+          "
+          initial={{
+            opacity: 0,
+          }}
+          animate={{
+            opacity: 1,
+          }}
+          exit={{
+            opacity: 0,
+          }}
+          transition={{
+            duration: 0.2,
+            ease: "easeOut",
+          }}
+          onMouseDown={(event) => {
+            if (
+              event.target ===
+              event.currentTarget
+            ) {
+              onClose?.();
+            }
+          }}
+        >
+          <motion.div
+            data-estimator-modal
+            role="dialog"
+            aria-modal="true"
+            aria-label="Project estimator"
+            initial={{
+              opacity: 0,
+              y: 20,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            exit={{
+              opacity: 0,
+              y: 20,
+            }}
+            transition={{
+              duration: 0.25,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="
+              relative
+              flex
+              h-[92dvh]
+              max-h-[92dvh]
+              w-full
+              max-w-2xl
+              flex-col
+              overflow-hidden
+              rounded-t-[28px]
+              bg-[#f5f5f2]
+              text-[#171817]
+              shadow-[0_-10px_50px_rgba(0,0,0,0.16)]
+
+              sm:h-auto
+              sm:max-h-[90dvh]
+              sm:rounded-[28px]
+              sm:shadow-2xl
+            "
+            onMouseDown={(event) => {
+              event.stopPropagation();
+            }}
+          >
+            {/* ============================================================
+                HEADER
+            ============================================================ */}
+
+            <div
+              className="
+                flex
+                shrink-0
+                items-center
+                justify-between
+                border-b
+                border-black/[0.07]
+                px-5
+                py-4
+                sm:px-7
+              "
+            >
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#7c9825]">
+                  Avance
+                </p>
+
+                <p className="mt-1 text-[10px] text-[#999999]">
+                  Estimate your project
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={onClose}
+                aria-label="Close estimator"
+                className="
+                  grid
+                  h-9
+                  w-9
+                  shrink-0
+                  cursor-pointer
+                  place-items-center
+                  rounded-full
+                  bg-white
+                  text-[#555555]
+                  transition-colors
+                  duration-200
+                  hover:bg-[#171817]
+                  hover:text-white
+                  active:scale-95
+                "
+              >
+                <X size={17} />
+              </button>
+            </div>
+
+            {/* ============================================================
+                CONTENT
+            ============================================================ */}
+
+            <div
+              className="
+                min-h-0
+                flex-1
+                overflow-y-auto
+                overscroll-contain
+                px-5
+                py-6
+                [scrollbar-width:thin]
+                sm:px-8
+                sm:py-7
+              "
+              style={{
+                WebkitOverflowScrolling:
+                  "touch",
+              }}
+            >
+              {step <= TOTAL_STEPS && (
+                <EstimatorProgress
+                  currentStep={step}
+                  totalSteps={TOTAL_STEPS}
+                />
+              )}
+
+              <AnimatePresence
+                mode="wait"
+                initial={false}
+              >
+                {/* ========================================================
+                    STEP 1
+                ======================================================== */}
+
+                {step === 1 && (
+                  <motion.div
+                    key="project-type"
+                    initial={{
+                      opacity: 0,
+                      x: 12,
+                    }}
+                    animate={{
+                      opacity: 1,
+                      x: 0,
+                    }}
+                    exit={{
+                      opacity: 0,
+                      x: -12,
+                    }}
+                    transition={{
+                      duration: 0.2,
+                      ease: "easeOut",
+                    }}
+                  >
+                    <ProjectTypeStep
+                      value={
+                        answers.projectType
+                      }
+                      onChange={(value) =>
+                        updateAnswer(
+                          "projectType",
+                          value
+                        )
+                      }
+                    />
+                  </motion.div>
+                )}
+
+                {/* ========================================================
+                    STEP 2
+                ======================================================== */}
+
+                {step === 2 && (
+                  <motion.div
+                    key="pages"
+                    initial={{
+                      opacity: 0,
+                      x: 12,
+                    }}
+                    animate={{
+                      opacity: 1,
+                      x: 0,
+                    }}
+                    exit={{
+                      opacity: 0,
+                      x: -12,
+                    }}
+                    transition={{
+                      duration: 0.2,
+                      ease: "easeOut",
+                    }}
+                  >
+                    <PagesStep
+                      value={answers.pages}
+                      onChange={(value) =>
+                        updateAnswer(
+                          "pages",
+                          value
+                        )
+                      }
+                    />
+                  </motion.div>
+                )}
+
+                {/* ========================================================
+                    STEP 3
+                ======================================================== */}
+
+                {step === 3 && (
+                  <motion.div
+                    key="design"
+                    initial={{
+                      opacity: 0,
+                      x: 12,
+                    }}
+                    animate={{
+                      opacity: 1,
+                      x: 0,
+                    }}
+                    exit={{
+                      opacity: 0,
+                      x: -12,
+                    }}
+                    transition={{
+                      duration: 0.2,
+                      ease: "easeOut",
+                    }}
+                  >
+                    <DesignStep
+                      value={answers.design}
+                      onChange={(value) =>
+                        updateAnswer(
+                          "design",
+                          value
+                        )
+                      }
+                    />
+                  </motion.div>
+                )}
+
+                {/* ========================================================
+                    STEP 4
+                ======================================================== */}
+
+                {step === 4 && (
+                  <motion.div
+                    key="features"
+                    initial={{
+                      opacity: 0,
+                      x: 12,
+                    }}
+                    animate={{
+                      opacity: 1,
+                      x: 0,
+                    }}
+                    exit={{
+                      opacity: 0,
+                      x: -12,
+                    }}
+                    transition={{
+                      duration: 0.2,
+                      ease: "easeOut",
+                    }}
+                  >
+                    <FeaturesStep
+                      value={
+                        answers.features
+                      }
+                      onChange={(value) =>
+                        updateAnswer(
+                          "features",
+                          value
+                        )
+                      }
+                    />
+                  </motion.div>
+                )}
+
+                {/* ========================================================
+                    STEP 5
+                ======================================================== */}
+
+                {step === 5 && (
+                  <motion.div
+                    key="timeline"
+                    initial={{
+                      opacity: 0,
+                      x: 12,
+                    }}
+                    animate={{
+                      opacity: 1,
+                      x: 0,
+                    }}
+                    exit={{
+                      opacity: 0,
+                      x: -12,
+                    }}
+                    transition={{
+                      duration: 0.2,
+                      ease: "easeOut",
+                    }}
+                  >
+                    <TimelineStep
+                      value={
+                        answers.timeline
+                      }
+                      onChange={(value) =>
+                        updateAnswer(
+                          "timeline",
+                          value
+                        )
+                      }
+                    />
+                  </motion.div>
+                )}
+
+                {/* ========================================================
+                    RESULT
+                ======================================================== */}
+
+                {step === 6 &&
+                  estimate && (
+                    <motion.div
+                      key="result"
+                      initial={{
+                        opacity: 0,
+                        y: 10,
+                      }}
+                      animate={{
+                        opacity: 1,
+                        y: 0,
+                      }}
+                      exit={{
+                        opacity: 0,
+                        y: -10,
+                      }}
+                      transition={{
+                        duration: 0.2,
+                        ease: "easeOut",
+                      }}
+                    >
+                      <EstimateResult
+                        estimate={estimate}
+                        onRestart={
+                          restartEstimator
+                        }
+                        onRequestProposal={
+                          handleRequestProject
+                        }
+                      />
+                    </motion.div>
+                  )}
+              </AnimatePresence>
+            </div>
+
+            {/* ============================================================
+                FOOTER
+            ============================================================ */}
+
+            {step <= TOTAL_STEPS && (
+              <div
+                className="
+                  flex
+                  shrink-0
+                  items-center
+                  justify-between
+                  gap-3
+                  border-t
+                  border-black/[0.07]
+                  bg-[#f5f5f2]
+                  px-5
+                  py-4
+                  sm:px-7
+                "
+              >
+                <button
+                  type="button"
+                  onClick={previousStep}
+                  disabled={step === 1}
+                  className="
+                    inline-flex
+                    h-11
+                    cursor-pointer
+                    items-center
+                    gap-2
+                    rounded-full
+                    px-4
+                    text-sm
+                    font-semibold
+                    text-[#666666]
+                    transition-colors
+                    duration-200
+                    hover:bg-white
+                    hover:text-[#171817]
+                    disabled:pointer-events-none
+                    disabled:opacity-30
+                  "
+                >
+                  <ArrowLeft size={15} />
+                  Back
+                </button>
+
+                <motion.button
+                  type="button"
+                  onClick={nextStep}
+                  disabled={!canContinue()}
+                  whileTap={{
+                    scale: 0.98,
+                  }}
+                  className="
+                    group
+                    inline-flex
+                    h-11
+                    cursor-pointer
+                    items-center
+                    gap-2
+                    rounded-full
+                    bg-[#171817]
+                    px-5
+                    text-sm
+                    font-semibold
+                    text-white
+                    transition-colors
+                    duration-200
+                    hover:bg-[#d8ff63]
+                    hover:text-[#171817]
+                    disabled:cursor-not-allowed
+                    disabled:opacity-40
+                  "
+                >
+                  {step === TOTAL_STEPS
+                    ? "See my estimate"
+                    : "Continue"}
+
+                  <ArrowRight
+                    size={15}
+                    className="
+                      transition-transform
+                      duration-300
+                      group-hover:translate-x-1
+                    "
+                  />
+                </motion.button>
+              </div>
+            )}
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
 
   /*
   |--------------------------------------------------------------------------
-  | MODAL
+  | IMPORTANT:
+  | Render the modal outside the Pricing section.
   |--------------------------------------------------------------------------
-  |
-  | Portal is important.
-  |
-  | This moves the modal directly under <body>
-  | instead of leaving it inside the Pricing
-  | component's DOM hierarchy.
-  |
   */
 
   return createPortal(
-    <motion.div
-      className="
-        fixed
-        inset-0
-        z-[9999]
-        flex
-        items-end
-        justify-center
-        bg-black/45
-        sm:items-center
-        sm:p-5
-      "
-      initial={{
-        opacity: 0,
-      }}
-      animate={{
-        opacity: 1,
-      }}
-      exit={{
-        opacity: 0,
-      }}
-      transition={{
-        duration: 0.18,
-        ease: "easeOut",
-      }}
-      onMouseDown={(event) => {
-        if (
-          event.target ===
-          event.currentTarget
-        ) {
-          onClose();
-        }
-      }}
-    >
-      {/* ================================================================
-          MODAL PANEL
-      ================================================================ */}
-
-      <motion.div
-        initial={{
-          opacity: 0,
-          y: 20,
-        }}
-        animate={{
-          opacity: 1,
-          y: 0,
-        }}
-        exit={{
-          opacity: 0,
-          y: 20,
-        }}
-        transition={{
-          duration: 0.22,
-          ease: [
-            0.22,
-            1,
-            0.36,
-            1,
-          ],
-        }}
-        onMouseDown={(event) => {
-          event.stopPropagation();
-        }}
-        className="
-          relative
-          flex
-          h-[92dvh]
-          w-full
-          max-w-2xl
-          flex-col
-          overflow-hidden
-          rounded-t-[28px]
-          bg-[#f5f5f2]
-          text-[#171817]
-          shadow-2xl
-
-          sm:h-auto
-          sm:max-h-[90dvh]
-          sm:rounded-[28px]
-        "
-      >
-        {/* ============================================================
-            HEADER
-        ============================================================ */}
-
-        <div
-          className="
-            flex
-            shrink-0
-            items-center
-            justify-between
-            border-b
-            border-black/[0.07]
-            px-5
-            py-4
-            sm:px-7
-          "
-        >
-          <div>
-            <p
-              className="
-                text-[10px]
-                font-bold
-                uppercase
-                tracking-[0.16em]
-                text-[#7c9825]
-              "
-            >
-              Avance
-            </p>
-
-            <p
-              className="
-                mt-1
-                text-[10px]
-                text-[#999999]
-              "
-            >
-              Estimate your project
-            </p>
-          </div>
-
-          <button
-            type="button"
-            onClick={onClose}
-            aria-label="Close estimator"
-            className="
-              grid
-              h-9
-              w-9
-              shrink-0
-              place-items-center
-              rounded-full
-              bg-white
-              text-[#555555]
-              transition-colors
-              duration-200
-              hover:bg-[#171817]
-              hover:text-white
-              active:bg-[#171817]
-              active:text-white
-            "
-          >
-            <X size={17} />
-          </button>
-        </div>
-
-        {/* ============================================================
-            CONTENT
-        ============================================================ */}
-
-        <div
-          className="
-            min-h-0
-            flex-1
-            overflow-y-auto
-            overscroll-contain
-            px-5
-            py-6
-            sm:px-8
-            sm:py-7
-          "
-          style={{
-            WebkitOverflowScrolling:
-              "touch",
-
-            touchAction:
-              "pan-y",
-          }}
-        >
-          {step <= TOTAL_STEPS && (
-            <EstimatorProgress
-              currentStep={step}
-              totalSteps={TOTAL_STEPS}
-            />
-          )}
-
-          <AnimatePresence
-            mode="wait"
-            initial={false}
-          >
-            {/* ========================================================
-                STEP 1
-            ======================================================== */}
-
-            {step === 1 && (
-              <motion.div
-                key="project-type"
-                initial={{
-                  opacity: 0,
-                  x: 8,
-                }}
-                animate={{
-                  opacity: 1,
-                  x: 0,
-                }}
-                exit={{
-                  opacity: 0,
-                  x: -8,
-                }}
-                transition={{
-                  duration: 0.18,
-                  ease: "easeOut",
-                }}
-              >
-                <ProjectTypeStep
-                  value={
-                    answers.projectType
-                  }
-                  onChange={(value) =>
-                    updateAnswer(
-                      "projectType",
-                      value
-                    )
-                  }
-                />
-              </motion.div>
-            )}
-
-            {/* ========================================================
-                STEP 2
-            ======================================================== */}
-
-            {step === 2 && (
-              <motion.div
-                key="pages"
-                initial={{
-                  opacity: 0,
-                  x: 8,
-                }}
-                animate={{
-                  opacity: 1,
-                  x: 0,
-                }}
-                exit={{
-                  opacity: 0,
-                  x: -8,
-                }}
-                transition={{
-                  duration: 0.18,
-                  ease: "easeOut",
-                }}
-              >
-                <PagesStep
-                  value={
-                    answers.pages
-                  }
-                  onChange={(value) =>
-                    updateAnswer(
-                      "pages",
-                      value
-                    )
-                  }
-                />
-              </motion.div>
-            )}
-
-            {/* ========================================================
-                STEP 3
-            ======================================================== */}
-
-            {step === 3 && (
-              <motion.div
-                key="design"
-                initial={{
-                  opacity: 0,
-                  x: 8,
-                }}
-                animate={{
-                  opacity: 1,
-                  x: 0,
-                }}
-                exit={{
-                  opacity: 0,
-                  x: -8,
-                }}
-                transition={{
-                  duration: 0.18,
-                  ease: "easeOut",
-                }}
-              >
-                <DesignStep
-                  value={
-                    answers.design
-                  }
-                  onChange={(value) =>
-                    updateAnswer(
-                      "design",
-                      value
-                    )
-                  }
-                />
-              </motion.div>
-            )}
-
-            {/* ========================================================
-                STEP 4
-            ======================================================== */}
-
-            {step === 4 && (
-              <motion.div
-                key="features"
-                initial={{
-                  opacity: 0,
-                  x: 8,
-                }}
-                animate={{
-                  opacity: 1,
-                  x: 0,
-                }}
-                exit={{
-                  opacity: 0,
-                  x: -8,
-                }}
-                transition={{
-                  duration: 0.18,
-                  ease: "easeOut",
-                }}
-              >
-                <FeaturesStep
-                  value={
-                    answers.features
-                  }
-                  onChange={(value) =>
-                    updateAnswer(
-                      "features",
-                      value
-                    )
-                  }
-                />
-              </motion.div>
-            )}
-
-            {/* ========================================================
-                STEP 5
-            ======================================================== */}
-
-            {step === 5 && (
-              <motion.div
-                key="timeline"
-                initial={{
-                  opacity: 0,
-                  x: 8,
-                }}
-                animate={{
-                  opacity: 1,
-                  x: 0,
-                }}
-                exit={{
-                  opacity: 0,
-                  x: -8,
-                }}
-                transition={{
-                  duration: 0.18,
-                  ease: "easeOut",
-                }}
-              >
-                <TimelineStep
-                  value={
-                    answers.timeline
-                  }
-                  onChange={(value) =>
-                    updateAnswer(
-                      "timeline",
-                      value
-                    )
-                  }
-                />
-              </motion.div>
-            )}
-
-            {/* ========================================================
-                RESULT
-            ======================================================== */}
-
-            {step === RESULT_STEP &&
-              estimate && (
-                <motion.div
-                  key="result"
-                  initial={{
-                    opacity: 0,
-                    y: 8,
-                  }}
-                  animate={{
-                    opacity: 1,
-                    y: 0,
-                  }}
-                  exit={{
-                    opacity: 0,
-                    y: -8,
-                  }}
-                  transition={{
-                    duration: 0.2,
-                    ease: "easeOut",
-                  }}
-                >
-                  <EstimateResult
-                    estimate={
-                      estimate
-                    }
-                    onRestart={
-                      restartEstimator
-                    }
-                    onRequestProposal={
-                      handleRequestProject
-                    }
-                  />
-                </motion.div>
-              )}
-          </AnimatePresence>
-        </div>
-
-        {/* ============================================================
-            FOOTER
-        ============================================================ */}
-
-        {step <= TOTAL_STEPS && (
-          <div
-            className="
-              flex
-              shrink-0
-              items-center
-              justify-between
-              gap-3
-              border-t
-              border-black/[0.07]
-              bg-[#f5f5f2]
-              px-5
-              py-4
-              sm:px-7
-            "
-          >
-            {/* Back */}
-
-            <button
-              type="button"
-              onClick={
-                previousStep
-              }
-              disabled={
-                step === 1
-              }
-              className="
-                inline-flex
-                h-11
-                shrink-0
-                items-center
-                gap-2
-                rounded-full
-                px-4
-                text-sm
-                font-semibold
-                text-[#666666]
-                transition-colors
-                duration-200
-                hover:bg-white
-                hover:text-[#171817]
-                disabled:pointer-events-none
-                disabled:opacity-30
-              "
-            >
-              <ArrowLeft
-                size={15}
-              />
-
-              Back
-            </button>
-
-            {/* Continue */}
-
-            <motion.button
-              type="button"
-              onClick={
-                nextStep
-              }
-              disabled={
-                !canContinue()
-              }
-              whileTap={{
-                scale: 0.98,
-              }}
-              className="
-                group
-                inline-flex
-                h-11
-                shrink-0
-                items-center
-                justify-center
-                gap-2
-                rounded-full
-                bg-[#171817]
-                px-5
-                text-sm
-                font-semibold
-                text-white
-                transition-colors
-                duration-200
-                hover:bg-[#d8ff63]
-                hover:text-[#171817]
-                disabled:cursor-not-allowed
-                disabled:opacity-40
-              "
-            >
-              {step ===
-              TOTAL_STEPS
-                ? "See my estimate"
-                : "Continue"}
-
-              <ArrowRight
-                size={15}
-                className="
-                  transition-transform
-                  duration-200
-                  group-hover:translate-x-1
-                "
-              />
-            </motion.button>
-          </div>
-        )}
-      </motion.div>
-    </motion.div>,
+    modal,
     document.body
   );
 }

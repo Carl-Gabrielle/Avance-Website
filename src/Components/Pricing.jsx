@@ -1,5 +1,5 @@
-
 import { useState } from "react";
+import { createPortal } from "react-dom";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
@@ -80,6 +80,7 @@ const packages = [
 
 const containerVariants = {
   hidden: {},
+
   visible: {
     transition: {
       staggerChildren: 0.12,
@@ -96,6 +97,7 @@ const itemVariants = {
   visible: {
     opacity: 1,
     y: 0,
+
     transition: {
       duration: 0.7,
       ease: [0.22, 1, 0.36, 1],
@@ -110,14 +112,124 @@ function Pricing() {
   const [selectedPackage, setSelectedPackage] =
     useState(null);
 
+  /*
+  |--------------------------------------------------------------------------
+  | Save the exact page position.
+  |--------------------------------------------------------------------------
+  */
+
+  const [savedScrollPosition, setSavedScrollPosition] =
+    useState(0);
+
+  /*
+  |--------------------------------------------------------------------------
+  | Lock page scrolling.
+  |
+  | IMPORTANT:
+  | We use position: fixed instead of simply
+  | overflow: hidden because mobile browsers
+  | can otherwise change the scroll position.
+  |--------------------------------------------------------------------------
+  */
+
+  function lockPageScroll() {
+    const scrollY = window.scrollY;
+
+    setSavedScrollPosition(scrollY);
+
+    const body = document.body;
+
+    body.style.position = "fixed";
+    body.style.top = `-${scrollY}px`;
+    body.style.left = "0";
+    body.style.right = "0";
+    body.style.width = "100%";
+    body.style.overflow = "hidden";
+  }
+
+  /*
+  |--------------------------------------------------------------------------
+  | Unlock page scrolling and restore exact position.
+  |--------------------------------------------------------------------------
+  */
+
+  function unlockPageScroll(scrollY) {
+    const body = document.body;
+
+    body.style.position = "";
+    body.style.top = "";
+    body.style.left = "";
+    body.style.right = "";
+    body.style.width = "";
+    body.style.overflow = "";
+
+    /*
+     * Restore after the browser has finished
+     * recalculating the document layout.
+     */
+
+    requestAnimationFrame(() => {
+      window.scrollTo({
+        top: scrollY,
+        left: 0,
+        behavior: "instant",
+      });
+    });
+  }
+
+  /*
+  |--------------------------------------------------------------------------
+  | Open estimator.
+  |--------------------------------------------------------------------------
+  */
+
   function openEstimator(packageId = null) {
+    /*
+     * Capture and lock BEFORE changing React state.
+     *
+     * This is important on mobile because it prevents
+     * the browser from changing the scroll position
+     * during the modal opening.
+     */
+
+    lockPageScroll();
+
     setSelectedPackage(packageId);
     setEstimatorOpen(true);
   }
 
+  /*
+  |--------------------------------------------------------------------------
+  | Close estimator.
+  |--------------------------------------------------------------------------
+  */
+
   function closeEstimator() {
+    /*
+     * Save the position before React removes
+     * the modal.
+     */
+
+    const currentScroll =
+      savedScrollPosition;
+
     setEstimatorOpen(false);
+
+    /*
+     * Restore the page position after React
+     * has removed the modal.
+     */
+
+    requestAnimationFrame(() => {
+      unlockPageScroll(currentScroll);
+    });
   }
+
+  /*
+  |--------------------------------------------------------------------------
+  | Request project.
+  |--------------------------------------------------------------------------
+  */
 
   function handleRequestProject(data) {
     console.log(
@@ -125,17 +237,59 @@ function Pricing() {
       data
     );
 
+    /*
+     * Close the estimator first.
+     */
+
+    const currentScroll =
+      savedScrollPosition;
+
     setEstimatorOpen(false);
 
-    setTimeout(() => {
-      document
-        .getElementById("contact")
-        ?.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-    }, 150);
+    requestAnimationFrame(() => {
+      unlockPageScroll(currentScroll);
+
+      /*
+       * Only after the modal is completely removed
+       * do we move to the contact section.
+       */
+
+      setTimeout(() => {
+        document
+          .getElementById("contact")
+          ?.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+      }, 50);
+    });
   }
+
+  /*
+  |--------------------------------------------------------------------------
+  | Estimator Portal
+  |
+  | Rendering directly into document.body prevents
+  | fixed-position/mobile rendering issues caused
+  | by transformed or animated parent elements.
+  |--------------------------------------------------------------------------
+  */
+
+  const estimator =
+    typeof document !== "undefined" &&
+    estimatorOpen
+      ? createPortal(
+          <ProjectEstimator
+            isOpen={estimatorOpen}
+            onClose={closeEstimator}
+            initialPackage={selectedPackage}
+            onRequestProject={
+              handleRequestProject
+            }
+          />,
+          document.body
+        )
+      : null;
 
   return (
     <>
@@ -188,7 +342,8 @@ function Pricing() {
                 lg:text-6xl
               "
             >
-              A clear starting point for your next digital project.
+              A clear starting point for your next
+              digital project.
             </motion.h2>
 
             <motion.p
@@ -279,33 +434,39 @@ function Pricing() {
             "
           >
             <div>
-              <p className="
-                text-[9px]
-                font-bold
-                uppercase
-                tracking-[0.15em]
-                text-[#888888]
-              ">
+              <p
+                className="
+                  text-[9px]
+                  font-bold
+                  uppercase
+                  tracking-[0.15em]
+                  text-[#888888]
+                "
+              >
                 Need something different?
               </p>
 
-              <h3 className="
-                mt-2
-                text-2xl
-                font-semibold
-                tracking-[-0.05em]
-                text-[#111111]
-              ">
+              <h3
+                className="
+                  mt-2
+                  text-2xl
+                  font-semibold
+                  tracking-[-0.05em]
+                  text-[#111111]
+                "
+              >
                 Custom projects
               </h3>
 
-              <p className="
-                mt-2
-                max-w-xl
-                text-sm
-                leading-6
-                text-[#666666]
-              ">
+              <p
+                className="
+                  mt-2
+                  max-w-xl
+                  text-sm
+                  leading-6
+                  text-[#666666]
+                "
+              >
                 Web applications, dashboards, booking
                 systems, business platforms, and other
                 custom digital solutions.
@@ -394,19 +555,13 @@ function Pricing() {
       </section>
 
       {/* ================================================================
-          PROJECT ESTIMATOR
+          ESTIMATOR
 
-          IMPORTANT:
-          We intentionally do NOT use AnimatePresence here.
-          The estimator handles its own animation.
+          Rendered through a portal directly under <body>.
+          This prevents parent layout/transform issues.
       ================================================================ */}
 
-<ProjectEstimator
-  isOpen={estimatorOpen}
-  onClose={closeEstimator}
-  initialPackage={selectedPackage}
-  onRequestProject={handleRequestProject}
-/>
+      {estimator}
     </>
   );
 }
@@ -448,6 +603,8 @@ function PricingCard({
         }
       `}
     >
+      {/* POPULAR BADGE */}
+
       {item.popular && (
         <motion.div
           initial={{
@@ -488,6 +645,8 @@ function PricingCard({
         </motion.div>
       )}
 
+      {/* NUMBER */}
+
       <span
         className={`
           text-[10px]
@@ -503,14 +662,20 @@ function PricingCard({
         {item.number}
       </span>
 
-      <h3 className="
-        mt-5
-        text-2xl
-        font-semibold
-        tracking-[-0.05em]
-      ">
+      {/* NAME */}
+
+      <h3
+        className="
+          mt-5
+          text-2xl
+          font-semibold
+          tracking-[-0.05em]
+        "
+      >
         {item.name}
       </h3>
+
+      {/* DESCRIPTION */}
 
       <p
         className={`
@@ -527,6 +692,8 @@ function PricingCard({
       >
         {item.description}
       </p>
+
+      {/* PRICE */}
 
       <div
         className={`
@@ -556,17 +723,21 @@ function PricingCard({
           Starting from
         </span>
 
-        <div className="
-          mt-1
-          flex
-          items-baseline
-          gap-2
-        ">
-          <span className="
-            text-4xl
-            font-semibold
-            tracking-[-0.06em]
-          ">
+        <div
+          className="
+            mt-1
+            flex
+            items-baseline
+            gap-2
+          "
+        >
+          <span
+            className="
+              text-4xl
+              font-semibold
+              tracking-[-0.06em]
+            "
+          >
             {item.price}
           </span>
 
@@ -584,6 +755,8 @@ function PricingCard({
           </span>
         </div>
       </div>
+
+      {/* FEATURES */}
 
       <div
         className={`
@@ -613,10 +786,12 @@ function PricingCard({
           Includes
         </p>
 
-        <ul className="
-          mt-4
-          space-y-2.5
-        ">
+        <ul
+          className="
+            mt-4
+            space-y-2.5
+          "
+        >
           {item.features.map(
             (feature, index) => (
               <motion.li
@@ -682,6 +857,8 @@ function PricingCard({
         </ul>
       </div>
 
+      {/* IDEAL FOR */}
+
       <div
         className={`
           mt-6
@@ -711,6 +888,8 @@ function PricingCard({
           {item.idealFor}
         </p>
       </div>
+
+      {/* BUTTON */}
 
       <div className="mt-auto pt-6">
         <motion.button
@@ -768,16 +947,18 @@ function SectionLabel({
   children,
 }) {
   return (
-    <div className="
-      flex
-      items-center
-      gap-3
-      text-[10px]
-      font-bold
-      uppercase
-      tracking-[0.2em]
-      text-[#7c9825]
-    ">
+    <div
+      className="
+        flex
+        items-center
+        gap-3
+        text-[10px]
+        font-bold
+        uppercase
+        tracking-[0.2em]
+        text-[#7c9825]
+      "
+    >
       <motion.span
         initial={{
           width: 0,
