@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://avance-website-carlitos-projects.vercel.app/sitemap.xml
+Sitemap: https://avance-website-rouge.vercel.app/sitemap.xml
