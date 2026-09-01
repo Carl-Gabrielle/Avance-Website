@@ -144,7 +144,7 @@ function CTA() {
             className="mt-8 sm:mt-9"
           >
             <motion.a
-              href="mailto:avancewebtech@gmail.com"
+              href="mailto:avancewebdesign@gmail.com"
               whileHover={{
                 y: -4,
                 scale: 1.015,
@@ -159,7 +159,7 @@ function CTA() {
               className="group inline-flex items-center gap-3 rounded-full bg-[#111111] px-5 py-3.5 text-sm font-bold !text-white shadow-[0_10px_30px_rgba(0,0,0,0.12)] sm:px-6"
             >
               <span className="!text-white">
-                avancewebtech@gmail.com
+                avancewebdesign@gmail.com
               </span>
 
               <span className="grid h-6 w-6 place-items-center rounded-full bg-white/10 transition-all duration-300 group-hover:bg-white/20">

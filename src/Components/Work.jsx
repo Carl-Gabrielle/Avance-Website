@@ -3,11 +3,11 @@ import { motion } from "framer-motion";
 const projects = [
   {
     number: "01",
-    name: "Aurora Health",
-    type: "Brand + Digital",
+    name: "Architecture Portfolio",
+    type: "Web Design · Development",
     description:
-      "A calmer digital experience for a modern healthcare platform.",
-    className: "project-aurora",
+      "A minimal, responsive portfolio designed to showcase architectural work with clarity and visual impact.",
+    className: "project-architecture",
   },
   {
     number: "02",
@@ -63,9 +63,7 @@ function Work() {
     >
       <div className="mx-auto max-w-7xl">
 
-        {/* --------------------------------------------------
-            HEADER
-        -------------------------------------------------- */}
+        {/* HEADER */}
 
         <motion.div
           initial="hidden"
@@ -94,9 +92,7 @@ function Work() {
           </motion.p>
         </motion.div>
 
-        {/* --------------------------------------------------
-            PROJECT GRID
-        -------------------------------------------------- */}
+        {/* PROJECT GRID */}
 
         <motion.div
           variants={containerVariants}
@@ -129,24 +125,19 @@ function Project({ project, featured }) {
   return (
     <motion.article
       variants={itemVariants}
-      className={`group ${
-        featured ? "lg:col-span-2" : ""
-      }`}
+      className={`group ${featured ? "lg:col-span-2" : ""}`}
     >
       <motion.a
         href="#contact"
         className="block"
         whileHover="hover"
       >
-        {/* --------------------------------------------------
-            PROJECT VISUAL
-        -------------------------------------------------- */}
+
+        {/* PROJECT VISUAL */}
 
         <motion.div
           className={`relative overflow-hidden rounded-[28px] border border-black/[0.08] bg-white shadow-[0_15px_50px_rgba(0,0,0,0.04)] ${
-            featured
-              ? "aspect-[2/1]"
-              : "aspect-[1.2/1]"
+            featured ? "aspect-[2/1]" : "aspect-[1.2/1]"
           } ${project.className}`}
           initial={{
             scale: 1,
@@ -163,53 +154,100 @@ function Project({ project, featured }) {
         >
 
           {/* ==================================================
-              AURORA HEALTH
+              ARCHITECTURE PORTFOLIO
           ================================================== */}
 
-          {project.name === "Aurora Health" && (
+          {project.name === "Architecture Portfolio" && (
             <>
-              {/* Main shape */}
+              {/* Architectural grid */}
+
+              <div className="absolute inset-0 bg-[#ecece7]" />
+
+              <div
+                className="absolute inset-0 opacity-60"
+                style={{
+                  backgroundImage: `
+                    linear-gradient(rgba(17,17,17,0.08) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(17,17,17,0.08) 1px, transparent 1px)
+                  `,
+                  backgroundSize: "42px 42px",
+                }}
+              />
+
+              {/* Main architectural composition */}
 
               <motion.div
-                className="absolute left-[18%] top-[14%] h-[70%] w-[64%] rotate-[-8deg] rounded-[22%] bg-gradient-to-br from-[#1936b4] via-[#7888ff] to-[#e5ceff] shadow-2xl"
+                className="absolute left-[13%] top-[16%] h-[68%] w-[42%] bg-[#fafaf8] shadow-[20px_20px_50px_rgba(0,0,0,0.12)]"
                 variants={{
                   hover: {
-                    rotate: -3,
-                    scale: 1.05,
+                    x: 10,
+                    y: -6,
+                    rotate: -1.5,
                     transition: {
-                      duration: 0.8,
+                      duration: 0.7,
                       ease: [0.22, 1, 0.36, 1],
                     },
                   },
                 }}
-              />
+              >
+                {/* Building lines */}
 
-              {/* Soft highlight */}
+                <div className="absolute inset-x-[12%] top-[14%] h-px bg-black/20" />
+                <div className="absolute inset-x-[12%] top-[28%] h-px bg-black/15" />
+                <div className="absolute inset-x-[12%] top-[42%] h-px bg-black/15" />
+                <div className="absolute inset-x-[12%] top-[56%] h-px bg-black/15" />
+                <div className="absolute inset-x-[12%] top-[70%] h-px bg-black/15" />
+
+                {/* Windows */}
+
+                <div className="absolute left-[12%] top-[17%] h-[55%] w-[22%] bg-[#252525]" />
+                <div className="absolute left-[39%] top-[17%] h-[55%] w-[22%] bg-[#d9d9d3]" />
+                <div className="absolute left-[66%] top-[17%] h-[55%] w-[22%] bg-[#252525]" />
+
+                {/* Ground */}
+
+                <div className="absolute bottom-[10%] left-[12%] h-2 w-[76%] bg-[#111111]" />
+              </motion.div>
+
+              {/* Secondary architectural card */}
 
               <motion.div
-                className="absolute left-[32%] top-[31%] h-[18%] w-[35%] rounded-full bg-white/80 blur-sm"
+                className="absolute right-[13%] top-[27%] h-[45%] w-[28%] rotate-[7deg] rounded-sm bg-[#111111] shadow-2xl"
                 variants={{
                   hover: {
-                    scale: 1.15,
-                    opacity: 0.95,
+                    rotate: 3,
+                    scale: 1.05,
                     transition: {
                       duration: 0.7,
+                      ease: [0.22, 1, 0.36, 1],
                     },
                   },
                 }}
-              />
+              >
+                <div className="absolute left-[14%] top-[16%] h-[2px] w-[45%] bg-[#d8ff63]" />
 
-              {/* Shadow */}
+                <div className="absolute left-[14%] top-[29%] h-[35%] w-[72%] border border-white/20" />
+
+                <div className="absolute bottom-[15%] left-[14%] text-[clamp(1.4rem,3vw,3rem)] font-semibold tracking-[-0.07em] text-white">
+                  2026
+                </div>
+              </motion.div>
+
+              {/* Small label */}
 
               <motion.div
-                className="absolute bottom-[19%] left-[30%] h-3 w-[40%] rounded-full bg-[#11176e]/30 blur-sm"
+                className="absolute bottom-[12%] right-[17%] rounded-full border border-black/10 bg-white/90 px-4 py-2 text-[9px] font-bold uppercase tracking-[0.18em] text-[#555555] shadow-sm backdrop-blur"
                 variants={{
                   hover: {
-                    scaleX: 1.1,
-                    opacity: 0.5,
+                    y: -5,
+                    transition: {
+                      duration: 0.5,
+                    },
                   },
                 }}
-              />
+              >
+                Architecture / Portfolio
+              </motion.div>
             </>
           )}
 
@@ -219,8 +257,6 @@ function Project({ project, featured }) {
 
           {project.name === "Helio Energy" && (
             <>
-              {/* Outer ring */}
-
               <motion.div
                 className="absolute left-1/2 top-1/2 h-[65%] w-[65%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-orange-300/20"
                 variants={{
@@ -235,8 +271,6 @@ function Project({ project, featured }) {
                 }}
               />
 
-              {/* Main ring */}
-
               <motion.div
                 className="absolute left-1/2 top-1/2 h-[47%] w-[47%] -translate-x-1/2 -translate-y-1/2 rounded-full border-[25px] border-orange-400 shadow-[0_0_80px_rgba(255,165,60,.35)]"
                 variants={{
@@ -250,8 +284,6 @@ function Project({ project, featured }) {
                   },
                 }}
               />
-
-              {/* Center */}
 
               <motion.div
                 className="absolute left-1/2 top-1/2 h-[18%] w-[18%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-orange-100 shadow-[0_0_50px_rgba(255,210,120,.6)]"
@@ -273,8 +305,6 @@ function Project({ project, featured }) {
 
           {project.name === "Finloop" && (
             <>
-              {/* Main card */}
-
               <motion.div
                 className="absolute -left-[8%] top-[18%] h-[65%] w-[116%] rotate-[-10deg] rounded-3xl bg-[#27212f] shadow-2xl"
                 variants={{
@@ -288,8 +318,6 @@ function Project({ project, featured }) {
                   },
                 }}
               />
-
-              {/* Logo */}
 
               <motion.div
                 className="absolute left-[18%] top-[36%] text-[clamp(2.5rem,6vw,5rem)] font-bold tracking-[-0.09em] text-[#e7ff66]"
@@ -308,9 +336,7 @@ function Project({ project, featured }) {
             </>
           )}
 
-          {/* --------------------------------------------------
-              SUBTLE HOVER OVERLAY
-          -------------------------------------------------- */}
+          {/* HOVER OVERLAY */}
 
           <motion.div
             className="absolute inset-0 bg-black/[0.02]"
@@ -324,9 +350,7 @@ function Project({ project, featured }) {
             }}
           />
 
-          {/* --------------------------------------------------
-              ARROW
-          -------------------------------------------------- */}
+          {/* ARROW */}
 
           <motion.div
             className="absolute right-6 top-6 grid h-12 w-12 place-items-center rounded-full bg-white text-[#111111] shadow-lg"
@@ -350,18 +374,14 @@ function Project({ project, featured }) {
             ↗
           </motion.div>
 
-          {/* --------------------------------------------------
-              PROJECT NUMBER
-          -------------------------------------------------- */}
+          {/* PROJECT NUMBER */}
 
           <div className="absolute bottom-5 left-5 rounded-full border border-black/10 bg-white/85 px-3 py-1.5 text-[10px] font-bold text-[#333333] shadow-sm backdrop-blur-md">
             {project.number}
           </div>
         </motion.div>
 
-        {/* --------------------------------------------------
-            PROJECT INFORMATION
-        -------------------------------------------------- */}
+        {/* PROJECT INFORMATION */}
 
         <motion.div
           className="mt-5 flex items-start justify-between gap-5"
