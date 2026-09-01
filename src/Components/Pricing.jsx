@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { createPortal } from "react-dom";
-import { motion } from "framer-motion";
 import {
   ArrowRight,
   Check,
@@ -30,7 +28,6 @@ const packages = [
     idealFor:
       "Small businesses • Local services • Personal brands",
   },
-
   {
     number: "02",
     id: "business",
@@ -53,7 +50,6 @@ const packages = [
     idealFor:
       "Startups • Restaurants • Shops • Professionals",
   },
-
   {
     number: "03",
     id: "professional",
@@ -78,218 +74,34 @@ const packages = [
   },
 ];
 
-const containerVariants = {
-  hidden: {},
-
-  visible: {
-    transition: {
-      staggerChildren: 0.12,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: {
-    opacity: 0,
-    y: 30,
-  },
-
-  visible: {
-    opacity: 1,
-    y: 0,
-
-    transition: {
-      duration: 0.7,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  },
-};
-
 function Pricing() {
-  const [estimatorOpen, setEstimatorOpen] =
-    useState(false);
-
-  const [selectedPackage, setSelectedPackage] =
-    useState(null);
-
-  /*
-  |--------------------------------------------------------------------------
-  | Save the exact page position.
-  |--------------------------------------------------------------------------
-  */
-
-  const [savedScrollPosition, setSavedScrollPosition] =
-    useState(0);
-
-  /*
-  |--------------------------------------------------------------------------
-  | Lock page scrolling.
-  |
-  | IMPORTANT:
-  | We use position: fixed instead of simply
-  | overflow: hidden because mobile browsers
-  | can otherwise change the scroll position.
-  |--------------------------------------------------------------------------
-  */
-
-  function lockPageScroll() {
-    const scrollY = window.scrollY;
-
-    setSavedScrollPosition(scrollY);
-
-    const body = document.body;
-
-    body.style.position = "fixed";
-    body.style.top = `-${scrollY}px`;
-    body.style.left = "0";
-    body.style.right = "0";
-    body.style.width = "100%";
-    body.style.overflow = "hidden";
-  }
-
-  /*
-  |--------------------------------------------------------------------------
-  | Unlock page scrolling and restore exact position.
-  |--------------------------------------------------------------------------
-  */
-
-  function unlockPageScroll(scrollY) {
-    const body = document.body;
-
-    body.style.position = "";
-    body.style.top = "";
-    body.style.left = "";
-    body.style.right = "";
-    body.style.width = "";
-    body.style.overflow = "";
-
-    /*
-     * Restore after the browser has finished
-     * recalculating the document layout.
-     */
-
-    requestAnimationFrame(() => {
-      window.scrollTo({
-        top: scrollY,
-        left: 0,
-        behavior: "instant",
-      });
-    });
-  }
-
-  /*
-  |--------------------------------------------------------------------------
-  | Open estimator.
-  |--------------------------------------------------------------------------
-  */
+  const [estimatorOpen, setEstimatorOpen] = useState(false);
+  const [selectedPackage, setSelectedPackage] = useState(null);
 
   function openEstimator(packageId = null) {
-    /*
-     * Capture and lock BEFORE changing React state.
-     *
-     * This is important on mobile because it prevents
-     * the browser from changing the scroll position
-     * during the modal opening.
-     */
-
-    lockPageScroll();
-
     setSelectedPackage(packageId);
     setEstimatorOpen(true);
   }
 
-  /*
-  |--------------------------------------------------------------------------
-  | Close estimator.
-  |--------------------------------------------------------------------------
-  */
-
   function closeEstimator() {
-    /*
-     * Save the position before React removes
-     * the modal.
-     */
-
-    const currentScroll =
-      savedScrollPosition;
-
     setEstimatorOpen(false);
-
-    /*
-     * Restore the page position after React
-     * has removed the modal.
-     */
-
-    requestAnimationFrame(() => {
-      unlockPageScroll(currentScroll);
-    });
   }
-
-  /*
-  |--------------------------------------------------------------------------
-  | Request project.
-  |--------------------------------------------------------------------------
-  */
 
   function handleRequestProject(data) {
-    console.log(
-      "Project request:",
-      data
-    );
-
-    /*
-     * Close the estimator first.
-     */
-
-    const currentScroll =
-      savedScrollPosition;
+    console.log("Project request:", data);
 
     setEstimatorOpen(false);
 
+    // Only scroll to contact when the user actually submits a project request.
     requestAnimationFrame(() => {
-      unlockPageScroll(currentScroll);
-
-      /*
-       * Only after the modal is completely removed
-       * do we move to the contact section.
-       */
-
-      setTimeout(() => {
-        document
-          .getElementById("contact")
-          ?.scrollIntoView({
-            behavior: "smooth",
-            block: "start",
-          });
-      }, 50);
+      document
+        .getElementById("contact")
+        ?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
     });
   }
-
-  /*
-  |--------------------------------------------------------------------------
-  | Estimator Portal
-  |
-  | Rendering directly into document.body prevents
-  | fixed-position/mobile rendering issues caused
-  | by transformed or animated parent elements.
-  |--------------------------------------------------------------------------
-  */
-
-  const estimator =
-    typeof document !== "undefined" &&
-    estimatorOpen
-      ? createPortal(
-          <ProjectEstimator
-            isOpen={estimatorOpen}
-            onClose={closeEstimator}
-            initialPackage={selectedPackage}
-            onRequestProject={
-              handleRequestProject
-            }
-          />,
-          document.body
-        )
-      : null;
 
   return (
     <>
@@ -308,28 +120,14 @@ function Pricing() {
       >
         <div className="mx-auto max-w-7xl">
 
-          {/* ============================================================
-              HEADER
-          ============================================================ */}
+          {/* HEADER */}
 
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{
-              once: true,
-              amount: 0.25,
-            }}
-            variants={containerVariants}
-            className="max-w-2xl"
-          >
-            <motion.div variants={itemVariants}>
-              <SectionLabel>
-                Services & investment
-              </SectionLabel>
-            </motion.div>
+          <div className="max-w-2xl">
+            <SectionLabel>
+              Services & investment
+            </SectionLabel>
 
-            <motion.h2
-              variants={itemVariants}
+            <h2
               className="
                 mt-6
                 text-balance
@@ -342,12 +140,10 @@ function Pricing() {
                 lg:text-6xl
               "
             >
-              A clear starting point for your next
-              digital project.
-            </motion.h2>
+              A clear starting point for your next digital project.
+            </h2>
 
-            <motion.p
-              variants={itemVariants}
+            <p
               className="
                 mt-6
                 max-w-xl
@@ -361,21 +157,12 @@ function Pricing() {
               Start with a package that fits your needs,
               or estimate your project based on the
               features, pages, and experience you want.
-            </motion.p>
-          </motion.div>
+            </p>
+          </div>
 
-          {/* ============================================================
-              PRICING CARDS
-          ============================================================ */}
+          {/* PRICING CARDS */}
 
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{
-              once: true,
-              amount: 0.12,
-            }}
-            variants={containerVariants}
+          <div
             className="
               mt-12
               grid
@@ -393,30 +180,11 @@ function Pricing() {
                 }
               />
             ))}
-          </motion.div>
+          </div>
 
-          {/* ============================================================
-              CUSTOM PROJECT
-          ============================================================ */}
+          {/* CUSTOM PROJECT */}
 
-          <motion.div
-            initial={{
-              opacity: 0,
-              y: 25,
-            }}
-            whileInView={{
-              opacity: 1,
-              y: 0,
-            }}
-            viewport={{
-              once: true,
-              amount: 0.2,
-            }}
-            transition={{
-              duration: 0.7,
-              delay: 0.15,
-              ease: [0.22, 1, 0.36, 1],
-            }}
+          <div
             className="
               mt-4
               flex
@@ -473,17 +241,9 @@ function Pricing() {
               </p>
             </div>
 
-            <motion.button
+            <button
               type="button"
-              onClick={() =>
-                openEstimator(null)
-              }
-              whileHover={{
-                y: -2,
-              }}
-              whileTap={{
-                scale: 0.98,
-              }}
+              onClick={() => openEstimator(null)}
               className="
                 group
                 inline-flex
@@ -515,27 +275,12 @@ function Pricing() {
                   group-hover:translate-x-1
                 "
               />
-            </motion.button>
-          </motion.div>
+            </button>
+          </div>
 
-          {/* ============================================================
-              NOTE
-          ============================================================ */}
+          {/* NOTE */}
 
-          <motion.p
-            initial={{
-              opacity: 0,
-            }}
-            whileInView={{
-              opacity: 1,
-            }}
-            viewport={{
-              once: true,
-            }}
-            transition={{
-              duration: 0.6,
-              delay: 0.2,
-            }}
+          <p
             className="
               mx-auto
               mt-5
@@ -550,40 +295,28 @@ function Pricing() {
             estimator to get an initial project range
             based on your requirements. Final pricing is
             confirmed after reviewing the project scope.
-          </motion.p>
+          </p>
         </div>
       </section>
 
-      {/* ================================================================
-          ESTIMATOR
+      {/* ESTIMATOR */}
 
-          Rendered through a portal directly under <body>.
-          This prevents parent layout/transform issues.
-      ================================================================ */}
-
-      {estimator}
+      <ProjectEstimator
+        isOpen={estimatorOpen}
+        onClose={closeEstimator}
+        initialPackage={selectedPackage}
+        onRequestProject={handleRequestProject}
+      />
     </>
   );
 }
-
-/* ======================================================================
-   PRICING CARD
-====================================================================== */
 
 function PricingCard({
   item,
   onEstimate,
 }) {
   return (
-    <motion.article
-      variants={itemVariants}
-      whileHover={{
-        y: -6,
-        transition: {
-          duration: 0.3,
-          ease: [0.22, 1, 0.36, 1],
-        },
-      }}
+    <article
       className={`
         group
         relative
@@ -603,25 +336,11 @@ function PricingCard({
         }
       `}
     >
-      {/* POPULAR BADGE */}
+
+      {/* POPULAR */}
 
       {item.popular && (
-        <motion.div
-          initial={{
-            opacity: 0,
-            scale: 0.9,
-          }}
-          whileInView={{
-            opacity: 1,
-            scale: 1,
-          }}
-          viewport={{
-            once: true,
-          }}
-          transition={{
-            duration: 0.5,
-            delay: 0.3,
-          }}
+        <div
           className="
             absolute
             right-5
@@ -642,7 +361,7 @@ function PricingCard({
         >
           <Sparkles size={10} />
           Most popular
-        </motion.div>
+        </div>
       )}
 
       {/* NUMBER */}
@@ -723,14 +442,7 @@ function PricingCard({
           Starting from
         </span>
 
-        <div
-          className="
-            mt-1
-            flex
-            items-baseline
-            gap-2
-          "
-        >
+        <div className="mt-1 flex items-baseline gap-2">
           <span
             className="
               text-4xl
@@ -786,74 +498,50 @@ function PricingCard({
           Includes
         </p>
 
-        <ul
-          className="
-            mt-4
-            space-y-2.5
-          "
-        >
-          {item.features.map(
-            (feature, index) => (
-              <motion.li
-                key={feature}
-                initial={{
-                  opacity: 0,
-                  x: -8,
-                }}
-                whileInView={{
-                  opacity: 1,
-                  x: 0,
-                }}
-                viewport={{
-                  once: true,
-                }}
-                transition={{
-                  duration: 0.35,
-                  delay:
-                    0.15 +
-                    index * 0.035,
-                }}
-                className="
-                  flex
-                  items-start
-                  gap-3
-                  text-sm
-                "
-              >
-                <span
-                  className={`
-                    mt-0.5
-                    grid
-                    h-4
-                    w-4
-                    shrink-0
-                    place-items-center
-                    rounded-full
-                    ${
-                      item.popular
-                        ? "bg-[#d8ff63] text-[#171817]"
-                        : "bg-[#8aaa2c]/10 text-[#7c9825]"
-                    }
-                  `}
-                >
-                  <Check
-                    size={9}
-                    strokeWidth={3}
-                  />
-                </span>
-
-                <span
-                  className={
+        <ul className="mt-4 space-y-2.5">
+          {item.features.map((feature) => (
+            <li
+              key={feature}
+              className="
+                flex
+                items-start
+                gap-3
+                text-sm
+              "
+            >
+              <span
+                className={`
+                  mt-0.5
+                  grid
+                  h-4
+                  w-4
+                  shrink-0
+                  place-items-center
+                  rounded-full
+                  ${
                     item.popular
-                      ? "text-white/70"
-                      : "text-[#555555]"
+                      ? "bg-[#d8ff63] text-[#171817]"
+                      : "bg-[#8aaa2c]/10 text-[#7c9825]"
                   }
-                >
-                  {feature}
-                </span>
-              </motion.li>
-            )
-          )}
+                `}
+              >
+                <Check
+                  size={9}
+                  strokeWidth={3}
+                />
+              </span>
+
+              <span
+                className={
+                  item.popular
+                    ? "text-white/70"
+                    : "text-[#555555]"
+                }
+              >
+                {feature}
+              </span>
+            </li>
+          ))}
         </ul>
       </div>
 
@@ -892,12 +580,9 @@ function PricingCard({
       {/* BUTTON */}
 
       <div className="mt-auto pt-6">
-        <motion.button
+        <button
           type="button"
           onClick={onEstimate}
-          whileTap={{
-            scale: 0.98,
-          }}
           className={`
             group/button
             flex
@@ -920,9 +605,7 @@ function PricingCard({
             }
           `}
         >
-          <span>
-            Estimate your project
-          </span>
+          <span>Estimate your project</span>
 
           <ArrowRight
             size={16}
@@ -933,19 +616,13 @@ function PricingCard({
               group-hover/button:translate-x-1
             "
           />
-        </motion.button>
+        </button>
       </div>
-    </motion.article>
+    </article>
   );
 }
 
-/* ======================================================================
-   SECTION LABEL
-====================================================================== */
-
-function SectionLabel({
-  children,
-}) {
+function SectionLabel({ children }) {
   return (
     <div
       className="
@@ -959,27 +636,7 @@ function SectionLabel({
         text-[#7c9825]
       "
     >
-      <motion.span
-        initial={{
-          width: 0,
-          opacity: 0,
-        }}
-        whileInView={{
-          width: 28,
-          opacity: 1,
-        }}
-        viewport={{
-          once: true,
-        }}
-        transition={{
-          duration: 0.6,
-          ease: [0.22, 1, 0.36, 1],
-        }}
-        className="
-          h-px
-          bg-[#a8cf32]
-        "
-      />
+      <span className="h-px w-7 bg-[#a8cf32]" />
 
       {children}
     </div>
