@@ -115,7 +115,7 @@
                 }}
               />
 
-              Digital Partner for Modern Businessessss
+              Digital Partner for Modern Businesse
             </motion.div>
 
             {/* ==================================================
