@@ -31,7 +31,7 @@ function App() {
          {/* <Process /> */}
          <Work />
         {/* <TechStack /> */}
-        <Pricing />
+       {/* <Pricing />*/}
         <CTA />
       </main>
       <Footer />
