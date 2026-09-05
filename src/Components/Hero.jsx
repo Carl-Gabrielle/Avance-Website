@@ -249,43 +249,7 @@
 
         
 
-          {/* <motion.div
-            className="mx-auto mt-20 max-w-5xl"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{
-              once: true,
-              amount: 0.3,
-            }}
-            variants={{
-              hidden: {},
-              visible: {
-                transition: {
-                  staggerChildren: 0.12,
-                },
-              },
-            }}
-          >
-            <div className="grid overflow-hidden rounded-2xl border border-black/10 bg-white shadow-[0_20px_60px_rgba(0,0,0,0.05)] sm:grid-cols-3">
-              <Metric
-                number="08"
-                label="Years shaping digital experiences"
-              />
-
-              <Metric
-                number="42+"
-                label="Products, brands, and launches"
-                border
-              />
-
-              <Metric
-                number="94%"
-                label="Clients returning for what's next"
-                border
-              />
-            </div>
-          </motion.div> */}
-
+          
           {/* ==================================================
               SCROLL INDICATOR
           ================================================== */}
@@ -317,46 +281,4 @@
       </section>
     );
   }
-
-  /* ==================================================
-    METRIC
-  ================================================== */
-
-  function Metric({ number, label, border }) {
-    return (
-      <motion.div
-        variants={{
-          hidden: {
-            opacity: 0,
-            y: 20,
-          },
-          visible: {
-            opacity: 1,
-            y: 0,
-            transition: {
-              duration: 0.6,
-              ease: [0.22, 1, 0.36, 1],
-            },
-          },
-        }}
-        whileHover={{
-          backgroundColor: "#fbfbf8",
-        }}
-        className={`px-6 py-7 transition-colors duration-300 sm:px-8 ${
-          border
-            ? "border-t border-black/10 sm:border-l sm:border-t-0"
-            : ""
-        }`}
-      >
-        <p className="text-3xl font-semibold tracking-[-0.07em] text-[#111111]">
-          {number}
-        </p>
-
-        <p className="mt-2 max-w-[180px] text-xs font-medium leading-5 text-[#666666]">
-          {label}
-        </p>
-      </motion.div>
-    );
-  }
-
   export default Hero;

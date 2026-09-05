@@ -1,41 +1,53 @@
 import { useState } from "react";
+import { Routes, Route } from "react-router-dom";
 
 import Navbar from "./Components/Navbar";
 import Hero from "./Components/Hero";
 import About from "./Components/About";
-import Services from "./Components/Services";
-import TechStack from "./Components/TechStack";
 import Work from "./Components/Work";
-import Process from "./Components/Process";
 import CTA from "./Components/CTA";
 import Footer from "./Components/Footer";
-import Pricing from "./Components/Pricing";
+import Team from "./Components/Team";
+import CaseStudy from "./Components/CaseStudy";
+import ScrollToTop from "./Components/ScrollToTop";
+
+function Home() {
+  return (
+    <div className="noise min-h-screen overflow-x-clip bg-[#F7F8FA] text-[#111111]">
+      <main>
+        <Hero />
+        <About />
+        <Work />
+        {/* <Team /> */}
+        <CTA />
+        <Footer />
+      </main>
+    </div>
+  );
+}
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const closeMenu = () => setMenuOpen(false);
-
   return (
-    <div className="noise min-h-screen overflow-x-hidden bg-[#fafaf8] text-[#111111]">
+    <>
+      <ScrollToTop />
+
+      {/* ONE Navbar only */}
       <Navbar
         menuOpen={menuOpen}
         setMenuOpen={setMenuOpen}
-        onNavigate={closeMenu}
       />
 
-      <main>
-        <Hero />
-        <About />
-        {/* <Services /> */}
-         {/* <Process /> */}
-         <Work />
-        {/* <TechStack /> */}
-        <Pricing />
-        <CTA />
-      </main>
-      <Footer />
-    </div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+
+        <Route
+          path="/work/:slug"
+          element={<CaseStudy />}
+        />
+      </Routes>
+    </>
   );
 }
 

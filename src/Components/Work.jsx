@@ -1,447 +1,295 @@
-import { motion } from "framer-motion";
 
-const projects = [
-  {
-    number: "01",
-    name: "Architecture Portfolio",
-    type: "Web Design · Development",
-    description:
-      "A minimal, responsive portfolio designed to showcase architectural work with clarity and visual impact.",
-    className: "project-architecture",
-  },
-  {
-    number: "02",
-    name: "Helio Energy",
-    type: "Product",
-    description:
-      "Making clean energy easier to understand, compare, and choose.",
-    className: "project-helio",
-  },
-  {
-    number: "03",
-    name: "Finloop",
-    type: "Web Platform",
-    description:
-      "A finance infrastructure platform designed around simplicity.",
-    className: "project-finloop",
-  },
-];
+  import { motion } from "framer-motion";
+  import { ArrowRight, ArrowUpRight } from "lucide-react";
+  import { Link } from "react-router-dom";
+  import { projects } from "../data/projects";
 
-/* --------------------------------------------------
-   Animation presets
--------------------------------------------------- */
+  const ease = [0.22, 1, 0.36, 1];
 
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.12,
+  const fadeUp = {
+    hidden: {
+      opacity: 0,
+      y: 18,
     },
-  },
-};
-
-const itemVariants = {
-  hidden: {
-    opacity: 0,
-    y: 35,
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.7,
-      ease: [0.22, 1, 0.36, 1],
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.65,
+        ease,
+      },
     },
-  },
-};
+  };
 
-function Work() {
-  return (
-    <section
-      id="work"
-      className="bg-[#f5f5f2] px-5 py-24 text-[#111111] sm:px-8 sm:py-32"
-    >
-      <div className="mx-auto max-w-7xl">
+  function Work() {
+    const featured = projects[0];
+    const secondary = projects.slice(1);
 
-        {/* HEADER */}
+    return (
+      <section
+        id="work"
+        className=" px-4 py-16 text-[#111111] sm:px-6 sm:py-20 lg:px-8 lg:py-24"
+      >
+        <div className="mx-auto max-w-6xl">
+          {/* ================================================
+              SECTION HEADER
+          ================================================= */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{
+              once: true,
+              amount: 0.25,
+            }}
+            variants={fadeUp}
+            className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between"
+          >
+            <div>
+              <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-black/40 sm:text-[10px]">
+                Selected work
+              </span>
 
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{
-            once: true,
-            amount: 0.25,
-          }}
-          variants={containerVariants}
-          className="flex flex-col justify-between gap-7 sm:flex-row sm:items-end"
-        >
-          <motion.div variants={itemVariants}>
-            <SectionLabel>Selected work</SectionLabel>
+            <h2 className="mt-3 max-w-[12ch] text-[clamp(2.4rem,6vw,4.25rem)] font-semibold leading-[0.92] tracking-[-0.065em]">
+    Shaping the{" "}
+    <span className="text-black/25">next digital experience.</span>
+  </h2>
+            </div>
 
-            <h2 className="mt-6 max-w-2xl text-balance text-4xl font-semibold leading-[0.98] tracking-[-0.06em] text-[#111111] sm:text-5xl">
-              Work that makes the difference visible.
-            </h2>
+            <p className="max-w-[280px] text-[13px] leading-5 text-black/40 sm:max-w-[240px] sm:text-right">
+              Building meaningful digital experiences, one project at a time.
+            </p>
           </motion.div>
 
-          <motion.p
-            variants={itemVariants}
-            className="max-w-xs text-sm font-medium leading-6 text-[#666666]"
+          {/* ================================================
+              FEATURED PROJECT
+          ================================================= */}
+          <motion.article
+            initial="hidden"
+            whileInView="visible"
+            viewport={{
+              once: true,
+              amount: 0.15,
+            }}
+            variants={fadeUp}
+            className="mt-10 sm:mt-14"
           >
-            A few examples of how strategy, design, and technology
-            come together.
-          </motion.p>
-        </motion.div>
+            <div
+              className={`
+                group relative min-h-[500px] overflow-hidden
+                rounded-[20px] border border-black/[0.07]
+                ${featured.heroClass || "bg-[#e8e8e3]"}
+                sm:min-h-0 sm:aspect-[16/10]
+                lg:aspect-[16/8.2] lg:rounded-[24px]
+              `}
+            >
+              {/* Base */}
+              <div className="absolute inset-0 bg-[#e7e7e2]" />
 
-        {/* PROJECT GRID */}
-
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{
-            once: true,
-            amount: 0.12,
-          }}
-          className="mt-14 grid gap-8 lg:grid-cols-2"
-        >
-          {projects.map((project, index) => (
-            <Project
-              key={project.name}
-              project={project}
-              featured={index === 0}
-            />
-          ))}
-        </motion.div>
-      </div>
-    </section>
-  );
-}
-
-/* ==================================================
-   PROJECT
-================================================== */
-
-function Project({ project, featured }) {
-  return (
-    <motion.article
-      variants={itemVariants}
-      className={`group ${featured ? "lg:col-span-2" : ""}`}
-    >
-      <motion.a
-        href="#contact"
-        className="block"
-        whileHover="hover"
-      >
-
-        {/* PROJECT VISUAL */}
-
-        <motion.div
-          className={`relative overflow-hidden rounded-[28px] border border-black/[0.08] bg-white shadow-[0_15px_50px_rgba(0,0,0,0.04)] ${
-            featured ? "aspect-[2/1]" : "aspect-[1.2/1]"
-          } ${project.className}`}
-          initial={{
-            scale: 1,
-          }}
-          variants={{
-            hover: {
-              scale: 0.985,
-              transition: {
-                duration: 0.45,
-                ease: [0.22, 1, 0.36, 1],
-              },
-            },
-          }}
-        >
-
-          {/* ==================================================
-              ARCHITECTURE PORTFOLIO
-          ================================================== */}
-
-          {project.name === "Architecture Portfolio" && (
-            <>
-              {/* Architectural grid */}
-
-              <div className="absolute inset-0 bg-[#ecece7]" />
-
+              {/* Subtle grid */}
               <div
-                className="absolute inset-0 opacity-60"
+                className="pointer-events-none absolute inset-0 opacity-[0.07]"
                 style={{
                   backgroundImage: `
-                    linear-gradient(rgba(17,17,17,0.08) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(17,17,17,0.08) 1px, transparent 1px)
+                    linear-gradient(
+                      rgba(17,17,17,0.08) 1px,
+                      transparent 1px
+                    ),
+                    linear-gradient(
+                      90deg,
+                      rgba(17,17,17,0.08) 1px,
+                      transparent 1px
+                    )
                   `,
-                  backgroundSize: "42px 42px",
+                  backgroundSize: "48px 48px",
                 }}
               />
 
-              {/* Main architectural composition */}
+              {/* Soft bottom gradient */}
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[65%] bg-gradient-to-t from-white/85 via-white/35 to-transparent" />
 
-              <motion.div
-                className="absolute left-[13%] top-[16%] h-[68%] w-[42%] bg-[#fafaf8] shadow-[20px_20px_50px_rgba(0,0,0,0.12)]"
-                variants={{
-                  hover: {
-                    x: 10,
-                    y: -6,
-                    rotate: -1.5,
-                    transition: {
-                      duration: 0.7,
-                      ease: [0.22, 1, 0.36, 1],
-                    },
-                  },
-                }}
-              >
-                {/* Building lines */}
+              {/* Project content */}
+              <div className="relative z-10 flex min-h-[500px] flex-col justify-between p-5 sm:absolute sm:inset-0 sm:min-h-0 sm:p-7 lg:p-9">
+                {/* Top */}
+                <div>
+                  <div className="mb-3 flex items-center gap-2">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#a8cf32]" />
 
-                <div className="absolute inset-x-[12%] top-[14%] h-px bg-black/20" />
-                <div className="absolute inset-x-[12%] top-[28%] h-px bg-black/15" />
-                <div className="absolute inset-x-[12%] top-[42%] h-px bg-black/15" />
-                <div className="absolute inset-x-[12%] top-[56%] h-px bg-black/15" />
-                <div className="absolute inset-x-[12%] top-[70%] h-px bg-black/15" />
+                    <p className="text-[9px] font-semibold uppercase tracking-[0.16em] text-black/40 sm:text-[10px]">
+                      Selected project
+                    </p>
+                  </div>
 
-                {/* Windows */}
-
-                <div className="absolute left-[12%] top-[17%] h-[55%] w-[22%] bg-[#252525]" />
-                <div className="absolute left-[39%] top-[17%] h-[55%] w-[22%] bg-[#d9d9d3]" />
-                <div className="absolute left-[66%] top-[17%] h-[55%] w-[22%] bg-[#252525]" />
-
-                {/* Ground */}
-
-                <div className="absolute bottom-[10%] left-[12%] h-2 w-[76%] bg-[#111111]" />
-              </motion.div>
-
-              {/* Secondary architectural card */}
-
-              <motion.div
-                className="absolute right-[13%] top-[27%] h-[45%] w-[28%] rotate-[7deg] rounded-sm bg-[#111111] shadow-2xl"
-                variants={{
-                  hover: {
-                    rotate: 3,
-                    scale: 1.05,
-                    transition: {
-                      duration: 0.7,
-                      ease: [0.22, 1, 0.36, 1],
-                    },
-                  },
-                }}
-              >
-                <div className="absolute left-[14%] top-[16%] h-[2px] w-[45%] bg-[#d8ff63]" />
-
-                <div className="absolute left-[14%] top-[29%] h-[35%] w-[72%] border border-white/20" />
-
-                <div className="absolute bottom-[15%] left-[14%] text-[clamp(1.4rem,3vw,3rem)] font-semibold tracking-[-0.07em] text-white">
-                  2026
+                  <h3 className="max-w-[16ch] text-[clamp(1.75rem,4vw,3rem)] font-semibold leading-[0.98] tracking-[-0.055em] text-black">
+                    {featured.title}
+                  </h3>
                 </div>
-              </motion.div>
 
-              {/* Small label */}
+                {/* Bottom */}
+                <div className="mt-12 flex flex-col gap-6 sm:mt-0 sm:flex-row sm:items-end sm:justify-between sm:gap-8">
+                  <p className="max-w-[340px] text-[12px] leading-[1.65] text-black/50 sm:text-[13px] lg:text-[14px]">
+                    A project we enjoyed working on, with a focus on keeping the
+                    experience simple, clear, and useful.
+                  </p>
 
-              <motion.div
-                className="absolute bottom-[12%] right-[17%] rounded-full border border-black/10 bg-white/90 px-4 py-2 text-[9px] font-bold uppercase tracking-[0.18em] text-[#555555] shadow-sm backdrop-blur"
-                variants={{
-                  hover: {
-                    y: -5,
-                    transition: {
-                      duration: 0.5,
-                    },
-                  },
-                }}
-              >
-                Architecture / Portfolio
-              </motion.div>
-            </>
+                  {/* Case Study CTA */}
+                  <Link
+                    to={`/work/${featured.slug}`}
+                    aria-label={`View case study for ${featured.title}`}
+                    className="
+                      group/button
+                      flex w-full items-center justify-between
+                      rounded-full
+                      bg-[#111111]
+                      p-1.5 pl-5
+                      text-[11px] font-semibold
+                      text-white
+                      shadow-[0_8px_25px_rgba(0,0,0,0.12)]
+                      transition-all duration-300
+                      hover:-translate-y-0.5
+                      hover:bg-[#a8cf32]
+                      hover:text-[#111111]
+                      focus:outline-none
+                      focus-visible:ring-2
+                      focus-visible:ring-black/30
+                      focus-visible:ring-offset-2
+                      sm:w-auto
+                      sm:justify-start
+                      sm:gap-3
+                      sm:pl-5
+                      sm:pr-1.5
+                      sm:text-[12px]
+                    "
+                  >
+                    <span className="whitespace-nowrap">
+                      View case study
+                    </span>
+
+                    <span
+                      className="
+                        flex h-9 w-9 shrink-0
+                        items-center justify-center
+                        rounded-full
+                        bg-white text-black
+                        transition-all duration-300
+                        group-hover/button:bg-black
+                        group-hover/button:text-white
+                        group-hover/button:translate-x-0.5
+                      "
+                    >
+                      <ArrowRight
+                        size={14}
+                        strokeWidth={2}
+                      />
+                    </span>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </motion.article>
+
+          {/* ================================================
+              MORE WORK
+          ================================================= */}
+          {secondary.length > 0 && (
+            <div className="mt-12 sm:mt-16">
+              {/* Header */}
+              <div className="flex items-center justify-between border-t border-black/10 py-4">
+                <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-black/35">
+                  More work
+                </span>
+
+                <span className="text-[9px] uppercase tracking-[0.14em] text-black/25">
+                  {secondary.length} projects
+                </span>
+              </div>
+
+              {/* Project list */}
+              <div className="border-b border-black/10">
+                {secondary.map((project, index) => (
+                  <motion.div
+                    key={project.slug}
+                    initial={{
+                      opacity: 0,
+                      y: 10,
+                    }}
+                    whileInView={{
+                      opacity: 1,
+                      y: 0,
+                    }}
+                    viewport={{
+                      once: true,
+                      amount: 0.2,
+                    }}
+                    transition={{
+                      delay: index * 0.05,
+                      duration: 0.45,
+                      ease,
+                    }}
+                  >
+                    <Link
+                      to={`/work/${project.slug}`}
+                      className="
+                        group
+                        flex min-h-[72px]
+                        items-center justify-between
+                        gap-4
+                        px-1
+                        py-4
+                        transition-all duration-300
+                        hover:px-2
+                        sm:min-h-[80px]
+                      "
+                    >
+                      <div className="min-w-0">
+                        <h3
+                          className="
+                            truncate
+                            text-[14px]
+                            font-medium
+                            tracking-[-0.025em]
+                            transition-colors duration-300
+                            group-hover:text-[#7c9825]
+                            sm:text-[16px]
+                          "
+                        >
+                          {project.title}
+                        </h3>
+
+                        <p className="mt-1 text-[9px] uppercase tracking-[0.14em] text-black/30 sm:text-[10px]">
+                          {project.type}
+                        </p>
+                      </div>
+
+                      <span
+                        className="
+                          flex h-9 w-9 shrink-0
+                          items-center justify-center
+                          rounded-full
+                          border border-black/10
+                          text-black/35
+                          transition-all duration-300
+                          group-hover:-translate-y-0.5
+                          group-hover:translate-x-0.5
+                          group-hover:border-black/20
+                          group-hover:bg-[#111111]
+                          group-hover:text-white
+                          sm:h-10 sm:w-10
+                        "
+                      >
+                        <ArrowUpRight
+                          size={16}
+                          strokeWidth={1.7}
+                        />
+                      </span>
+                    </Link>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
           )}
+        </div>
+      </section>
+    );
+  }
 
-          {/* ==================================================
-              HELIO ENERGY
-          ================================================== */}
-
-          {project.name === "Helio Energy" && (
-            <>
-              <motion.div
-                className="absolute left-1/2 top-1/2 h-[65%] w-[65%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-orange-300/20"
-                variants={{
-                  hover: {
-                    scale: 1.08,
-                    rotate: 8,
-                    transition: {
-                      duration: 1,
-                      ease: "easeOut",
-                    },
-                  },
-                }}
-              />
-
-              <motion.div
-                className="absolute left-1/2 top-1/2 h-[47%] w-[47%] -translate-x-1/2 -translate-y-1/2 rounded-full border-[25px] border-orange-400 shadow-[0_0_80px_rgba(255,165,60,.35)]"
-                variants={{
-                  hover: {
-                    scale: 1.08,
-                    rotate: -8,
-                    transition: {
-                      duration: 0.8,
-                      ease: [0.22, 1, 0.36, 1],
-                    },
-                  },
-                }}
-              />
-
-              <motion.div
-                className="absolute left-1/2 top-1/2 h-[18%] w-[18%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-orange-100 shadow-[0_0_50px_rgba(255,210,120,.6)]"
-                variants={{
-                  hover: {
-                    scale: 1.18,
-                    transition: {
-                      duration: 0.6,
-                    },
-                  },
-                }}
-              />
-            </>
-          )}
-
-          {/* ==================================================
-              FINLOOP
-          ================================================== */}
-
-          {project.name === "Finloop" && (
-            <>
-              <motion.div
-                className="absolute -left-[8%] top-[18%] h-[65%] w-[116%] rotate-[-10deg] rounded-3xl bg-[#27212f] shadow-2xl"
-                variants={{
-                  hover: {
-                    rotate: -6,
-                    scale: 1.05,
-                    transition: {
-                      duration: 0.8,
-                      ease: [0.22, 1, 0.36, 1],
-                    },
-                  },
-                }}
-              />
-
-              <motion.div
-                className="absolute left-[18%] top-[36%] text-[clamp(2.5rem,6vw,5rem)] font-bold tracking-[-0.09em] text-[#e7ff66]"
-                variants={{
-                  hover: {
-                    x: 12,
-                    transition: {
-                      duration: 0.5,
-                      ease: [0.22, 1, 0.36, 1],
-                    },
-                  },
-                }}
-              >
-                finloop
-              </motion.div>
-            </>
-          )}
-
-          {/* HOVER OVERLAY */}
-
-          <motion.div
-            className="absolute inset-0 bg-black/[0.02]"
-            variants={{
-              hover: {
-                backgroundColor: "rgba(0,0,0,0.04)",
-                transition: {
-                  duration: 0.4,
-                },
-              },
-            }}
-          />
-
-          {/* ARROW */}
-
-          <motion.div
-            className="absolute right-6 top-6 grid h-12 w-12 place-items-center rounded-full bg-white text-[#111111] shadow-lg"
-            initial={{
-              opacity: 0,
-              y: 8,
-              scale: 0.9,
-            }}
-            variants={{
-              hover: {
-                opacity: 1,
-                y: 0,
-                scale: 1,
-                transition: {
-                  duration: 0.35,
-                  ease: [0.22, 1, 0.36, 1],
-                },
-              },
-            }}
-          >
-            ↗
-          </motion.div>
-
-          {/* PROJECT NUMBER */}
-
-          <div className="absolute bottom-5 left-5 rounded-full border border-black/10 bg-white/85 px-3 py-1.5 text-[10px] font-bold text-[#333333] shadow-sm backdrop-blur-md">
-            {project.number}
-          </div>
-        </motion.div>
-
-        {/* PROJECT INFORMATION */}
-
-        <motion.div
-          className="mt-5 flex items-start justify-between gap-5"
-          variants={{
-            hover: {
-              x: 2,
-              transition: {
-                duration: 0.35,
-              },
-            },
-          }}
-        >
-          <div>
-            <h3 className="text-xl font-semibold tracking-[-0.04em] text-[#111111]">
-              {project.name}
-            </h3>
-
-            <p className="mt-1.5 max-w-md text-sm font-medium leading-6 text-[#666666]">
-              {project.description}
-            </p>
-          </div>
-
-          <span className="shrink-0 rounded-full border border-black/[0.09] bg-white px-3 py-1.5 text-[9px] font-bold uppercase tracking-[0.14em] text-[#666666] shadow-sm">
-            {project.type}
-          </span>
-        </motion.div>
-      </motion.a>
-    </motion.article>
-  );
-}
-
-/* ==================================================
-   SECTION LABEL
-================================================== */
-
-function SectionLabel({ children }) {
-  return (
-    <div className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.2em] text-[#7c9825]">
-      <motion.span
-        initial={{
-          width: 0,
-          opacity: 0,
-        }}
-        whileInView={{
-          width: 28,
-          opacity: 1,
-        }}
-        viewport={{
-          once: true,
-        }}
-        transition={{
-          duration: 0.6,
-          ease: [0.22, 1, 0.36, 1],
-        }}
-        className="h-px bg-[#a8cf32]"
-      />
-
-      {children}
-    </div>
-  );
-}
-
-export default Work;
+  export default Work;

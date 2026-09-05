@@ -1,170 +1,317 @@
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
-function Navigation({
-  items,
-  className = "",
-  mobile = false,
-  onNavigate,
-}) {
-  if (mobile) {
-    return (
-      <nav className={className} aria-label="Main navigation">
-        <motion.ul
-          className="space-y-1 px-1"
-          initial="hidden"
-          animate="visible"
-          variants={{
-            hidden: {},
-            visible: {
-              transition: {
-                staggerChildren: 0.06,
-              },
-            },
+const navigation = [
+  {
+    label: "Home",
+    href: "#home",
+  },
+  {
+    label: "About",
+    href: "#about",
+  },
+  {
+    label: "Works",
+    href: "#work",
+  },
+  {
+    label: "Contact",
+    href: "#contact",
+  },
+];
+
+const ease = [0.22, 1, 0.36, 1];
+
+function Navbar({ menuOpen, setMenuOpen }) {
+  const handleNavigate = () => {
+    setMenuOpen(false);
+  };
+
+  return (
+    <header className="fixed inset-x-0 top-0 z-50">
+      <div className="mx-auto w-full max-w-7xl px-3 pt-3 sm:px-6 sm:pt-5">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: 0.7,
+            ease,
           }}
+          className="overflow-hidden rounded-2xl border border-black/[0.07] bg-white/90 shadow-[0_8px_35px_rgba(0,0,0,0.06)] backdrop-blur-xl"
         >
-          {items.map((item) => (
-            <motion.li
-              key={item.href}
+          {/* Navbar top */}
+          <div className="flex h-16 items-center justify-between px-4 sm:px-5">
+            {/* Logo */}
+            <motion.a
+              href="#home"
+              onClick={handleNavigate}
+              initial={{ opacity: 0, x: -15 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{
+                duration: 0.6,
+                delay: 0.15,
+                ease,
+              }}
+              className="flex shrink-0 items-center gap-2.5"
+            >
+              <motion.span
+                whileHover={{
+                  rotate: 6,
+                  scale: 1.06,
+                }}
+                transition={{
+                  type: "spring",
+                  stiffness: 400,
+                  damping: 15,
+                }}
+                className="grid h-8 w-8 shrink-0 place-items-center rounded-[9px] bg-[#d8ff63] text-sm font-black text-[#111111] shadow-sm"
+              >
+                A
+              </motion.span>
+
+              <span className="text-[16px] font-semibold tracking-[-0.05em] text-[#111111]">
+                vance.
+              </span>
+            </motion.a>
+
+            {/* Desktop Navigation */}
+            <motion.nav
+              initial="hidden"
+              animate="visible"
               variants={{
-                hidden: {
-                  opacity: 0,
-                  y: 12,
-                },
+                hidden: {},
                 visible: {
-                  opacity: 1,
-                  y: 0,
                   transition: {
-                    duration: 0.35,
-                    ease: [0.22, 1, 0.36, 1],
+                    staggerChildren: 0.08,
                   },
                 },
               }}
+              className="hidden items-center gap-8 md:flex"
             >
-              <a
-                href={item.href}
-                onClick={onNavigate}
-                className="group flex items-center justify-between rounded-xl px-3 py-3 text-sm font-semibold text-[#444444] transition-colors duration-300 hover:bg-[#f5f5f1] hover:text-[#111111]"
-              >
-                <span>{item.label}</span>
+              {navigation.map((item) => (
+                <motion.a
+                  key={item.href}
+                  href={item.href}
+                  variants={{
+                    hidden: {
+                      opacity: 0,
+                      y: -6,
+                    },
+                    visible: {
+                      opacity: 1,
+                      y: 0,
+                      transition: {
+                        duration: 0.4,
+                        ease,
+                      },
+                    },
+                  }}
+                  className="group relative text-xs font-semibold text-[#666666] transition-colors duration-300 hover:text-[#111111]"
+                >
+                  {item.label}
 
+                  <motion.span
+                    initial={{
+                      scaleX: 0,
+                      opacity: 0,
+                    }}
+                    whileHover={{
+                      scaleX: 1,
+                      opacity: 1,
+                    }}
+                    transition={{
+                      duration: 0.25,
+                      ease: "easeOut",
+                    }}
+                    className="absolute -bottom-2 left-0 right-0 h-px origin-left bg-[#a8cf32]"
+                  />
+                </motion.a>
+              ))}
+            </motion.nav>
+
+            {/* Desktop CTA */}
+            <motion.a
+              href="#contact"
+              initial={{
+                opacity: 0,
+                x: 15,
+              }}
+              animate={{
+                opacity: 1,
+                x: 0,
+              }}
+              transition={{
+                duration: 0.6,
+                delay: 0.25,
+                ease,
+              }}
+              whileHover={{
+                y: -2,
+              }}
+              whileTap={{
+                scale: 0.97,
+              }}
+              className="hidden shrink-0 items-center gap-2 rounded-full bg-[#111111] px-5 py-2.5 text-xs font-bold text-white shadow-[0_4px_14px_rgba(0,0,0,0.12)] transition-colors duration-300 hover:bg-[#d8ff63] hover:text-[#111111] md:inline-flex"
+            >
+              Start a project
+
+              <motion.span
+                whileHover={{
+                  x: 3,
+                }}
+                transition={{
+                  type: "spring",
+                  stiffness: 400,
+                  damping: 20,
+                }}
+              >
+                ↗
+              </motion.span>
+            </motion.a>
+
+            {/* Mobile Menu Button */}
+            <motion.button
+              type="button"
+              onClick={() => setMenuOpen((prev) => !prev)}
+              whileTap={{
+                scale: 0.92,
+              }}
+              className="grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-black/[0.08] bg-[#fafaf8] text-[#111111] shadow-sm md:hidden"
+              aria-label={
+                menuOpen ? "Close navigation" : "Open navigation"
+              }
+              aria-expanded={menuOpen}
+              aria-controls="mobile-navigation"
+            >
+              <div className="relative h-5 w-5">
+                {/* Top */}
                 <motion.span
-                  className="text-black/20"
-                  initial={{ x: 0, opacity: 0.4 }}
-                  whileHover={{
-                    x: 4,
-                    opacity: 1,
+                  animate={{
+                    rotate: menuOpen ? 45 : 0,
+                    y: menuOpen ? 7 : 0,
                   }}
                   transition={{
                     duration: 0.25,
-                    ease: "easeOut",
                   }}
-                >
-                  ↗
-                </motion.span>
-              </a>
-            </motion.li>
-          ))}
-        </motion.ul>
+                  className="absolute left-0 top-1 block h-[1.5px] w-5 rounded-full bg-[#111111]"
+                />
 
-        {/* Mobile CTA */}
-        <motion.a
-          href="#contact"
-          onClick={onNavigate}
-          className="mx-1 mt-4 flex items-center justify-center gap-2 rounded-full bg-[#111111] px-4 py-3.5 text-xs font-bold text-white transition-colors duration-300 hover:bg-[#d8ff63] hover:text-[#111111]"
-          initial={{
-            opacity: 0,
-            y: 12,
-          }}
-          animate={{
-            opacity: 1,
-            y: 0,
-          }}
-          transition={{
-            delay: items.length * 0.06 + 0.1,
-            duration: 0.4,
-            ease: [0.22, 1, 0.36, 1],
-          }}
-          whileHover={{
-            y: -2,
-          }}
-          whileTap={{
-            scale: 0.98,
-          }}
-        >
-          Start a project
+                {/* Middle */}
+                <motion.span
+                  animate={{
+                    opacity: menuOpen ? 0 : 1,
+                  }}
+                  transition={{
+                    duration: 0.15,
+                  }}
+                  className="absolute left-0 top-[9px] block h-[1.5px] w-5 rounded-full bg-[#111111]"
+                />
 
-          <motion.span
-            whileHover={{ x: 3 }}
-            transition={{ duration: 0.2 }}
-          >
-            ↗
-          </motion.span>
-        </motion.a>
-      </nav>
-    );
-  }
+                {/* Bottom */}
+                <motion.span
+                  animate={{
+                    rotate: menuOpen ? -45 : 0,
+                    y: menuOpen ? -7 : 0,
+                  }}
+                  transition={{
+                    duration: 0.25,
+                  }}
+                  className="absolute left-0 top-[17px] block h-[1.5px] w-5 rounded-full bg-[#111111]"
+                />
+              </div>
+            </motion.button>
+          </div>
 
-  return (
-    <nav className={className} aria-label="Main navigation">
-      <motion.ul
-        className="flex items-center gap-8"
-        initial="hidden"
-        animate="visible"
-        variants={{
-          hidden: {},
-          visible: {
-            transition: {
-              staggerChildren: 0.08,
-            },
-          },
-        }}
-      >
-        {items.map((item) => (
-          <motion.li
-            key={item.href}
-            variants={{
-              hidden: {
-                opacity: 0,
-                y: -6,
-              },
-              visible: {
-                opacity: 1,
-                y: 0,
-                transition: {
-                  duration: 0.4,
-                  ease: [0.22, 1, 0.36, 1],
-                },
-              },
-            }}
-          >
-            <a
-              href={item.href}
-              className="group relative block text-xs font-semibold text-[#666666] transition-colors duration-300 hover:text-[#111111]"
-            >
-              {item.label}
-
-              {/* Animated underline */}
-              <motion.span
-                className="absolute -bottom-2 left-0 h-px w-full origin-left bg-[#a8cf32]"
+          {/* Mobile Navigation */}
+          <AnimatePresence initial={false}>
+            {menuOpen && (
+              <motion.div
+                id="mobile-navigation"
                 initial={{
-                  scaleX: 0,
+                  height: 0,
                   opacity: 0,
                 }}
-                whileHover={{
-                  scaleX: 1,
+                animate={{
+                  height: "auto",
                   opacity: 1,
+                }}
+                exit={{
+                  height: 0,
+                  opacity: 0,
                 }}
                 transition={{
                   duration: 0.3,
-                  ease: [0.22, 1, 0.36, 1],
+                  ease,
                 }}
-              />
-            </a>
-          </motion.li>
-        ))}
-      </motion.ul>
-    </nav>
+                className="md:hidden"
+              >
+                <div className="border-t border-black/[0.07] px-4 py-4">
+                  <nav className="space-y-1">
+                    {navigation.map((item, index) => (
+                      <motion.a
+                        key={item.href}
+                        href={item.href}
+                        onClick={handleNavigate}
+                        initial={{
+                          opacity: 0,
+                          x: -10,
+                        }}
+                        animate={{
+                          opacity: 1,
+                          x: 0,
+                        }}
+                        transition={{
+                          delay: index * 0.06,
+                          duration: 0.3,
+                          ease,
+                        }}
+                        whileTap={{
+                          scale: 0.98,
+                        }}
+                        className="flex min-h-[48px] items-center justify-between rounded-xl px-3 py-3 text-sm font-semibold text-[#444444] transition-colors duration-300 hover:bg-[#f5f5f1] hover:text-[#111111]"
+                      >
+                        <span>{item.label}</span>
+
+                        <span className="text-black/25">
+                          ↗
+                        </span>
+                      </motion.a>
+                    ))}
+                  </nav>
+
+                  {/* Mobile CTA */}
+                  <motion.a
+                    href="#contact"
+                    onClick={handleNavigate}
+                    initial={{
+                      opacity: 0,
+                      y: 8,
+                    }}
+                    animate={{
+                      opacity: 1,
+                      y: 0,
+                    }}
+                    transition={{
+                      delay: navigation.length * 0.06 + 0.05,
+                      duration: 0.3,
+                      ease,
+                    }}
+                    whileTap={{
+                      scale: 0.98,
+                    }}
+                    className="mt-4 flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-[#111111] px-4 py-3.5 text-xs font-bold text-white transition-colors duration-300 hover:bg-[#d8ff63] hover:text-[#111111]"
+                  >
+                    Start a project
+
+                    <span>↗</span>
+                  </motion.a>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.div>
+      </div>
+    </header>
   );
 }
 
-export default Navigation;
+export default Navbar;
