@@ -221,7 +221,7 @@ function Footer() {
                   </span>
 
                   <span className="mt-1 block break-all text-nowrap text-sm font-medium text-[#444444] transition-colors group-hover:text-[#111111]">
-                    avancewebdesign@gmail.com
+                    projects.avance@gmail.com
                   </span>
                 </span>
               </a>

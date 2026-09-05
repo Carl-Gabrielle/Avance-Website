@@ -210,22 +210,7 @@ function CTA() {
               </span>
             </motion.a>
 
-            {/* Email */}
-            <a
-              href="mailto:avancewebdesign@gmail.com"
-              className="
-                mt-3
-                w-fit
-                text-sm
-                font-medium
-                text-black/45
-                transition-colors
-                duration-200
-                hover:text-black
-              "
-            >
-              avancewebdesign@gmail.com
-            </a>
+           
           </motion.div>
         </div>
       </motion.div>
