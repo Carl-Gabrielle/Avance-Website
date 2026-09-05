@@ -17,12 +17,6 @@ function Home() {
       <main>
         <Hero />
         <About />
-        {/* <Services /> */}
-         {/* <Process /> */}
-         <Work />
-        {/* <TechStack /> */}
-       {/* <Pricing />*/}
-        <Work />
         {/* <Team /> */}
         <CTA />
         <Footer />
