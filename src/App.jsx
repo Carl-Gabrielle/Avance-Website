@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
-
 import Navbar from "./Components/Navbar";
 import Hero from "./Components/Hero";
 import About from "./Components/About";
@@ -9,6 +8,7 @@ import CTA from "./Components/CTA";
 import Footer from "./Components/Footer";
 import Team from "./Components/Team";
 import CaseStudy from "./Components/CaseStudy";
+import Services from "./Components/Services";
 import ScrollToTop from "./Components/ScrollToTop";
 
 function Home() {
@@ -17,8 +17,9 @@ function Home() {
       <main>
         <Hero />
         <About />
-        {/* <Team /> */}
         <Work />
+        <Services/>
+        {/* <Team /> */}
         <CTA />
         <Footer />
       </main>

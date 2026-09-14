@@ -23,18 +23,7 @@ const services = [
 
 const socialLinks = [
   {
-    label: "LinkedIn",
-    symbol: "in",
-    href: "#",
-  },
-  {
-    label: "Instagram",
-    symbol: "◎",
-    href: "#",
-  },
-  {
-    label: "X",
-    symbol: "𝕏",
+    label: "Facebook",
     href: "#",
   },
 ];
@@ -78,7 +67,7 @@ function Footer() {
   };
 
   return (
-    <footer className="border-t border-black/[0.07]  px-5 pb-5 pt-12 text-[#111111] sm:px-8 sm:pt-14">
+    <footer className="border-t border-black/[0.07] px-5 pb-5 pt-12 text-[#111111] sm:px-8 sm:pt-14">
       <motion.div
         variants={footerContainer}
         initial="hidden"
@@ -200,6 +189,10 @@ function Footer() {
             </div>
           </motion.div>
 
+          {/* ==================================================
+              GET IN TOUCH
+          ================================================== */}
+
           <motion.div variants={itemVariants}>
             <h3 className="mb-5 text-[9px] font-bold uppercase tracking-[0.18em] text-[#999999]">
               Get in touch
@@ -221,7 +214,7 @@ function Footer() {
                   </span>
 
                   <span className="mt-1 block break-all text-nowrap text-sm font-medium text-[#444444] transition-colors group-hover:text-[#111111]">
-                    projects.avance@gmail.com
+                    avancewebdesign@gmail.com
                   </span>
                 </span>
               </a>
@@ -238,7 +231,7 @@ function Footer() {
                   </span>
 
                   <span className="mt-1 block text-sm font-medium text-[#444444]">
-                   Pangasinan, Philippines
+                    Pangasinan, Philippines
                   </span>
                 </span>
               </div>
@@ -266,11 +259,15 @@ function Footer() {
               </span>
             </motion.div>
 
-            {/* Social + Back to top */}
+            {/* ==================================================
+                FACEBOOK + BACK TO TOP
+            ================================================== */}
+
             <motion.div
               variants={itemVariants}
               className="flex items-center gap-2"
             >
+              {/* Facebook */}
               {socialLinks.map((social) => (
                 <motion.a
                   key={social.label}
@@ -288,14 +285,8 @@ function Footer() {
                   }}
                   className="grid h-9 w-9 place-items-center rounded-full border border-black/[0.07] bg-white text-[#777777] transition-all duration-200 hover:border-[#d8ff63] hover:bg-[#d8ff63] hover:text-[#111111]"
                 >
-                  <span
-                    className={
-                      social.label === "LinkedIn"
-                        ? "text-[10px] font-black"
-                        : "text-sm font-medium"
-                    }
-                  >
-                    {social.symbol}
+                  <span className="text-sm font-bold leading-none">
+                    f
                   </span>
                 </motion.a>
               ))}

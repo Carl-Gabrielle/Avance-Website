@@ -32,23 +32,13 @@ function Hero() {
       id="home"
       className="
         relative isolate
-        flex
-        min-h-[calc(100svh-64px)]
-        flex-col
-        justify-center
+        flex min-h-[100svh]
+        flex-col justify-center
         overflow-hidden
         bg-[#fafaf8]
-        px-5
-        py-12
+        px-5 py-16
         text-[#111111]
-
-        sm:min-h-[calc(100svh-72px)]
-        sm:px-7
-        sm:py-14
-
-        md:px-10
-        md:py-16
-
+        sm:px-8 sm:py-20
         lg:block
         lg:min-h-[calc(100vh-120px)]
         lg:px-10
@@ -61,28 +51,23 @@ function Hero() {
       ================================================== */}
 
       {/* Soft lime ambient glow */}
+
       <motion.div
         className="
           pointer-events-none
           absolute
           left-1/2
-          top-[-120px]
+          top-[-150px]
           -z-10
-          h-[240px]
-          w-[240px]
+          h-[300px]
+          w-[300px]
           -translate-x-1/2
           rounded-full
           bg-[#d8ff63]/10
-          blur-[75px]
-
-          sm:top-[-150px]
-          sm:h-[340px]
-          sm:w-[340px]
-          sm:blur-[95px]
-
-          md:h-[420px]
-          md:w-[420px]
-
+          blur-[90px]
+          sm:h-[400px]
+          sm:w-[400px]
+          sm:blur-[110px]
           lg:left-[40%]
           lg:top-[-220px]
           lg:h-[520px]
@@ -102,6 +87,7 @@ function Hero() {
       />
 
       {/* Subtle grid */}
+
       <div
         className="
           grid-background-light
@@ -110,7 +96,7 @@ function Hero() {
           inset-0
           -z-10
           opacity-60
-          [mask-image:linear-gradient(to_bottom,black_0%,black_65%,transparent_96%)]
+          [mask-image:linear-gradient(to_bottom,black_0%,black_58%,transparent_94%)]
         "
       />
 
@@ -118,21 +104,7 @@ function Hero() {
           CONTENT
       ================================================== */}
 
-      <div
-        className="
-          mx-auto
-          w-full
-          max-w-[1440px]
-
-          translate-y-4
-
-          sm:translate-y-5
-
-          md:translate-y-4
-
-          lg:translate-y-0
-        "
-      >
+      <div className="mx-auto w-full max-w-[1440px]">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -140,10 +112,8 @@ function Hero() {
           className="
             grid
             items-center
-
             lg:grid-cols-[1.08fr_0.92fr]
             lg:gap-8
-
             xl:grid-cols-[1.05fr_0.95fr]
             xl:gap-14
           "
@@ -156,9 +126,7 @@ function Hero() {
             className="
               relative
               z-10
-              w-full
-              max-w-[800px]
-
+              max-w-[900px]
               lg:max-w-none
             "
           >
@@ -170,20 +138,17 @@ function Hero() {
               variants={itemVariants}
               className="
                 inline-flex
-                max-w-full
                 items-center
-                gap-2
+                gap-2.5
                 rounded-full
                 border
                 border-black/[0.07]
-                bg-white/80
-                px-3.5
+                bg-white/75
+                px-3
                 py-2
                 shadow-[0_5px_18px_rgba(0,0,0,0.025)]
                 backdrop-blur-sm
-
-                sm:gap-2.5
-                sm:px-4
+                sm:px-3.5
                 sm:py-2.5
               "
             >
@@ -211,15 +176,13 @@ function Hero() {
 
               <span
                 className="
-                  truncate
-                  text-[10px]
+                  text-[9px]
                   font-semibold
                   uppercase
-                  tracking-[0.11em]
+                  tracking-[0.15em]
                   text-[#555555]
-
                   sm:text-[10px]
-                  sm:tracking-[0.15em]
+                  sm:tracking-[0.17em]
                 "
               >
                 Digital Partner for Modern Businesses
@@ -234,28 +197,25 @@ function Hero() {
               variants={itemVariants}
               className="
                 mt-6
-                max-w-[760px]
-                text-[clamp(3rem,12vw,3.8rem)]
+                max-w-[950px]
+                text-[clamp(2.75rem,9vw,4rem)]
                 font-semibold
                 leading-[0.96]
-                tracking-[-0.06em]
+                tracking-[-0.055em]
 
-                sm:mt-7
-                sm:max-w-[800px]
-                sm:text-[clamp(3.5rem,8.5vw,4.8rem)]
+                sm:mt-8
+                sm:text-[clamp(3.5rem,7.5vw,5.2rem)]
                 sm:leading-[0.92]
                 sm:tracking-[-0.065em]
 
-                md:text-[clamp(3.8rem,7vw,5.2rem)]
-
                 lg:mt-9
                 lg:max-w-none
-                lg:text-[clamp(4.1rem,5.7vw,6.2rem)]
-                lg:leading-[0.9]
-                lg:tracking-[-0.07em]
+                lg:text-[clamp(4.5rem,6.2vw,6.8rem)]
+                lg:leading-[0.89]
+                lg:tracking-[-0.075em]
               "
             >
-              <span className="block">
+              <span className="block lg:whitespace-nowrap">
                 We build websites
               </span>
 
@@ -263,10 +223,9 @@ function Hero() {
                 className="
                   mt-2
                   block
-
-                  sm:mt-2.5
-
+                  sm:mt-3
                   lg:mt-2
+                  lg:whitespace-nowrap
                 "
               >
                 <span className="text-[#747474]">
@@ -307,33 +266,22 @@ function Hero() {
               variants={itemVariants}
               className="
                 mt-6
-                max-w-[580px]
-
-                sm:mt-7
-                sm:max-w-[640px]
-
-                md:mt-8
-
+                max-w-[650px]
+                sm:mt-8
                 lg:mt-7
-                lg:max-w-[650px]
-
                 xl:mt-8
               "
             >
               <p
                 className="
-                  max-w-[520px]
-                  text-[16px]
-                  font-medium
-                  leading-[1.55]
-                  text-[#555555]
+                  max-w-[620px]
+                  text-[15px]
+                  leading-6
+                  text-[#666666]
 
-                  sm:text-[17px]
+                  sm:text-lg
                   sm:leading-7
 
-                  md:text-[18px]
-
-                  lg:max-w-none
                   lg:text-[17px]
                   lg:leading-7
                 "
@@ -347,15 +295,12 @@ function Hero() {
                   mt-3
                   text-[14px]
                   font-semibold
-                  tracking-tight
-                  text-[#2A2A2A]
+                  tracking-[-0.01em]
+                  text-[#303030]
 
-                  sm:mt-3.5
-                  sm:text-[15px]
+                  sm:mt-4
+                  sm:text-[16px]
 
-                  md:text-[16px]
-
-                  lg:mt-4
                   lg:text-[16px]
                 "
               >
@@ -370,28 +315,28 @@ function Hero() {
             <motion.div
               variants={itemVariants}
               className="
-                mt-8
+                mt-7
                 flex
-                w-full
                 flex-col
-                items-stretch
                 gap-3
 
-                sm:mt-9
-                sm:gap-3.5
-
-                md:flex-row
-                md:items-center
-                md:gap-4
+                sm:mt-8
+                sm:flex-row
+                sm:items-center
 
                 lg:mt-9
               "
             >
               {/* PRIMARY CTA */}
+
               <motion.a
                 href="#contact"
-                whileHover={{ y: -3 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={{
+                  y: -3,
+                }}
+                whileTap={{
+                  scale: 0.98,
+                }}
                 transition={{
                   type: "spring",
                   stiffness: 400,
@@ -399,47 +344,42 @@ function Hero() {
                 }}
                 className="
                   inline-flex
-                  h-[50px]
-                  w-full
+                  min-h-[52px]
                   items-center
                   justify-center
-                  gap-2
-                  whitespace-nowrap
+                  gap-3
                   rounded-full
                   bg-[#111111]
-                  px-5
-                  text-[13px]
+                  px-7
+                  text-[14px]
                   font-semibold
-                  leading-none
                   text-white
                   shadow-[0_12px_28px_rgba(0,0,0,0.10)]
                   transition-shadow
                   hover:shadow-[0_16px_34px_rgba(0,0,0,0.14)]
 
-                  sm:h-[52px]
-                  sm:text-[14px]
-
-                  md:w-auto
-                  md:px-7
-
-                  lg:h-[54px]
-                  lg:gap-3
-                  lg:px-8
-                  lg:text-[15px]
+                  sm:min-h-[54px]
+                  sm:px-8
+                  sm:text-[15px]
                 "
               >
                 <span>Start a conversation</span>
 
-                <span className="text-[16px] leading-none sm:text-[17px]">
+                <span className="text-[17px] leading-none">
                   ↗
                 </span>
               </motion.a>
 
               {/* SECONDARY CTA */}
+
               <motion.a
                 href="#work"
-                whileHover={{ y: -3 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={{
+                  y: -3,
+                }}
+                whileTap={{
+                  scale: 0.98,
+                }}
                 transition={{
                   type: "spring",
                   stiffness: 400,
@@ -447,93 +387,40 @@ function Hero() {
                 }}
                 className="
                   inline-flex
-                  h-[50px]
-                  w-full
+                  min-h-[52px]
                   items-center
                   justify-center
-                  gap-2
-                  whitespace-nowrap
+                  gap-3
                   rounded-full
                   border
                   border-black/[0.08]
                   bg-white
-                  px-5
-                  text-[13px]
+                  px-7
+                  text-[14px]
                   font-semibold
-                  leading-none
                   text-[#333333]
                   shadow-[0_6px_20px_rgba(0,0,0,0.03)]
                   transition-all
                   hover:border-black/[0.14]
                   hover:shadow-[0_10px_26px_rgba(0,0,0,0.06)]
 
-                  sm:h-[52px]
-                  sm:text-[14px]
-
-                  md:w-auto
-                  md:px-7
-
-                  lg:h-[54px]
-                  lg:gap-3
-                  lg:px-8
-                  lg:text-[15px]
+                  sm:min-h-[54px]
+                  sm:px-8
+                  sm:text-[15px]
                 "
               >
                 <span>View our work</span>
 
-                <span
-                  className="
-                    text-[16px]
-                    leading-none
-                    text-[#8aaa2c]
-
-                    sm:text-[17px]
-                  "
-                >
+                <span className="text-[17px] leading-none text-[#8aaa2c]">
                   ↘
                 </span>
               </motion.a>
-            </motion.div>
-
-            {/* ==================================================
-                MOBILE SUPPORTING LINE
-            ================================================== */}
-
-            <motion.div
-              variants={itemVariants}
-              className="
-                mt-7
-                flex
-                items-center
-                gap-3
-
-                sm:mt-8
-
-                lg:hidden
-              "
-            >
-              <span className="h-px w-8 shrink-0 bg-black/10" />
-
-              <span
-                className="
-                  text-[9px]
-                  font-medium
-                  uppercase
-                  tracking-[0.13em]
-                  text-[#8a8a8a]
-                  whitespace-nowrap
-
-                  sm:text-[10px]
-                "
-              >
-                Design · Development · Digital
-              </span>
             </motion.div>
           </div>
 
           {/* ==================================================
               RIGHT — VISUAL
-              DESKTOP ONLY
+              Hidden below lg
           ================================================== */}
 
           <motion.div
@@ -552,7 +439,10 @@ function Hero() {
               xl:max-w-[590px]
             "
           >
-            {/* AMBIENT GLOW */}
+            {/* ==================================================
+                AMBIENT GLOW
+            ================================================== */}
+
             <motion.div
               className="
                 pointer-events-none
@@ -582,7 +472,10 @@ function Hero() {
               }}
             />
 
-            {/* BACK CARD */}
+            {/* ==================================================
+                BACK CARD
+            ================================================== */}
+
             <motion.div
               className="
                 absolute
@@ -629,13 +522,18 @@ function Hero() {
 
                 <div className="grid grid-cols-3 gap-3">
                   <div className="h-24 rounded-xl bg-black/[0.055]" />
+
                   <div className="h-24 rounded-xl bg-[#d8ff63]/45" />
+
                   <div className="h-24 rounded-xl bg-black/[0.055]" />
                 </div>
               </div>
             </motion.div>
 
-            {/* MIDDLE CARD */}
+            {/* ==================================================
+                MIDDLE CARD
+            ================================================== */}
+
             <motion.div
               className="
                 absolute
@@ -679,6 +577,7 @@ function Hero() {
 
                     <div>
                       <div className="h-2.5 w-20 rounded-full bg-black/10" />
+
                       <div className="mt-1.5 h-2 w-12 rounded-full bg-black/[0.05]" />
                     </div>
                   </div>
@@ -736,7 +635,11 @@ function Hero() {
               </div>
             </motion.div>
 
-            {/* FRONT / MAIN CARD */}
+            {/* ==================================================
+                FRONT / MAIN CARD
+                Slightly larger + cleaner
+            ================================================== */}
+
             <motion.div
               className="
                 absolute
@@ -765,6 +668,7 @@ function Hero() {
               }}
             >
               {/* Browser bar */}
+
               <div className="flex items-center gap-1.5 px-3 py-2.5">
                 <span className="h-2 w-2 rounded-full bg-black/[0.08]" />
                 <span className="h-2 w-2 rounded-full bg-black/[0.08]" />
@@ -773,7 +677,10 @@ function Hero() {
                 <div className="ml-auto h-2 w-24 rounded-full bg-black/[0.045]" />
               </div>
 
-              {/* IMAGE PREVIEW */}
+              {/* ==================================================
+                  IMAGE PREVIEW
+              ================================================== */}
+
               <div
                 className="
                   relative
@@ -785,7 +692,6 @@ function Hero() {
                 <img
                   src={thumbnail}
                   alt="Website design preview"
-                  loading="eager"
                   className="
                     block
                     h-[250px]
@@ -797,6 +703,8 @@ function Hero() {
                     ease-out
                   "
                 />
+
+                {/* Minimal subtle overlay */}
 
                 <div
                   className="

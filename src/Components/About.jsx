@@ -18,7 +18,7 @@ function About() {
   const fadeUp = {
     hidden: {
       opacity: 0,
-      y: 18,
+      y: 20,
     },
     visible: {
       opacity: 1,
@@ -36,27 +36,30 @@ function About() {
       description:
         "We start by understanding what you need, who you're reaching, and what the website needs to achieve.",
       icon: Lightbulb,
-      bg: "bg-[#e9f0d7]",
-      iconBg: "bg-[#d7e8a7]",
-      iconColor: "text-[#536b16]",
+      background: "bg-[#eef4dc]",
+      iconBackground: "bg-[#dcebb2]",
+      iconColor: "text-[#708d1d]",
+      accent: "bg-[#a8cf32]",
     },
     {
       title: "Design",
       description:
         "We turn that direction into a clear visual system that feels considered, distinctive, and easy to use.",
       icon: Palette,
-      bg: "bg-[#e9e5f2]",
-      iconBg: "bg-[#d8d0e9]",
-      iconColor: "text-[#62547e]",
+      background: "bg-[#f0edf6]",
+      iconBackground: "bg-[#e1daed]",
+      iconColor: "text-[#74668d]",
+      accent: "bg-[#b5a6cf]",
     },
     {
       title: "Development",
       description:
         "We bring the design to life with responsive, reliable experiences built for real-world use.",
       icon: Code2,
-      bg: "bg-[#e5eceb]",
-      iconBg: "bg-[#cededb]",
-      iconColor: "text-[#45655d]",
+      background: "bg-[#eaf0ef]",
+      iconBackground: "bg-[#d8e4e1]",
+      iconColor: "text-[#54716a]",
+      accent: "bg-[#8da9a1]",
     },
   ];
 
@@ -64,108 +67,69 @@ function About() {
     <section
       id="about"
       className="
-         bg-[#f7f8fa]
+        bg-[#f7f8fa]
         px-5
-        py-20
-        text-[#111111]
-        sm:px-8
-        sm:py-24
-        lg:py-28
+        py-10
+        text-[#111]
+        sm:px-7
+        sm:py-12
+        md:px-10
+        lg:px-10
+        lg:py-14
       "
     >
-      <div className="mx-auto max-w-[1200px]">
+      <div className="mx-auto w-full max-w-[1440px]">
 
         {/* INTRO */}
-
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{
-            once: true,
-            amount: 0.2,
-          }}
+          viewport={{ once: true, amount: 0.25 }}
           variants={containerVariants}
-          className="max-w-4xl"
+          className="grid gap-8 lg:grid-cols-[1.35fr_0.9fr] lg:items-end lg:gap-16"
         >
-          {/* Eyebrow */}
-          <motion.div
-            variants={fadeUp}
-            className="mb-6 flex items-center gap-3"
-          >
-            <span className="h-1.5 w-1.5 rounded-full bg-[#a8cf32]" />
-
-            <span
-              className="
-                text-[10px]
-                font-bold
-                uppercase
-                tracking-[0.18em]
-                text-[#7c9825]
-              "
+          <div>
+            <motion.div
+              variants={fadeUp}
+              className="mb-5 flex items-center gap-3"
             >
-              How We Work
-            </span>
+              <span className="h-1.5 w-1.5 rounded-full bg-[#a8cf32]" />
+              <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#7f941f]">
+                How we work
+              </span>
+            </motion.div>
+
+            <motion.h2
+              variants={fadeUp}
+              className="max-w-3xl text-[clamp(2.3rem,5vw,4rem)] font-semibold leading-[1.05] tracking-[-0.04em]"
+            >
+              Thoughtful from
+              <br />
+              <span className="text-[#969693]">
+                first idea to final build.
+              </span>
+            </motion.h2>
+          </div>
+
+          <motion.div variants={fadeUp} className="max-w-md lg:justify-self-end">
+            <div className="mb-3 h-px w-10 bg-[#a8cf32]" />
+            <p className="text-[15px] leading-relaxed text-[#5f5f5c] sm:text-[15.5px]">
+              We keep the process focused and collaborative. Every project
+              starts with understanding the problem, then moves through
+              strategy, design, and development with purpose.
+            </p>
           </motion.div>
-
-          {/* Heading */}
-          <motion.h2
-            variants={fadeUp}
-            className="
-              max-w-4xl
-              text-[clamp(2.7rem,6vw,5.8rem)]
-              font-semibold
-              leading-[0.92]
-              tracking-[-0.075em]
-            "
-          >
-            Thoughtful from
-            <br />
-
-            <span className="text-[#8b8b86]">
-              first idea to final build.
-            </span>
-          </motion.h2>
-
-          {/* Description */}
-          <motion.p
-            variants={fadeUp}
-            className="
-              mt-7
-              max-w-2xl
-              text-base
-              leading-7
-              text-[#555552]
-              sm:mt-8
-              sm:text-lg
-              sm:leading-8
-            "
-          >
-            We keep the process focused and collaborative. Every project
-            starts with understanding the problem, then moves through
-            strategy, design, and development with purpose.
-          </motion.p>
         </motion.div>
 
         {/* SERVICES */}
-
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{
-            once: true,
-            amount: 0.15,
-          }}
+          viewport={{ once: true, amount: 0.15 }}
           variants={containerVariants}
-          className="mt-14 sm:mt-16 lg:mt-20"
+          className="mt-10 sm:mt-12 lg:mt-14"
         >
-          <div
-            className="
-              grid
-              gap-3
-              sm:grid-cols-3
-              sm:gap-4
-            "
-          >
+          <div className="grid gap-4 sm:grid-cols-3 sm:gap-5">
             {services.map((service) => {
               const Icon = service.icon;
 
@@ -173,109 +137,47 @@ function About() {
                 <motion.div
                   key={service.title}
                   variants={fadeUp}
-                  whileHover={{
-                    y: -5,
-                  }}
-                  transition={{
-                    duration: 0.3,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
+                  whileHover={{ y: -5 }}
+                  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                   className={`
-                    group
-                    relative
-                    min-h-[225px]
-                    overflow-hidden
-                    rounded-2xl
-                    border
-                    border-black/[0.05]
-                    p-5
-                    sm:min-h-[235px]
-                    sm:p-6
-                    ${service.bg}
+                    group relative flex flex-col overflow-hidden rounded-2xl
+                    border border-black/[0.04] p-6 sm:p-7
+                    shadow-[0_2px_8px_rgba(0,0,0,0.03)]
+                    transition-all duration-300
+                    hover:shadow-[0_16px_40px_-12px_rgba(0,0,0,0.1)]
+                    ${service.background}
                   `}
                 >
-                  {/* Decorative circles */}
-
-                  <div
-                    className="
-                      pointer-events-none
-                      absolute
-                      -right-14
-                      -top-14
-                      h-32
-                      w-32
-                      rounded-full
-                      border
-                      border-black/[0.055]
-                      transition-transform
-                      duration-700
-                      group-hover:scale-125
-                    "
-                  />
-
-                  <div
-                    className="
-                      pointer-events-none
-                      absolute
-                      -right-3
-                      -top-3
-                      h-16
-                      w-16
-                      rounded-full
-                      border
-                      border-black/[0.045]
-                    "
-                  />
-
                   {/* Icon */}
-
                   <div
                     className={`
-                      relative
-                      grid
-                      h-9
-                      w-9
-                      place-items-center
-                      rounded-full
-                      ${service.iconBg}
-                      ${service.iconColor}
-                      transition-transform
-                      duration-300
-                      group-hover:-translate-y-0.5
+                      flex h-10 w-10 items-center justify-center rounded-xl
+                      ${service.iconBackground} ${service.iconColor}
+                      transition-transform duration-300 group-hover:-translate-y-0.5
                     `}
                   >
-                    <Icon
-                      size={16}
-                      strokeWidth={1.5}
-                    />
+                    <Icon size={17} strokeWidth={1.6} />
                   </div>
 
                   {/* Content */}
-
-                  <div className="relative mt-7">
-                    <h3
-                      className="
-                        text-[1.25rem]
-                        font-semibold
-                        leading-tight
-                        tracking-[-0.04em]
-                      "
-                    >
+                  <div className="mt-6">
+                    <h3 className="text-[1.25rem] font-semibold tracking-[-0.03em] text-[#111]">
                       {service.title}
                     </h3>
-
-                    <p
-                      className="
-                        mt-2
-                        max-w-[290px]
-                        text-[13px]
-                        leading-[1.55]
-                        text-black/50
-                      "
-                    >
+                    <p className="mt-2.5 text-[13.5px] leading-[1.55] text-black/50">
                       {service.description}
                     </p>
                   </div>
+
+                  {/* Accent bar */}
+                  <div
+                    className={`
+                      absolute bottom-0 left-0 h-[3px] w-0
+                      ${service.accent}
+                      transition-all duration-500 ease-out
+                      group-hover:w-full
+                    `}
+                  />
                 </motion.div>
               );
             })}
@@ -283,36 +185,19 @@ function About() {
         </motion.div>
 
         {/* CLOSING */}
-
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{
-            once: true,
-            amount: 0.2,
-          }}
+          viewport={{ once: true, amount: 0.3 }}
           variants={fadeUp}
-          className="
-            mt-12
-            max-w-2xl
-            sm:mt-14
-            lg:mt-16
-          "
+          className="mt-10 flex max-w-2xl items-start gap-3.5 sm:mt-12"
         >
-          <p
-            className="
-              text-sm
-              leading-6
-              text-[#777774]
-              sm:text-base
-              sm:leading-7
-            "
-          >
-            No unnecessary layers or complicated process. Just clear
-            thinking, strong design, and technology used where it matters.
+          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#a8cf32]" />
+          <p className="text-[13.5px] leading-relaxed text-[#858582] sm:text-[14px]">
+            No unnecessary layers or complicated process. Just clear thinking,
+            strong design, and technology used where it matters.
           </p>
         </motion.div>
-
       </div>
     </section>
   );
