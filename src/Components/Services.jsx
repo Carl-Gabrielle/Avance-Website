@@ -1,32 +1,36 @@
 import { motion } from "motion/react";
+import {
+  MonitorSmartphone,
+  Workflow,
+  PanelsTopLeft,
+} from "lucide-react";
 
 const services = [
   {
-    number: "01",
-    title: "Brand",
+    title: "Web Design & Development",
     description:
-      "Positioning, visual identity, and brand systems that make your business recognizable.",
-    tags: ["Strategy", "Identity", "Art direction"],
+      "Modern websites designed around your brand, your audience, and the way your business works.",
+    icon: MonitorSmartphone,
+    label: "Websites",
+    type: "website",
   },
   {
-    number: "02",
-    title: "Digital",
+    title: "Custom Systems & Applications",
     description:
-      "Websites and digital experiences designed around clarity, conversion, and real people.",
-    tags: ["UX/UI", "Web design", "Development"],
+      "Business-focused web applications built to simplify operations, improve workflows, and solve real needs.",
+    icon: Workflow,
+    label: "Custom Systems",
+    type: "dashboard",
   },
   {
-    number: "03",
-    title: "Product",
+    title: "UI/UX & Digital Design",
     description:
-      "Digital products that balance business goals with intuitive, considered experiences.",
-    tags: ["Product strategy", "Prototyping", "Systems"],
+      "Clear and intuitive interfaces that make websites and applications easier and more enjoyable to use.",
+    icon: PanelsTopLeft,
+    label: "UI / UX",
+    type: "design",
   },
 ];
-
-/* ==================================================
-   ANIMATION VARIANTS
-================================================== */
 
 const containerVariants = {
   hidden: {},
@@ -37,7 +41,7 @@ const containerVariants = {
   },
 };
 
-const headerVariants = {
+const fadeUp = {
   hidden: {
     opacity: 0,
     y: 24,
@@ -52,10 +56,10 @@ const headerVariants = {
   },
 };
 
-const rowVariants = {
+const cardVariants = {
   hidden: {
     opacity: 0,
-    y: 28,
+    y: 30,
   },
   visible: {
     opacity: 1,
@@ -67,70 +71,131 @@ const rowVariants = {
   },
 };
 
-const numberVariants = {
-  hidden: {
-    opacity: 0,
-    x: -12,
-  },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      duration: 0.5,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  },
-};
+/* =======================================================
+   WEBSITE PREVIEW
+======================================================= */
 
-const contentVariants = {
-  hidden: {
-    opacity: 0,
-    x: -8,
-  },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      duration: 0.6,
-      delay: 0.08,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  },
-};
+function WebsitePreview() {
+  return (
+    <div className="flex h-full w-full items-center justify-center bg-[#f4f4f1] p-5 sm:p-6">
+      <div className="w-full max-w-[260px] rounded-[10px] border border-black/[0.06] bg-white shadow-[0_10px_30px_rgba(0,0,0,0.05)] transition-transform duration-700 group-hover:-translate-y-1">
+        {/* Browser bar */}
 
-const tagVariants = {
-  hidden: {
-    opacity: 0,
-    y: 6,
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.35,
-      ease: "easeOut",
-    },
-  },
-};
+        <div className="flex h-7 items-center gap-1.5 border-b border-black/[0.05] px-3">
+          <span className="h-1.5 w-1.5 rounded-full bg-black/10" />
+          <span className="h-1.5 w-1.5 rounded-full bg-black/10" />
+          <span className="h-1.5 w-1.5 rounded-full bg-black/10" />
+        </div>
 
-/* ==================================================
-   SERVICES
-================================================== */
+        {/* Website content */}
+
+        <div className="space-y-3 p-6">
+          <div className="h-3 w-2/3 rounded-full bg-[#111111]" />
+          <div className="h-2 w-4/5 rounded-full bg-black/10" />
+          <div className="h-5 w-16 rounded-full bg-[#a8cf32] pt-1" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* =======================================================
+   DASHBOARD PREVIEW
+======================================================= */
+
+function DashboardPreview() {
+  return (
+    <div className="flex h-full w-full items-center justify-center bg-[#f4f4f1] p-5 sm:p-6">
+      <div className="flex h-[190px] w-full max-w-[260px] overflow-hidden rounded-[10px] border border-black/[0.06] bg-white shadow-[0_10px_30px_rgba(0,0,0,0.05)] transition-transform duration-700 group-hover:-translate-y-1">
+        {/* Sidebar rail */}
+
+        <div className="flex w-9 flex-col items-center gap-3 border-r border-black/[0.05] py-4">
+          <span className="h-2.5 w-2.5 rounded-full bg-[#a8cf32]" />
+          <span className="h-2 w-2 rounded-full bg-black/10" />
+          <span className="h-2 w-2 rounded-full bg-black/10" />
+        </div>
+
+        {/* Main */}
+
+        <div className="flex flex-1 flex-col justify-center gap-4 px-5">
+          <div className="h-2.5 w-1/2 rounded-full bg-[#111111]" />
+
+          <div className="flex h-14 items-end gap-2">
+            <div className="h-[45%] flex-1 rounded-t bg-[#ececec]" />
+            <div className="h-[70%] flex-1 rounded-t bg-[#dcdcdc]" />
+            <div className="h-[55%] flex-1 rounded-t bg-[#ececec]" />
+            <div className="h-[95%] flex-1 rounded-t bg-[#a8cf32]" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* =======================================================
+   UI / UX PREVIEW
+======================================================= */
+
+function DesignPreview() {
+  return (
+    <div className="flex h-full w-full items-center justify-center bg-[#f4f4f1] p-5 sm:p-6">
+      <div className="w-full max-w-[260px] rounded-[10px] border border-black/[0.06] bg-white p-5 shadow-[0_10px_30px_rgba(0,0,0,0.05)] transition-transform duration-700 group-hover:-translate-y-1">
+        <div className="grid grid-cols-[0.6fr_1fr] gap-3">
+          <div className="space-y-2">
+            <div className="h-6 rounded-md bg-[#a8cf32]" />
+            <div className="h-6 rounded-md bg-[#f0f0f2]" />
+            <div className="h-6 rounded-md bg-[#f0f0f2]" />
+          </div>
+
+          <div className="rounded-md bg-[#f5f5f5] p-3">
+            <div className="h-2 w-3/4 rounded-full bg-black/10" />
+            <div className="mt-2 h-2 w-1/2 rounded-full bg-black/10" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* =======================================================
+   VISUAL SWITCHER
+======================================================= */
+
+function ServiceVisual({ type }) {
+  if (type === "website") {
+    return <WebsitePreview />;
+  }
+
+  if (type === "dashboard") {
+    return <DashboardPreview />;
+  }
+
+  return <DesignPreview />;
+}
+
+/* =======================================================
+   SERVICES SECTION
+======================================================= */
 
 function Services() {
   return (
     <section
       id="services"
-      className="bg-[#fafaf8] px-5 py-24 text-[#111111] sm:px-8 sm:py-32"
+      className="
+        bg-[#fafaf8]
+        px-5
+        py-12
+        text-[#111111]
+        sm:px-8
+        sm:py-16
+        lg:py-20
+      "
     >
       <div className="mx-auto max-w-7xl">
 
-        {/* ==================================================
-            HEADER
-        ================================================== */}
+        {/* HEADER */}
 
         <motion.div
-          className="max-w-2xl"
           initial="hidden"
           whileInView="visible"
           viewport={{
@@ -138,25 +203,62 @@ function Services() {
             amount: 0.3,
           }}
           variants={containerVariants}
+          className="mb-9 sm:mb-11 lg:mb-12"
         >
-          <motion.div variants={headerVariants}>
-            <SectionLabel>Capabilities</SectionLabel>
-          </motion.div>
+          <motion.div variants={fadeUp}>
 
-          <motion.h2
-            variants={headerVariants}
-            className="mt-6 text-balance text-4xl font-semibold leading-[0.98] tracking-[-0.06em] text-[#111111] sm:text-5xl"
-          >
-            Everything you need to make the next move.
-          </motion.h2>
+            {/* Eyebrow */}
+
+            <div className="mb-5 flex items-center gap-2">
+              <span className="h-2 w-2 rounded-full bg-[#a8cf32]" />
+
+              <span className="text-[11px] font-medium uppercase tracking-[0.16em] text-[#777777]">
+                What we do
+              </span>
+            </div>
+
+            {/* Heading */}
+
+            <h2
+              className="
+                max-w-3xl
+                text-[42px]
+                font-normal
+                leading-[1.02]
+                tracking-[-0.045em]
+                text-[#3f4657]
+                sm:text-[52px]
+                lg:text-[58px]
+              "
+            >
+              Built around{" "}
+              <span className="font-semibold text-[#0b1025]">
+                your business.
+              </span>
+            </h2>
+
+            {/* Description */}
+
+            <p
+              className="
+                mt-5
+                max-w-2xl
+                text-sm
+                leading-6
+                text-[#777777]
+                sm:text-[15px]
+              "
+            >
+              We design and build websites and custom systems around the way
+              your business works — combining thoughtful design with practical
+              technology.
+            </p>
+          </motion.div>
         </motion.div>
 
-        {/* ==================================================
-            SERVICES
-        ================================================== */}
+        {/* SERVICE CARDS */}
 
         <motion.div
-          className="mt-12 divide-y divide-black/[0.08] border-y border-black/[0.08]"
           initial="hidden"
           whileInView="visible"
           viewport={{
@@ -164,116 +266,131 @@ function Services() {
             amount: 0.15,
           }}
           variants={containerVariants}
+          className="grid gap-5 md:grid-cols-3"
         >
-          {services.map((service) => (
-            <motion.article
-              key={service.number}
-              variants={rowVariants}
-              className="group relative grid gap-5 py-7 transition-colors duration-300 hover:bg-black/[0.015] sm:grid-cols-[55px_0.8fr_1.2fr_40px] sm:items-center sm:gap-8"
-            >
-              {/* ==================================================
-                  NUMBER
-              ================================================== */}
+          {services.map((service) => {
+            const Icon = service.icon;
 
-              <motion.span
-                variants={numberVariants}
-                className="text-[11px] font-bold tracking-[0.08em] text-[#8aaa2c]"
-              >
-                {service.number}
-              </motion.span>
-
-              {/* ==================================================
-                  TITLE
-              ================================================== */}
-
-              <motion.h3
-                variants={contentVariants}
-                className="text-2xl font-semibold tracking-[-0.05em] text-[#111111] transition-colors duration-300 group-hover:text-[#8aaa2c] sm:text-3xl"
-              >
-                {service.title}
-              </motion.h3>
-
-              {/* ==================================================
-                  DESCRIPTION + TAGS
-              ================================================== */}
-
-              <motion.div variants={contentVariants}>
-                <p className="max-w-xl text-[13px] font-medium leading-6 text-[#666666] sm:text-sm">
-                  {service.description}
-                </p>
-
-                {/* Tags */}
-
-                <motion.div
-                  className="mt-4 flex flex-wrap gap-1.5"
-                  variants={containerVariants}
-                >
-                  {service.tags.map((tag) => (
-                    <motion.span
-                      key={tag}
-                      variants={tagVariants}
-                      className="rounded-full border border-black/[0.08] bg-white px-2.5 py-1 text-[9px] font-semibold uppercase tracking-[0.04em] text-[#666666] shadow-[0_1px_2px_rgba(0,0,0,0.02)] transition-all duration-300 group-hover:border-black/[0.13] group-hover:text-[#444444]"
-                    >
-                      {tag}
-                    </motion.span>
-                  ))}
-                </motion.div>
-              </motion.div>
-
-              {/* ==================================================
-                  ARROW
-              ================================================== */}
-
-              <motion.div
-                whileHover={{
-                  scale: 1.08,
-                  x: 0,
-                }}
+            return (
+              <motion.article
+                key={service.title}
+                variants={cardVariants}
+                whileHover={{ y: -6 }}
                 transition={{
                   type: "spring",
-                  stiffness: 400,
-                  damping: 22,
+                  stiffness: 300,
+                  damping: 24,
                 }}
-                className="hidden h-9 w-9 translate-x-2 items-center justify-center rounded-full border border-black/[0.08] bg-white text-sm text-[#111111] opacity-0 shadow-sm transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100 sm:flex"
+                className="
+                  group
+                  overflow-hidden
+                  rounded-[22px]
+                  border
+                  border-black/[0.07]
+                  bg-white
+                  p-3
+                  shadow-[0_4px_25px_rgba(0,0,0,0.025)]
+                "
               >
-                ↗
-              </motion.div>
-            </motion.article>
-          ))}
+                {/* VISUAL */}
+
+                <div className="relative h-60 overflow-hidden rounded-[16px] sm:h-64">
+                  <ServiceVisual type={service.type} />
+
+                  {/* Service label */}
+
+                  <div className="absolute left-4 top-4">
+                    <div
+                      className="
+                        flex
+                        items-center
+                        gap-2
+                        rounded-full
+                        border
+                        border-white/50
+                        bg-white/85
+                        px-3
+                        py-1.5
+                        shadow-[0_4px_15px_rgba(0,0,0,0.05)]
+                        backdrop-blur-md
+                      "
+                    >
+                      <span className="h-1.5 w-1.5 rounded-full bg-[#a8cf32]" />
+
+                      <span className="text-[10px] font-medium uppercase tracking-[0.12em] text-[#222222]">
+                        {service.label}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Icon */}
+
+                  <motion.div
+                    whileHover={{
+                      scale: 1.08,
+                      rotate: 3,
+                    }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 18,
+                    }}
+                    className="
+                      absolute
+                      bottom-5
+                      right-5
+                      flex
+                      h-12
+                      w-12
+                      items-center
+                      justify-center
+                      rounded-[15px]
+                      bg-[#a8cf32]
+                      text-[#111111]
+                      shadow-[0_10px_30px_rgba(168,207,50,0.25)]
+                    "
+                  >
+                    <Icon
+                      strokeWidth={1.8}
+                      className="h-5 w-5"
+                    />
+                  </motion.div>
+                </div>
+
+                {/* CONTENT */}
+
+                <div className="px-3 pb-5 pt-5 sm:px-4 sm:pb-6 sm:pt-6">
+                  <h3
+                    className="
+                      max-w-[330px]
+                      text-[21px]
+                      font-semibold
+                      leading-[1.1]
+                      tracking-[-0.04em]
+                      text-[#111111]
+                    "
+                  >
+                    {service.title}
+                  </h3>
+
+                  <p
+                    className="
+                      mt-3
+                      max-w-[340px]
+                      text-[13px]
+                      leading-[1.65]
+                      text-[#777777]
+                    "
+                  >
+                    {service.description}
+                  </p>
+                </div>
+              </motion.article>
+            );
+          })}
         </motion.div>
       </div>
     </section>
-  );
-}
-
-/* ==================================================
-   SECTION LABEL
-================================================== */
-
-function SectionLabel({ children }) {
-  return (
-    <div className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.2em] text-[#7c9825]">
-      <motion.span
-        initial={{
-          width: 0,
-          opacity: 0,
-        }}
-        whileInView={{
-          width: 28,
-          opacity: 1,
-        }}
-        viewport={{
-          once: true,
-        }}
-        transition={{
-          duration: 0.6,
-          ease: [0.22, 1, 0.36, 1],
-        }}
-        className="h-px bg-[#a8cf32]"
-      />
-
-      {children}
-    </div>
   );
 }
 

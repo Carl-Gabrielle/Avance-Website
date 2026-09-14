@@ -5,7 +5,16 @@ function CTA() {
   return (
     <section
       id="contact"
-      className=" px-5 pb-20 pt-8 text-[#111111] sm:px-8 sm:pb-28"
+      className="
+        px-5
+        pb-12
+        pt-6
+        text-[#111111]
+        sm:px-8
+        sm:pb-16
+        sm:pt-8
+        lg:pb-20
+      "
     >
       <motion.div
         initial={{ opacity: 0, y: 35 }}
@@ -15,13 +24,25 @@ function CTA() {
           duration: 0.7,
           ease: [0.22, 1, 0.36, 1],
         }}
-        className="relative mx-auto max-w-7xl overflow-hidden rounded-[28px] border border-black/[0.08] bg-[#d8ff63] sm:rounded-[32px]"
+        className="
+          relative
+          mx-auto
+          max-w-7xl
+          overflow-hidden
+          rounded-[28px]
+          border
+          border-black/[0.08]
+          bg-[#d8ff63]
+          sm:rounded-[32px]
+        "
       >
         {/* Subtle grid */}
+
         <div
           className="
             pointer-events-none
-            absolute inset-0
+            absolute
+            inset-0
             opacity-[0.13]
             [background-image:linear-gradient(rgba(17,17,17,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(17,17,17,0.08)_1px,transparent_1px)]
             [background-size:56px_56px]
@@ -29,6 +50,7 @@ function CTA() {
         />
 
         {/* Soft highlight */}
+
         <div
           className="
             pointer-events-none
@@ -44,6 +66,7 @@ function CTA() {
         />
 
         {/* Simple graphic */}
+
         <div
           className="
             pointer-events-none
@@ -90,11 +113,28 @@ function CTA() {
         </div>
 
         {/* Content */}
-        <div className="relative z-10 grid gap-12 px-6 py-12 sm:px-10 sm:py-16 lg:grid-cols-[1fr_360px] lg:gap-20 lg:px-16 lg:py-20">
-          
+
+        <div
+          className="
+            relative
+            z-10
+            grid
+            gap-10
+            px-6
+            py-10
+            sm:px-10
+            sm:py-12
+            lg:grid-cols-[1fr_360px]
+            lg:gap-20
+            lg:px-16
+            lg:py-16
+          "
+        >
           {/* Left */}
+
           <div>
             {/* Eyebrow */}
+
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -104,12 +144,21 @@ function CTA() {
             >
               <span className="h-2 w-2 rounded-full bg-[#111111]" />
 
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-black/55">
+              <span
+                className="
+                  text-[10px]
+                  font-bold
+                  uppercase
+                  tracking-[0.2em]
+                  text-black/55
+                "
+              >
                 Have something in mind?
               </span>
             </motion.div>
 
             {/* Heading */}
+
             <motion.h2
               initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -120,7 +169,7 @@ function CTA() {
                 ease: [0.22, 1, 0.36, 1],
               }}
               className="
-                mt-7
+                mt-6
                 max-w-4xl
                 text-balance
                 text-[clamp(3.2rem,7vw,6.8rem)]
@@ -136,6 +185,7 @@ function CTA() {
           </div>
 
           {/* Right */}
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -147,13 +197,23 @@ function CTA() {
             }}
             className="flex flex-col justify-end lg:pb-1"
           >
-            <p className="max-w-sm text-[15px] font-medium leading-7 text-black/60 sm:text-base">
+            <p
+              className="
+                max-w-sm
+                text-[15px]
+                font-medium
+                leading-7
+                text-black/60
+                sm:text-base
+              "
+            >
               Tell us what you&apos;re building, what you need, and where
               you want to take it. We&apos;ll help turn the idea into a
               digital experience that works.
             </p>
 
             {/* Button */}
+
             <motion.a
               href="mailto:avancewebdesign@gmail.com"
               whileHover={{ y: -3 }}
@@ -164,7 +224,7 @@ function CTA() {
               }}
               className="
                 group
-                mt-8
+                mt-7
                 inline-flex
                 w-fit
                 items-center
@@ -211,6 +271,7 @@ function CTA() {
             </motion.a>
 
             {/* Email */}
+
             <a
               href="mailto:avancewebdesign@gmail.com"
               className="
