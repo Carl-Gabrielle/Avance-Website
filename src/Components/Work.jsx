@@ -238,7 +238,7 @@ function Work() {
                           text-white
                         "
                       >
-                        Featured
+                        Featured Project
                       </span>
                     </div>
                   </div>
@@ -265,18 +265,7 @@ function Work() {
 
                   <div className="min-w-0">
 
-                    <p
-                      className="
-                        mb-1.5
-                        text-[8px]
-                        font-medium
-                        uppercase
-                        tracking-[0.14em]
-                        text-black/35
-                      "
-                    >
-                      Featured project
-                    </p>
+                    
 
                     <h3
                       className="
