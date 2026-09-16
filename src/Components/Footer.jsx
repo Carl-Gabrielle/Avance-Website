@@ -201,7 +201,7 @@ function Footer() {
             <div className="flex flex-col gap-4">
               {/* Email */}
               <a
-                href="mailto:avancewebdesign@gmail.com"
+                href="mailto:projects.avance@gmail.com"
                 className="group flex items-start gap-3"
               >
                 <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-black/[0.07] bg-white transition-all duration-200 group-hover:border-[#d8ff63] group-hover:bg-[#d8ff63]">
@@ -214,7 +214,7 @@ function Footer() {
                   </span>
 
                   <span className="mt-1 block break-all text-nowrap text-sm font-medium text-[#444444] transition-colors group-hover:text-[#111111]">
-                    avancewebdesign@gmail.com
+                    projects.avance@gmail.com
                   </span>
                 </span>
               </a>
