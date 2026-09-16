@@ -37,7 +37,7 @@ function Hero() {
         flex-col
         justify-center
         overflow-hidden
-        bg-[#fafaf8]
+        bg-[#f7f8fa]
         px-5
         py-12
         text-[#111111]

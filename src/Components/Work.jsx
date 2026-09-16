@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, CircleDot } from "lucide-react";
 import { Link } from "react-router-dom";
 import { projects } from "../data/projects";
 import thumbnail1 from "../assets/images/thumbnail1.png";
@@ -9,13 +9,13 @@ const ease = [0.22, 1, 0.36, 1];
 const fadeUp = {
   hidden: {
     opacity: 0,
-    y: 20,
+    y: 16,
   },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.65,
+      duration: 0.6,
       ease,
     },
   },
@@ -25,30 +25,30 @@ const staggerContainer = {
   hidden: {},
   visible: {
     transition: {
-      staggerChildren: 0.07,
+      staggerChildren: 0.08,
     },
   },
 };
 
 function Work() {
   const featured = projects[0];
-  const secondary = projects.slice(1);
 
   return (
     <section
       id="work"
       className="
         bg-[#f7f8fa]
-        px-5
-        py-12
+        px-4
+        py-10
         text-[#111111]
-        sm:px-8
-        sm:py-14
-        lg:px-10
-        lg:py-16
+        sm:px-6
+        sm:py-12
+        lg:px-8
+        lg:py-14
       "
     >
       <div className="mx-auto max-w-7xl">
+
         {/* ================================================== */}
         {/* SECTION HEADER */}
         {/* ================================================== */}
@@ -56,9 +56,9 @@ function Work() {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.25 }}
           variants={fadeUp}
-          className="max-w-2xl"
+          className="max-w-xl"
         >
           <p
             className="
@@ -74,24 +74,23 @@ function Work() {
 
           <h2
             className="
-              mt-4
-              max-w-2xl
-              text-[clamp(2.25rem,5.5vw,4.25rem)]
+              mt-2.5
+              text-[clamp(2.2rem,5vw,4rem)]
               font-semibold
-              leading-[0.94]
+              leading-[0.95]
               tracking-[-0.055em]
             "
           >
             Digital work
-            <span className="text-black/30"> made to matter.</span>
+            <span className="text-black/25"> made to matter.</span>
           </h2>
 
           <p
             className="
-              mt-4
-              max-w-md
+              mt-3
+              max-w-lg
               text-[13px]
-              leading-relaxed
+              leading-[1.65]
               text-black/50
               sm:text-[14px]
             "
@@ -102,411 +101,588 @@ function Work() {
         </motion.div>
 
         {/* ================================================== */}
-        {/* FEATURED PROJECT */}
+        {/* PROJECT CARDS */}
         {/* ================================================== */}
 
-        <motion.article
+        <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.15 }}
-          variants={fadeUp}
-          className="mt-8 sm:mt-10 lg:mt-11"
+          viewport={{ once: true, amount: 0.12 }}
+          variants={staggerContainer}
+          className="
+            mt-7
+            grid
+            grid-cols-1
+            gap-4
+            sm:mt-8
+            sm:gap-5
+            lg:grid-cols-2
+          "
         >
-          <Link
-            to={`/work/${featured.slug}`}
-            className="group block"
-            aria-label={`View case study: ${featured.title}`}
+
+          {/* ================================================== */}
+          {/* FEATURED PROJECT */}
+          {/* ================================================== */}
+
+          <motion.article
+            variants={fadeUp}
+            className="h-full"
           >
-            {/* FEATURED AREA */}
-
-            <div
-              className="
-                relative
-                w-full
-                overflow-hidden
-                rounded-[20px]
-                border
-                border-black/[0.07]
-                bg-[#eceeea]
-                p-2.5
-                shadow-[0_10px_30px_rgba(0,0,0,0.04)]
-                transition-all
-                duration-500
-                group-hover:-translate-y-0.5
-                group-hover:shadow-[0_18px_45px_rgba(0,0,0,0.07)]
-                sm:p-4
-                lg:p-5
-              "
+            <Link
+              to={`/work/${featured.slug}`}
+              aria-label={`View case study: ${featured.title}`}
+              className="group block h-full"
             >
-              {/* IMAGE */}
-
               <div
                 className="
-                  relative
-                  aspect-[4/3]
-                  overflow-hidden
-                  rounded-[12px]
-                  sm:aspect-[16/8]
-                  md:aspect-[16/7.3]
-                  lg:aspect-[16/6.5]
-                  xl:aspect-[16/6.2]
+                  flex
+                  h-full
+                  flex-col
+                  rounded-[20px]
+                  border
+                  border-black/[0.07]
+                  bg-[#eef0ed]
+                  p-2
+                  shadow-[0_8px_25px_rgba(0,0,0,0.035)]
+                  transition-all
+                  duration-500
+                  group-hover:-translate-y-0.5
+                  group-hover:shadow-[0_14px_35px_rgba(0,0,0,0.065)]
+                  sm:p-2.5
                 "
               >
-                <img
-                  src={thumbnail1}
-                  alt={featured.title}
-                  className="
-                    absolute
-                    inset-0
-                    h-full
-                    w-full
-                    object-cover
-                    object-center
-                    transition-transform
-                    duration-700
-                    ease-out
-                    group-hover:scale-[1.025]
-                  "
-                />
 
-                {/* Subtle image treatment */}
+                {/* IMAGE */}
 
                 <div
                   className="
-                    pointer-events-none
-                    absolute
-                    inset-0
-                    bg-gradient-to-br
-                    from-white/[0.05]
-                    via-transparent
-                    to-black/[0.12]
-                  "
-                />
-
-                {/* FEATURED BADGE */}
-
-                <div
-                  className="
-                    absolute
-                    left-3
-                    top-3
-                    z-20
-                    sm:left-5
-                    sm:top-5
-                    lg:left-6
-                    lg:top-6
+                    relative
+                    overflow-hidden
+                    rounded-[15px]
+                    aspect-[16/9.5]
+                    sm:aspect-[16/9]
                   "
                 >
-                  <div
+                  <img
+                    src={thumbnail1}
+                    alt={featured.title}
                     className="
-                      inline-flex
-                      items-center
-                      gap-2
-                      rounded-full
-                      border
-                      border-white/20
-                      bg-[#111111]/70
-                      px-3
-                      py-1.5
-                      shadow-[0_6px_18px_rgba(0,0,0,0.18)]
-                      backdrop-blur-xl
-                      sm:px-3.5
-                      sm:py-2
+                      absolute
+                      inset-0
+                      h-full
+                      w-full
+                      object-cover
+                      object-center
+                      transition-transform
+                      duration-700
+                      ease-out
+                      group-hover:scale-[1.02]
                     "
-                  >
-                    <span
-                      className="
-                        h-1.5
-                        w-1.5
-                        shrink-0
-                        rounded-full
-                        bg-[#c7f36b]
-                        shadow-[0_0_7px_rgba(199,243,107,0.8)]
-                      "
-                    />
+                  />
 
-                    <span
-                      className="
-                        whitespace-nowrap
-                        text-[8px]
-                        font-semibold
-                        uppercase
-                        tracking-[0.14em]
-                        text-white
-                        sm:text-[9px]
-                      "
-                    >
-                      Featured project
-                    </span>
-                  </div>
-                </div>
+                  {/* SUBTLE IMAGE OVERLAY */}
 
-                {/* GLASS PROJECT PANEL */}
-
-                <div
-                  className="
-                    absolute
-                    inset-x-3
-                    bottom-3
-                    z-10
-                    sm:inset-x-5
-                    sm:bottom-5
-                    lg:inset-x-6
-                    lg:bottom-6
-                  "
-                >
                   <div
                     className="
-                      rounded-[15px]
-                      border
-                      border-white/20
-                      bg-[#111111]/55
-                      px-3
-                      py-3
-                      shadow-[0_12px_30px_rgba(0,0,0,0.2)]
-                      backdrop-blur-xl
-                      sm:px-4
-                      sm:py-3.5
-                      lg:px-4.5
-                      lg:py-4
+                      pointer-events-none
+                      absolute
+                      inset-0
+                      bg-gradient-to-b
+                      from-black/[0.02]
+                      via-transparent
+                      to-black/[0.12]
+                    "
+                  />
+
+                  {/* FEATURED LABEL */}
+
+                  <div
+                    className="
+                      absolute
+                      left-3
+                      top-3
+                      sm:left-3.5
+                      sm:top-3.5
                     "
                   >
                     <div
                       className="
-                        flex
-                        flex-col
-                        gap-3
-                        sm:flex-row
-                        sm:items-center
-                        sm:justify-between
-                        sm:gap-5
+                        inline-flex
+                        items-center
+                        gap-1.5
+                        rounded-full
+                        border
+                        border-white/20
+                        bg-black/65
+                        px-2.5
+                        py-1.5
+                        backdrop-blur-xl
                       "
                     >
-                      {/* Project Information */}
-
-                      <div className="min-w-0">
-                        <p
-                          className="
-                            mb-1
-                            text-[8px]
-                            font-medium
-                            uppercase
-                            tracking-[0.15em]
-                            text-white/55
-                            sm:text-[9px]
-                          "
-                        >
-                          Featured project
-                        </p>
-
-                        <h3
-                          className="
-                            max-w-2xl
-                            text-[clamp(1.2rem,3vw,2rem)]
-                            font-semibold
-                            leading-[1.04]
-                            tracking-[-0.04em]
-                            text-white
-                          "
-                        >
-                          {featured.title}
-                        </h3>
-
-                        <p
-                          className="
-                            mt-1.5
-                            text-[8px]
-                            font-medium
-                            uppercase
-                            tracking-[0.13em]
-                            text-white/50
-                            sm:text-[9px]
-                          "
-                        >
-                          {featured.type}
-                        </p>
-                      </div>
-
-                      {/* CTA */}
-
-                      <div
+                      <span
                         className="
-                          flex
-                          w-fit
-                          shrink-0
-                          items-center
-                          gap-2
+                          h-1.5
+                          w-1.5
                           rounded-full
                           bg-[#c7f36b]
-                          px-3
-                          py-2
+                          shadow-[0_0_7px_rgba(199,243,107,0.75)]
+                        "
+                      />
+
+                      <span
+                        className="
                           text-[8px]
                           font-semibold
                           uppercase
-                          tracking-[0.07em]
-                          text-[#111111]
-                          shadow-[0_6px_18px_rgba(0,0,0,0.14)]
-                          transition-all
-                          duration-300
-                          group-hover:bg-[#d4ff82]
-                          group-hover:shadow-[0_8px_20px_rgba(0,0,0,0.18)]
-                          sm:px-3.5
-                          sm:py-2
+                          tracking-[0.13em]
+                          text-white
                         "
                       >
-                        <span>View case study</span>
-
-                        <span
-                          className="
-                            flex
-                            h-5.5
-                            w-5.5
-                            items-center
-                            justify-center
-                            rounded-full
-                            bg-[#111111]
-                            text-[#c7f36b]
-                            transition-transform
-                            duration-300
-                            group-hover:translate-x-0.5
-                            group-hover:-translate-y-0.5
-                          "
-                        >
-                          <ArrowUpRight size={11} strokeWidth={2.2} />
-                        </span>
-                      </div>
+                        Featured
+                      </span>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          </Link>
-        </motion.article>
 
-        {/* ================================================== */}
-        {/* OTHER PROJECTS */}
-        {/* ================================================== */}
+                {/* PROJECT INFO */}
 
-        {secondary.length > 0 && (
-          <div className="mt-10 sm:mt-12 lg:mt-14">
-            <div
-              className="
-                mb-4
-                flex
-                items-center
-                justify-between
-                border-b
-                border-black/[0.08]
-                pb-3
-              "
-            >
-              <span
-                className="
-                  text-[9px]
-                  font-medium
-                  uppercase
-                  tracking-[0.15em]
-                  text-black/40
-                "
-              >
-                More work
-              </span>
+                <div
+                  className="
+                    flex
+                    flex-1
+                    items-end
+                    justify-between
+                    gap-4
+                    px-1
+                    pb-1
+                    pt-4
+                    sm:px-1.5
+                    sm:pt-4.5
+                  "
+                >
 
-              <span
-                className="
-                  text-[9px]
-                  uppercase
-                  tracking-[0.11em]
-                  text-black/30
-                "
-              >
-                {secondary.length} project
-                {secondary.length !== 1 ? "s" : ""}
-              </span>
-            </div>
+                  {/* PROJECT DETAILS */}
 
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.1 }}
-              variants={staggerContainer}
-              className="divide-y divide-black/[0.07]"
-            >
-              {secondary.map((project) => (
-                <motion.div key={project.slug} variants={fadeUp}>
-                  <Link
-                    to={`/work/${project.slug}`}
+                  <div className="min-w-0">
+
+                    <p
+                      className="
+                        mb-1.5
+                        text-[8px]
+                        font-medium
+                        uppercase
+                        tracking-[0.14em]
+                        text-black/35
+                      "
+                    >
+                      Featured project
+                    </p>
+
+                    <h3
+                      className="
+                        text-[clamp(1.25rem,2.3vw,1.7rem)]
+                        font-semibold
+                        leading-[1.05]
+                        tracking-[-0.04em]
+                        text-[#111111]
+                      "
+                    >
+                      {featured.title}
+                    </h3>
+
+                    <p
+                      className="
+                        mt-1.5
+                        text-[8px]
+                        font-medium
+                        uppercase
+                        tracking-[0.13em]
+                        text-black/35
+                      "
+                    >
+                      {featured.type}
+                    </p>
+
+                  </div>
+
+                  {/* VIEW CASE STUDY BUTTON */}
+
+                  <span
                     className="
-                      group
-                      flex
-                      min-h-[72px]
+                      inline-flex
+                      shrink-0
                       items-center
-                      justify-between
-                      gap-5
-                      py-4
+                      gap-1.5
+                      rounded-full
+                      bg-[#c7f36b]
+                      px-3
+                      py-2
+                      text-[8px]
+                      font-semibold
+                      uppercase
+                      tracking-[0.08em]
+                      text-[#111111]
+                      shadow-[0_5px_14px_rgba(0,0,0,0.08)]
                       transition-all
                       duration-300
-                      hover:bg-black/[0.015]
-                      sm:hover:px-2.5
+                      group-hover:bg-[#d7ff87]
+                      group-hover:shadow-[0_7px_18px_rgba(0,0,0,0.12)]
+                      md:gap-2
+                      md:px-4
+                      md:py-2.5
+                      md:text-[9px]
+                      lg:px-5
+                      lg:py-3
+                      lg:text-[9px]
+                      xl:px-5.5
+                      xl:py-3
                     "
                   >
-                    <div className="min-w-0 flex-1">
-                      <h3
-                        className="
-                          truncate
-                          text-[15px]
-                          font-medium
-                          tracking-[-0.025em]
-                          transition-colors
-                          duration-300
-                          group-hover:text-black/55
-                          sm:text-[16px]
-                        "
-                      >
-                        {project.title}
-                      </h3>
+                    <span>View case study</span>
 
-                      <p
+                    <ArrowUpRight
+                      size={12}
+                      strokeWidth={2.2}
+                      className="
+                        transition-transform
+                        duration-300
+                        md:h-[14px]
+                        md:w-[14px]
+                        lg:h-[15px]
+                        lg:w-[15px]
+                        group-hover:translate-x-0.5
+                        group-hover:-translate-y-0.5
+                      "
+                    />
+                  </span>
+
+                </div>
+              </div>
+            </Link>
+          </motion.article>
+
+          {/* ================================================== */}
+          {/* CURRENTLY BUILDING */}
+          {/* ================================================== */}
+
+          <motion.article
+            variants={fadeUp}
+            className="h-full"
+          >
+            <div
+              className="
+                relative
+                flex
+                h-full
+                flex-col
+                overflow-hidden
+                rounded-[20px]
+                border
+                border-black/[0.07]
+                bg-[#111111]
+                p-2
+                shadow-[0_8px_25px_rgba(0,0,0,0.055)]
+                transition-all
+                duration-500
+                hover:-translate-y-0.5
+                hover:shadow-[0_14px_35px_rgba(0,0,0,0.1)]
+                sm:p-2.5
+              "
+            >
+
+              {/* SUBTLE LIME GLOW */}
+
+              <div
+                className="
+                  pointer-events-none
+                  absolute
+                  -right-24
+                  -top-24
+                  h-64
+                  w-64
+                  rounded-full
+                  bg-[#c7f36b]/[0.08]
+                  blur-[75px]
+                "
+              />
+
+              {/* INNER CONTENT */}
+
+              <div
+                className="
+                  relative
+                  flex
+                  min-h-full
+                  flex-1
+                  flex-col
+                  rounded-[15px]
+                  border
+                  border-white/[0.07]
+                  bg-white/[0.025]
+                  p-4
+                  sm:p-5
+                  lg:p-6
+                "
+              >
+
+                {/* TOP ROW */}
+
+                <div
+                  className="
+                    flex
+                    items-center
+                    justify-between
+                  "
+                >
+
+                  {/* STATUS */}
+
+                  <div
+                    className="
+                      inline-flex
+                      items-center
+                      gap-1.5
+                      rounded-full
+                      border
+                      border-[#c7f36b]/20
+                      bg-[#c7f36b]/[0.07]
+                      px-2.5
+                      py-1.5
+                    "
+                  >
+                    <span className="relative flex h-1.5 w-1.5">
+                      <span
                         className="
-                          mt-1
-                          text-[10px]
-                          uppercase
-                          tracking-[0.13em]
-                          text-black/35
+                          absolute
+                          h-full
+                          w-full
+                          animate-ping
+                          rounded-full
+                          bg-[#c7f36b]/60
                         "
-                      >
-                        {project.type}
-                      </p>
-                    </div>
+                      />
+
+                      <span
+                        className="
+                          relative
+                          h-1.5
+                          w-1.5
+                          rounded-full
+                          bg-[#c7f36b]
+                        "
+                      />
+                    </span>
 
                     <span
                       className="
-                        flex
-                        h-9
-                        w-9
-                        shrink-0
-                        items-center
-                        justify-center
-                        rounded-full
-                        border
-                        border-black/[0.1]
-                        text-black/40
-                        transition-all
-                        duration-300
-                        group-hover:border-[#c7f36b]
-                        group-hover:bg-[#c7f36b]
-                        group-hover:text-[#111111]
-                        group-hover:shadow-[0_5px_14px_rgba(0,0,0,0.08)]
+                        text-[8px]
+                        font-semibold
+                        uppercase
+                        tracking-[0.13em]
+                        text-[#c7f36b]
                       "
                     >
-                      <ArrowUpRight size={15} strokeWidth={1.8} />
+                      In progress
                     </span>
-                  </Link>
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
-        )}
+                  </div>
+
+                  <span
+                    className="
+                      text-[8px]
+                      font-medium
+                      uppercase
+                      tracking-[0.13em]
+                      text-white/25
+                    "
+                  >
+                    2026
+                  </span>
+
+                </div>
+
+                {/* MAIN CONTENT */}
+
+                <div
+                  className="
+                    flex
+                    flex-1
+                    flex-col
+                    justify-center
+                    py-7
+                    sm:py-8
+                  "
+                >
+
+                  <p
+                    className="
+                      mb-2.5
+                      text-[8px]
+                      font-medium
+                      uppercase
+                      tracking-[0.15em]
+                      text-white/30
+                    "
+                  >
+                    Currently building
+                  </p>
+
+                  <h3
+                    className="
+                      max-w-xl
+                      text-[clamp(1.7rem,3.8vw,2.8rem)]
+                      font-semibold
+                      leading-[0.98]
+                      tracking-[-0.055em]
+                      text-white
+                    "
+                  >
+                    Operations
+
+                    <span className="block text-white/25">
+                      Management System.
+                    </span>
+                  </h3>
+
+                  <p
+                    className="
+                      mt-4
+                      max-w-md
+                      text-[11px]
+                      leading-[1.7]
+                      text-white/40
+                      sm:text-[12px]
+                    "
+                  >
+                    A web-based system being developed to streamline
+                    day-to-day operations, workflows, requests, and
+                    internal processes.
+                  </p>
+
+                  {/* TAGS */}
+
+                  <div
+                    className="
+                      mt-5
+                      flex
+                      flex-wrap
+                      gap-1.5
+                    "
+                  >
+                    <span
+                      className="
+                        rounded-full
+                        border
+                        border-white/[0.08]
+                        bg-white/[0.035]
+                        px-2.5
+                        py-1.5
+                        text-[7px]
+                        font-medium
+                        uppercase
+                        tracking-[0.12em]
+                        text-white/40
+                      "
+                    >
+                      Web App
+                    </span>
+
+                    <span
+                      className="
+                        rounded-full
+                        border
+                        border-white/[0.08]
+                        bg-white/[0.035]
+                        px-2.5
+                        py-1.5
+                        text-[7px]
+                        font-medium
+                        uppercase
+                        tracking-[0.12em]
+                        text-white/40
+                      "
+                    >
+                      Operations
+                    </span>
+
+                    <span
+                      className="
+                        rounded-full
+                        border
+                        border-white/[0.08]
+                        bg-white/[0.035]
+                        px-2.5
+                        py-1.5
+                        text-[7px]
+                        font-medium
+                        uppercase
+                        tracking-[0.12em]
+                        text-white/40
+                      "
+                    >
+                      In Development
+                    </span>
+                  </div>
+
+                </div>
+
+                {/* BOTTOM STATUS */}
+
+                <div
+                  className="
+                    flex
+                    items-center
+                    justify-between
+                    border-t
+                    border-white/[0.07]
+                    pt-3.5
+                  "
+                >
+
+                  <div
+                    className="
+                      flex
+                      items-center
+                      gap-1.5
+                    "
+                  >
+                    <CircleDot
+                      size={10}
+                      strokeWidth={2}
+                      className="text-[#c7f36b]"
+                    />
+
+                    <span
+                      className="
+                        text-[7px]
+                        font-medium
+                        uppercase
+                        tracking-[0.13em]
+                        text-white/30
+                      "
+                    >
+                      Active development
+                    </span>
+                  </div>
+
+                  <span
+                    className="
+                      text-[7px]
+                      font-medium
+                      uppercase
+                      tracking-[0.13em]
+                      text-white/20
+                    "
+                  >
+                    Avance
+                  </span>
+
+                </div>
+
+              </div>
+            </div>
+          </motion.article>
+
+        </motion.div>
       </div>
     </section>
   );

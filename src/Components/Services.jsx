@@ -182,7 +182,7 @@ function Services() {
     <section
       id="services"
       className="
-        bg-[#fafaf8]
+        bg-[#f7f8fa]
         px-5
         py-12
         text-[#111111]
