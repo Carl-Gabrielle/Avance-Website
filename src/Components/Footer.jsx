@@ -5,6 +5,7 @@ import {
   Mail,
   MapPin,
 } from "lucide-react";
+import logo from "../assets/images/avance_logo.png";
 
 const navigation = [
   { label: "Home", href: "#home" },
@@ -88,46 +89,51 @@ function Footer() {
           ================================================== */}
 
           <motion.div variants={itemVariants} className="max-w-sm">
+            {/* Brand Logo */}
             <motion.a
               href="#home"
               whileHover="hover"
               initial="initial"
               className="group inline-flex items-center gap-2"
+              aria-label="Avance - Home"
             >
-              {/* Logo */}
+              {/* Logo Mark */}
               <motion.span
                 variants={{
                   initial: {
-                    rotate: 0,
                     scale: 1,
                   },
                   hover: {
-                    rotate: -5,
-                    scale: 1.06,
+                    scale: 1.05,
                   },
                 }}
                 transition={{
                   duration: 0.25,
                   ease: "easeOut",
                 }}
-                className="grid h-9 w-9 place-items-center rounded-[10px] bg-[#d8ff63] text-sm font-black text-[#111111] shadow-sm"
+                className="flex h-[30px] w-[30px] items-center justify-center overflow-hidden rounded-[8px]"
               >
-                A
+                <img
+                  src={logo}
+                  alt=""
+                  className="h-full w-full object-contain"
+                />
               </motion.span>
 
-              {/* Brand */}
-              <span className="text-xl font-semibold tracking-[-0.055em]">
-                vance.
+              {/* Wordmark */}
+              <span className="text-[19px] font-bold tracking-[-0.05em] text-[#111111]">
+                avance
               </span>
             </motion.a>
 
+            {/* Description */}
             <p className="mt-4 max-w-xs text-sm leading-6 text-[#777777]">
-              Digital experiences designed and built for brands ready for
-              what&apos;s next.
+              Thoughtful design and modern technology for businesses ready to
+              move forward.
             </p>
 
             {/* Availability */}
-            <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-black/[0.07] bg-white px-3 py-2">
+            <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-black/[0.07] bg-white px-3 py-2 shadow-[0_3px_12px_rgba(0,0,0,0.03)]">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#9dcc28] opacity-40" />
 
@@ -193,7 +199,7 @@ function Footer() {
               GET IN TOUCH
           ================================================== */}
 
-          <motion.div variants={itemVariants}>
+          <motion.div variants={itemVariants} className="min-w-0">
             <h3 className="mb-5 text-[9px] font-bold uppercase tracking-[0.18em] text-[#999999]">
               Get in touch
             </h3>
@@ -202,18 +208,37 @@ function Footer() {
               {/* Email */}
               <a
                 href="mailto:projects.avance@gmail.com"
-                className="group flex items-start gap-3"
+                className="group flex min-w-0 items-start gap-3"
               >
+                {/* Icon */}
                 <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-black/[0.07] bg-white transition-all duration-200 group-hover:border-[#d8ff63] group-hover:bg-[#d8ff63]">
                   <Mail size={14} strokeWidth={1.8} />
                 </span>
 
-                <span className="min-w-0">
+                {/* Email content */}
+                <span className="min-w-0 flex-1">
                   <span className="block text-[9px] font-bold uppercase tracking-[0.12em] text-[#999999]">
                     Email
                   </span>
 
-                  <span className="mt-1 block break-all text-nowrap text-sm font-medium text-[#444444] transition-colors group-hover:text-[#111111]">
+                  {/* ONE LINE ONLY */}
+                  <span
+                    className="
+                      mt-1
+                      block
+                      max-w-full
+                      truncate
+                      whitespace-nowrap
+                      text-[13px]
+                      font-medium
+                      tracking-[-0.01em]
+                      text-[#444444]
+                      transition-colors
+                      group-hover:text-[#111111]
+                      sm:text-sm
+                    "
+                    title="projects.avance@gmail.com"
+                  >
                     projects.avance@gmail.com
                   </span>
                 </span>
@@ -285,9 +310,7 @@ function Footer() {
                   }}
                   className="grid h-9 w-9 place-items-center rounded-full border border-black/[0.07] bg-white text-[#777777] transition-all duration-200 hover:border-[#d8ff63] hover:bg-[#d8ff63] hover:text-[#111111]"
                 >
-                  <span className="text-sm font-bold leading-none">
-                    f
-                  </span>
+                  <span className="text-sm font-bold leading-none">f</span>
                 </motion.a>
               ))}
 
