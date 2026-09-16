@@ -5,10 +5,7 @@ import {
   Clock3,
   Sparkles,
 } from "lucide-react";
-import {
-  InlineWidget,
-  PopupButton,
-} from "react-calendly";
+import { InlineWidget, PopupButton } from "react-calendly";
 
 const calendlyUrl = "https://calendly.com/projects-avance/30min";
 
@@ -16,8 +13,22 @@ function CTA() {
   return (
     <section
       id="contact"
-      className="relative px-4 pb-8 pt-4 sm:px-6 sm:pb-12 sm:pt-6 lg:px-8 lg:pb-14"
+      className="
+        relative
+        px-4
+        pb-8
+        pt-4
+        sm:px-6
+        sm:pb-12
+        sm:pt-6
+        lg:px-8
+        lg:pb-14
+      "
     >
+      {/* =====================================================
+          MAIN CTA CONTAINER
+      ===================================================== */}
+
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -27,58 +38,193 @@ function CTA() {
           ease: [0.22, 1, 0.36, 1],
         }}
         className="
-          relative mx-auto max-w-7xl overflow-hidden
+          relative
+          mx-auto
+          max-w-7xl
+          overflow-hidden
           rounded-[24px]
-          border border-black/[0.08]
+          border
+          border-black/[0.08]
           bg-[#d8ff63]
           sm:rounded-[28px]
         "
       >
-        {/* Grid */}
+        {/* =====================================================
+            BACKGROUND GRID
+        ===================================================== */}
+
         <div
+          aria-hidden="true"
           className="
-            pointer-events-none absolute inset-0 opacity-[0.055]
-            [background-image:linear-gradient(rgba(17,17,17,0.12)_1px,transparent_1px),linear-gradient(90deg,rgba(17,17,17,0.12)_1px,transparent_1px)]
+            pointer-events-none
+            absolute
+            inset-0
+            z-0
+            opacity-[0.055]
+            [background-image:linear-gradient(rgba(17,17,17,0.18)_1px,transparent_1px),linear-gradient(90deg,rgba(17,17,17,0.18)_1px,transparent_1px)]
             [background-size:44px_44px]
           "
         />
 
-        {/* Glows */}
-        <div className="pointer-events-none absolute -right-24 -top-24 h-[280px] w-[280px] rounded-full bg-white/35 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-28 -left-16 h-[220px] w-[220px] rounded-full bg-white/25 blur-3xl" />
+        {/* =====================================================
+            TOP RIGHT GLOW
+        ===================================================== */}
 
-        <div className="relative z-10 grid lg:grid-cols-[minmax(0,1fr)_minmax(420px,500px)] lg:items-center">
-          {/* =====================================================
+        <div
+          aria-hidden="true"
+          className="
+            pointer-events-none
+            absolute
+            -right-32
+            -top-32
+            z-0
+            h-[420px]
+            w-[420px]
+            rounded-full
+            bg-white/30
+            blur-[90px]
+          "
+        />
+
+        {/* =====================================================
+            BOTTOM LEFT GLOW
+        ===================================================== */}
+
+        <div
+          aria-hidden="true"
+          className="
+            pointer-events-none
+            absolute
+            -bottom-32
+            -left-24
+            z-0
+            h-[300px]
+            w-[300px]
+            rounded-full
+            bg-white/20
+            blur-[80px]
+          "
+        />
+
+        {/* =====================================================
+            AVANCE WATERMARK
+            Large + Wide + Bottom Left
+        ===================================================== */}
+
+        <div
+          aria-hidden="true"
+          className="
+            pointer-events-none
+            absolute
+            bottom-[-8px]
+            left-5
+            z-0
+            origin-left
+            scale-x-[1.08]
+            select-none
+            whitespace-nowrap
+            text-[clamp(5.8rem,11vw,10rem)]
+            font-black
+            leading-[0.78]
+            tracking-[-0.09em]
+            text-black/[0.065]
+            sm:left-8
+            lg:left-10
+            xl:left-12
+          "
+        >
+          AVANCE
+        </div>
+
+        {/* =====================================================
+            CONTENT
+        ===================================================== */}
+
+        <div
+          className="
+            relative
+            z-10
+            grid
+            lg:grid-cols-[minmax(0,1fr)_minmax(420px,500px)]
+            lg:items-center
+          "
+        >
+          {/* ===================================================
               LEFT — CTA CONTENT
-          ===================================================== */}
+          =================================================== */}
+
           <div
             className="
-              flex flex-col justify-center
-              px-6 py-8
-              sm:px-9 sm:py-10
-              lg:px-10 lg:py-12
+              flex
+              flex-col
+              justify-center
+              px-6
+              py-8
+              sm:px-9
+              sm:py-10
+              lg:px-10
+              lg:py-12
               xl:px-12
             "
           >
             {/* Eyebrow */}
+
             <motion.div
               initial={{ opacity: 0, y: 6 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4 }}
-              className="mb-4 inline-flex items-center gap-2"
+              className="
+                mb-4
+                inline-flex
+                items-center
+                gap-2
+              "
             >
               <span className="relative flex h-1.5 w-1.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-black/50 opacity-70" />
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#111]" />
+                <span
+                  className="
+                    absolute
+                    inline-flex
+                    h-full
+                    w-full
+                    animate-ping
+                    rounded-full
+                    bg-black/50
+                    opacity-70
+                  "
+                />
+
+                <span
+                  className="
+                    relative
+                    inline-flex
+                    h-1.5
+                    w-1.5
+                    rounded-full
+                    bg-[#111]
+                  "
+                />
               </span>
 
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-black/50 sm:text-[11px]">
+              <span
+                className="
+                  text-[10px]
+                  font-bold
+                  uppercase
+                  tracking-[0.2em]
+                  text-black/50
+                  sm:text-[11px]
+                "
+              >
                 Let’s talk
               </span>
             </motion.div>
 
-            {/* Headline */}
+            {/* =================================================
+                HEADLINE
+            ================================================= */}
+
             <motion.h2
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -99,10 +245,15 @@ function CTA() {
               "
             >
               Ready to
-              <span className="block">make it real?</span>
+              <span className="block">
+                make it real?
+              </span>
             </motion.h2>
 
-            {/* Description */}
+            {/* =================================================
+                DESCRIPTION
+            ================================================= */}
+
             <motion.p
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -127,7 +278,10 @@ function CTA() {
               we’ll map the next steps together.
             </motion.p>
 
-            {/* Info */}
+            {/* =================================================
+                INFO ROW
+            ================================================= */}
+
             <motion.div
               initial={{ opacity: 0, y: 8 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -138,17 +292,29 @@ function CTA() {
               }}
               className="
                 mt-6
-                flex flex-col items-start gap-3
-                sm:flex-row sm:items-center sm:gap-4
+                flex
+                flex-col
+                items-start
+                gap-3
+                sm:flex-row
+                sm:items-center
+                sm:gap-4
               "
             >
+              {/* Meeting info */}
+
               <div
                 className="
-                  inline-flex items-center gap-2
+                  inline-flex
+                  items-center
+                  gap-2
                   rounded-full
-                  border border-black/10
+                  border
+                  border-black/10
                   bg-white/55
-                  px-4 py-2
+                  px-4
+                  py-2
+                  shadow-[0_8px_24px_-14px_rgba(0,0,0,0.18)]
                   backdrop-blur-md
                 "
               >
@@ -158,15 +324,29 @@ function CTA() {
                   className="text-black/70"
                 />
 
-                <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-black/60 sm:text-[11px]">
+                <span
+                  className="
+                    text-[10px]
+                    font-bold
+                    uppercase
+                    tracking-[0.12em]
+                    text-black/60
+                    sm:text-[11px]
+                  "
+                >
                   30 min · Google Meet
                 </span>
               </div>
 
+              {/* Email */}
+
               <a
                 href="mailto:projects.avance@gmail.com"
                 className="
-                  group inline-flex items-center gap-1.5
+                  group
+                  inline-flex
+                  items-center
+                  gap-1.5
                   text-[13px]
                   font-semibold
                   tracking-[-0.01em]
@@ -181,7 +361,8 @@ function CTA() {
                 <ArrowUpRight
                   size={13}
                   className="
-                    transition-transform duration-200
+                    transition-transform
+                    duration-200
                     group-hover:-translate-y-0.5
                     group-hover:translate-x-0.5
                   "
@@ -189,7 +370,10 @@ function CTA() {
               </a>
             </motion.div>
 
-            {/* Trust */}
+            {/* =================================================
+                TRUST MESSAGE
+            ================================================= */}
+
             <motion.p
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
@@ -200,21 +384,28 @@ function CTA() {
               }}
               className="
                 mt-5
-                flex items-center gap-1.5
+                flex
+                items-center
+                gap-1.5
                 text-[11px]
                 font-medium
                 text-black/35
                 sm:text-[12px]
               "
             >
-              <Sparkles size={11} className="shrink-0" />
+              <Sparkles
+                size={11}
+                className="shrink-0"
+              />
+
               No pressure — just a focused conversation.
             </motion.p>
           </div>
 
-          {/* =====================================================
-              RIGHT — BOOKING
-          ===================================================== */}
+          {/* ===================================================
+              RIGHT — BOOKING CARD
+          =================================================== */}
+
           <motion.div
             initial={{ opacity: 0, x: 18 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -225,36 +416,52 @@ function CTA() {
               ease: [0.22, 1, 0.36, 1],
             }}
             className="
-              px-4 pb-4
-              sm:px-6 sm:pb-6
-              lg:px-4 lg:py-7 lg:pr-6
+              px-4
+              pb-4
+              sm:px-6
+              sm:pb-6
+              lg:px-4
+              lg:py-7
+              lg:pr-6
             "
           >
             <div
               className="
-                relative overflow-hidden
+                relative
+                overflow-hidden
                 rounded-[20px]
-                border border-black/[0.08]
+                border
+                border-black/[0.08]
                 bg-white
                 shadow-[0_20px_50px_-18px_rgba(0,0,0,0.20)]
                 sm:rounded-[24px]
               "
             >
               {/* =================================================
-                  HEADER
+                  BOOKING HEADER
               ================================================= */}
+
               <div
                 className="
-                  flex items-center justify-between
-                  border-b border-black/[0.06]
-                  px-4 py-3.5
-                  sm:px-5 sm:py-4
+                  flex
+                  items-center
+                  justify-between
+                  border-b
+                  border-black/[0.06]
+                  px-4
+                  py-3.5
+                  sm:px-5
+                  sm:py-4
                 "
               >
                 <div className="flex items-center gap-3">
                   <div
                     className="
-                      grid h-8 w-8 shrink-0 place-items-center
+                      grid
+                      h-8
+                      w-8
+                      shrink-0
+                      place-items-center
                       rounded-[10px]
                       bg-[#111]
                       text-white
@@ -267,11 +474,25 @@ function CTA() {
                   </div>
 
                   <div>
-                    <p className="text-[14px] font-bold tracking-[-0.025em] text-[#111]">
+                    <p
+                      className="
+                        text-[14px]
+                        font-bold
+                        tracking-[-0.025em]
+                        text-[#111]
+                      "
+                    >
                       Book a call
                     </p>
 
-                    <p className="mt-0.5 text-[10px] font-medium text-black/40">
+                    <p
+                      className="
+                        mt-0.5
+                        text-[10px]
+                        font-medium
+                        text-black/40
+                      "
+                    >
                       Choose a time that works for you
                     </p>
                   </div>
@@ -281,7 +502,8 @@ function CTA() {
                   className="
                     rounded-full
                     bg-[#d8ff63]
-                    px-2.5 py-1
+                    px-2.5
+                    py-1
                     text-[9px]
                     font-bold
                     uppercase
@@ -294,27 +516,48 @@ function CTA() {
               </div>
 
               {/* =================================================
-                  MOBILE BOOKING CARD
+                  MOBILE BOOKING
               ================================================= */}
+
               <div className="block p-4 sm:p-5 lg:hidden">
                 <div
                   className="
-                    relative overflow-hidden
+                    relative
+                    overflow-hidden
                     rounded-[16px]
-                    border border-black/[0.06]
+                    border
+                    border-black/[0.06]
                     bg-[#fafaf8]
                     p-5
                     sm:p-6
                   "
                 >
-                  {/* Decorative glow */}
-                  <div className="pointer-events-none absolute -right-10 -top-10 h-24 w-24 rounded-full bg-[#d8ff63]/50 blur-2xl" />
+                  {/* Mobile glow */}
+
+                  <div
+                    aria-hidden="true"
+                    className="
+                      pointer-events-none
+                      absolute
+                      -right-10
+                      -top-10
+                      h-24
+                      w-24
+                      rounded-full
+                      bg-[#d8ff63]/50
+                      blur-2xl
+                    "
+                  />
 
                   <div className="relative">
+                    {/* Icon */}
+
                     <div
                       className="
                         mb-4
-                        grid h-11 w-11
+                        grid
+                        h-11
+                        w-11
                         place-items-center
                         rounded-[13px]
                         bg-[#111]
@@ -323,6 +566,8 @@ function CTA() {
                     >
                       <CalendarDays size={18} />
                     </div>
+
+                    {/* Title */}
 
                     <h3
                       className="
@@ -334,6 +579,8 @@ function CTA() {
                     >
                       Find a time to talk
                     </h3>
+
+                    {/* Description */}
 
                     <p
                       className="
@@ -349,7 +596,8 @@ function CTA() {
                       30 minutes.
                     </p>
 
-                    {/* Mobile button */}
+                    {/* Button */}
+
                     <PopupButton
                       url={calendlyUrl}
                       rootElement={document.getElementById("root")}
@@ -377,13 +625,29 @@ function CTA() {
                       "
                     />
 
-                    <div className="mt-4 flex items-center justify-center gap-1.5">
+                    {/* Meeting details */}
+
+                    <div
+                      className="
+                        mt-4
+                        flex
+                        items-center
+                        justify-center
+                        gap-1.5
+                      "
+                    >
                       <Clock3
                         size={11}
                         className="text-black/30"
                       />
 
-                      <span className="text-[10px] font-medium text-black/30">
+                      <span
+                        className="
+                          text-[10px]
+                          font-medium
+                          text-black/30
+                        "
+                      >
                         30 min · Google Meet · Free
                       </span>
                     </div>
@@ -394,16 +658,22 @@ function CTA() {
               {/* =================================================
                   DESKTOP / TABLET CALENDLY
               ================================================= */}
+
               <div
                 id="booking"
-                className="hidden w-full min-w-0 bg-white lg:block"
+                className="
+                  hidden
+                  w-full
+                  min-w-0
+                  bg-white
+                  lg:block
+                "
               >
                 <div
                   className="
                     h-[430px]
                     w-full
                     overflow-hidden
-
                     xl:h-[450px]
 
                     [&::-webkit-scrollbar]:w-1
@@ -430,18 +700,31 @@ function CTA() {
               </div>
 
               {/* =================================================
-                  FOOTER
+                  BOOKING FOOTER
               ================================================= */}
+
               <div
                 className="
-                  flex flex-col gap-2
-                  border-t border-black/[0.06]
-                  px-4 py-3
-                  sm:flex-row sm:items-center sm:justify-between
+                  flex
+                  flex-col
+                  gap-2
+                  border-t
+                  border-black/[0.06]
+                  px-4
+                  py-3
+                  sm:flex-row
+                  sm:items-center
+                  sm:justify-between
                   sm:px-5
                 "
               >
-                <span className="text-[9.5px] font-medium text-black/30">
+                <span
+                  className="
+                    text-[9.5px]
+                    font-medium
+                    text-black/30
+                  "
+                >
                   Philippine Time (PHT)
                 </span>
 
@@ -450,7 +733,10 @@ function CTA() {
                   target="_blank"
                   rel="noreferrer"
                   className="
-                    group inline-flex items-center gap-1
+                    group
+                    inline-flex
+                    items-center
+                    gap-1
                     text-[9.5px]
                     font-bold
                     uppercase
@@ -465,7 +751,8 @@ function CTA() {
                   <ArrowUpRight
                     size={11}
                     className="
-                      transition-transform duration-200
+                      transition-transform
+                      duration-200
                       group-hover:-translate-y-0.5
                       group-hover:translate-x-0.5
                     "
