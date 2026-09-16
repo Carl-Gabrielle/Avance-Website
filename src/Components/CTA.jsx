@@ -269,7 +269,7 @@ function CTA() {
             {/* Email */}
 
             <a
-              href="mailto:avancewebdesign@gmail.com"
+              href="mailto:projects.avance@gmail.com"
               className="
                 mt-3
                 w-fit
@@ -281,7 +281,7 @@ function CTA() {
                 hover:text-black
               "
             >
-              avancewebdesign@gmail.com
+              projects.avance@gmail.com
             </a>
           </motion.div>
         </div>
