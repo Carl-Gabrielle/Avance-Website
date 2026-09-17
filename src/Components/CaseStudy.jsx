@@ -1,24 +1,22 @@
-import { useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { Link, useParams } from "react-router-dom";
-import {
-  ArrowLeft,
-  ArrowUpRight,
-  ChevronLeft,
-  ChevronRight,
-} from "lucide-react";
+import { ArrowLeft, ArrowUpRight } from "lucide-react";
 
 import CTA from "./CTA";
 import Footer from "./Footer";
 import { projects } from "../data/projects";
+
+import archThumbnail from "../assets/video/archthumbnail.mp4";
+import mockup1 from "../assets/images/mockup1.png";
+import mockup2 from "../assets/images/mockup2.png";
+import mockup3 from "../assets/images/mockup3.png";
+import mockup4 from "../assets/images/mockup4.png";
 
 function CaseStudy() {
   const { slug } = useParams();
   const shouldReduceMotion = useReducedMotion();
 
   const project = projects.find((item) => item.slug === slug);
-
-  const [activeSlide, setActiveSlide] = useState(0);
 
   if (!project) {
     return (
@@ -43,33 +41,6 @@ function CaseStudy() {
       </div>
     );
   }
-
-  const slides = [
-    {
-      image: project.images?.desktop,
-      label: "Desktop",
-    },
-    {
-      image: project.images?.mobile,
-      label: "Mobile",
-    },
-    {
-      image: project.images?.hero,
-      label: "Homepage",
-    },
-  ];
-
-  const nextSlide = () => {
-    setActiveSlide((current) => (current + 1) % slides.length);
-  };
-
-  const previousSlide = () => {
-    setActiveSlide(
-      (current) => (current - 1 + slides.length) % slides.length
-    );
-  };
-
-  const currentSlide = slides[activeSlide];
 
   /*
    * ------------------------------------------------------------
@@ -121,6 +92,25 @@ function CaseStudy() {
     amount: 0.15,
   };
 
+  const mockups = [
+    {
+      image: mockup1,
+      label: "Homepage",
+    },
+    {
+      image: mockup2,
+      label: "Interior",
+    },
+    {
+      image: mockup3,
+      label: "Project",
+    },
+    {
+      image: mockup4,
+      label: "Mobile",
+    },
+  ];
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -139,8 +129,14 @@ function CaseStudy() {
           <div className="mx-auto max-w-7xl">
             {/* Back */}
             <motion.div
-              initial={{ opacity: 0, x: shouldReduceMotion ? 0 : -12 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{
+                opacity: 0,
+                x: shouldReduceMotion ? 0 : -12,
+              }}
+              animate={{
+                opacity: 1,
+                x: 0,
+              }}
               transition={{
                 duration: shouldReduceMotion ? 0 : 0.55,
                 delay: shouldReduceMotion ? 0 : 0.05,
@@ -155,6 +151,7 @@ function CaseStudy() {
                   size={16}
                   className="transition-transform duration-200 group-hover:-translate-x-1"
                 />
+
                 Back to home
               </Link>
             </motion.div>
@@ -273,20 +270,24 @@ function CaseStudy() {
                 duration: 0.4,
                 ease: "easeOut",
               }}
-              className="overflow-hidden rounded-2xl bg-[#e9e9e4]"
+              className="relative overflow-hidden rounded-2xl bg-[#e9e9e4]"
             >
               {project.images?.hero ? (
-                <img
-                  src={project.images.hero}
-                  alt={`${project.title} preview`}
-                  className="
-                    block
-                    aspect-[16/8]
-                    w-full
-                    object-cover
-                    object-top
-                  "
-                />
+                <div className="relative aspect-[16/8] w-full overflow-hidden">
+                  <video
+                    className="absolute inset-0 h-full w-full object-cover object-top"
+                    src={archThumbnail}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                    poster={project.images.hero}
+                    aria-label={`${project.title} website preview`}
+                  />
+
+                  <div className="pointer-events-none absolute inset-0 bg-black/[0.02]" />
+                </div>
               ) : (
                 <div className="relative aspect-[16/8] overflow-hidden">
                   <div className="absolute inset-[5%] overflow-hidden rounded-xl bg-white shadow-[0_20px_60px_rgba(0,0,0,0.07)]">
@@ -439,7 +440,7 @@ function CaseStudy() {
         </section>
 
         {/* =========================================================
-            INTERFACE SHOWCASE CAROUSEL
+            MOCKUP SHOWCASE
         ========================================================= */}
         <section className="px-5 pb-20 sm:px-8 sm:pb-24">
           <motion.div
@@ -449,252 +450,60 @@ function CaseStudy() {
             variants={staggerContainer}
             className="mx-auto max-w-7xl"
           >
+            {/* Section heading */}
             <motion.div
               variants={reveal}
-              className="mb-7 flex items-end justify-between gap-6"
+              className="mb-8"
             >
-              <div>
-                <p className="mb-2 text-xs font-medium uppercase tracking-[0.12em] text-black/35">
-                  Interface showcase
-                </p>
+              <p className="mb-2 text-xs font-medium uppercase tracking-[0.12em] text-black/35">
+                Interface showcase
+              </p>
 
-                <h2 className="text-2xl font-semibold tracking-[-0.035em] sm:text-3xl">
-                  Designed to be experienced.
-                </h2>
-              </div>
-
-              {/* Desktop arrows */}
-              <div className="hidden gap-2 sm:flex">
-                <motion.button
-                  type="button"
-                  onClick={previousSlide}
-                  aria-label="Previous project image"
-                  whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
-                  whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
-                  className="
-                    flex
-                    h-10
-                    w-10
-                    cursor-pointer
-                    items-center
-                    justify-center
-                    rounded-full
-                    border
-                    border-black/10
-                    bg-white
-                    transition-colors
-                    duration-200
-                    hover:border-black/20
-                    hover:bg-black/[0.025]
-                  "
-                >
-                  <ChevronLeft size={18} />
-                </motion.button>
-
-                <motion.button
-                  type="button"
-                  onClick={nextSlide}
-                  aria-label="Next project image"
-                  whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
-                  whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
-                  className="
-                    flex
-                    h-10
-                    w-10
-                    cursor-pointer
-                    items-center
-                    justify-center
-                    rounded-full
-                    border
-                    border-black/10
-                    bg-white
-                    transition-colors
-                    duration-200
-                    hover:border-black/20
-                    hover:bg-black/[0.025]
-                  "
-                >
-                  <ChevronRight size={18} />
-                </motion.button>
-              </div>
+              <h2 className="text-2xl font-semibold tracking-[-0.035em] sm:text-3xl">
+                Designed to be experienced.
+              </h2>
             </motion.div>
 
-            {/* Carousel */}
-            <motion.div
-              variants={imageReveal}
-              className="relative overflow-hidden rounded-2xl bg-[#e9e9e4]"
-            >
-              <motion.div
-                key={currentSlide.image || currentSlide.label}
-                initial={{
-                  opacity: 0,
-                  x: shouldReduceMotion
-                    ? 0
-                    : activeSlide > 0
-                      ? 30
-                      : -30,
-                  scale: shouldReduceMotion ? 1 : 1.015,
-                }}
-                animate={{
-                  opacity: 1,
-                  x: 0,
-                  scale: 1,
-                }}
-                transition={{
-                  duration: shouldReduceMotion ? 0 : 0.55,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-              >
-                {currentSlide.image ? (
-                  <img
-                    src={currentSlide.image}
-                    alt={`${project.title} ${currentSlide.label} interface`}
-                    className="
-                      block
-                      aspect-[16/9]
-                      w-full
-                      object-cover
-                    "
-                  />
-                ) : (
-                  <div className="relative aspect-[16/9] overflow-hidden">
-                    <div className="absolute inset-[4%] overflow-hidden rounded-xl bg-white shadow-[0_20px_60px_rgba(0,0,0,0.08)]">
-                      {/* Browser top */}
-                      <div className="flex h-10 items-center gap-1.5 border-b border-black/5 px-4">
-                        <span className="h-2.5 w-2.5 rounded-full bg-black/10" />
-                        <span className="h-2.5 w-2.5 rounded-full bg-black/10" />
-                        <span className="h-2.5 w-2.5 rounded-full bg-black/10" />
-
-                        <div className="ml-4 h-5 max-w-sm flex-1 rounded-full bg-black/[0.035]" />
-                      </div>
-
-                      {/* Fake interface */}
-                      <div className="grid h-[calc(100%-40px)] grid-cols-[24%_1fr]">
-                        <div className="border-r border-black/5 p-5">
-                          <div className="h-3.5 w-20 rounded-full bg-black/10" />
-
-                          <div className="mt-8 space-y-3">
-                            <div className="h-2.5 w-full rounded-full bg-black/5" />
-                            <div className="h-2.5 w-[80%] rounded-full bg-black/5" />
-                            <div className="h-2.5 w-[90%] rounded-full bg-black/5" />
-                            <div className="h-2.5 w-[70%] rounded-full bg-black/5" />
-                          </div>
-                        </div>
-
-                        <div className="p-6 sm:p-10">
-                          <div className="h-5 w-36 rounded-full bg-black/10" />
-
-                          <div className="mt-6 grid gap-4 sm:grid-cols-3">
-                            <div className="aspect-[4/3] rounded-xl bg-black/[0.045]" />
-                            <div className="aspect-[4/3] rounded-xl bg-black/[0.045]" />
-                            <div className="aspect-[4/3] rounded-xl bg-[#cfff5a]/50" />
-                          </div>
-
-                          <div className="mt-5 h-3 w-[45%] rounded-full bg-black/5" />
-                          <div className="mt-2 h-3 w-[30%] rounded-full bg-black/5" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </motion.div>
-
-              {/* Mobile arrows */}
-              <motion.button
-                type="button"
-                onClick={previousSlide}
-                aria-label="Previous project image"
-                whileTap={shouldReduceMotion ? {} : { scale: 0.92 }}
-                className="
-                  absolute
-                  left-3
-                  top-1/2
-                  flex
-                  h-9
-                  w-9
-                  -translate-y-1/2
-                  items-center
-                  justify-center
-                  rounded-full
-                  bg-white/90
-                  shadow-[0_6px_20px_rgba(0,0,0,0.08)]
-                  backdrop-blur-sm
-                  transition-transform
-                  hover:scale-105
-                  sm:hidden
-                "
-              >
-                <ChevronLeft size={17} />
-              </motion.button>
-
-              <motion.button
-                type="button"
-                onClick={nextSlide}
-                aria-label="Next project image"
-                whileTap={shouldReduceMotion ? {} : { scale: 0.92 }}
-                className="
-                  absolute
-                  right-3
-                  top-1/2
-                  flex
-                  h-9
-                  w-9
-                  -translate-y-1/2
-                  items-center
-                  justify-center
-                  rounded-full
-                  bg-white/90
-                  shadow-[0_6px_20px_rgba(0,0,0,0.08)]
-                  backdrop-blur-sm
-                  transition-transform
-                  hover:scale-105
-                  sm:hidden
-                "
-              >
-                <ChevronRight size={17} />
-              </motion.button>
-            </motion.div>
-
-            {/* Carousel controls */}
-            <motion.div
-              variants={reveal}
-              className="mt-4 flex items-center justify-between"
-            >
-              <span className="text-sm text-black/40">
-                {currentSlide.label}
-              </span>
-
-              <div className="flex items-center gap-1.5">
-                {slides.map((slide, index) => (
-                  <button
-                    key={slide.label}
-                    type="button"
-                    onClick={() => setActiveSlide(index)}
-                    aria-label={`View ${slide.label}`}
-                    className="flex h-4 items-center"
-                  >
-                    <motion.span
-                      animate={{
-                        width: activeSlide === index ? 24 : 6,
-                        backgroundColor:
-                          activeSlide === index
-                            ? "#111111"
-                            : "rgba(0,0,0,0.20)",
-                      }}
-                      transition={{
-                        duration: shouldReduceMotion ? 0 : 0.25,
-                      }}
-                      className="block h-1.5 rounded-full"
+            {/* 2 × 2 Mockup Grid */}
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
+              {mockups.map((mockup, index) => (
+                <motion.div
+                  key={mockup.image}
+                  variants={imageReveal}
+                  whileHover={
+                    shouldReduceMotion
+                      ? {}
+                      : {
+                          y: -4,
+                        }
+                  }
+                  transition={{
+                    duration: 0.35,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  className="group overflow-hidden rounded-2xl bg-[#eeeeea]"
+                >
+                  <div className="relative aspect-[16/10] overflow-hidden">
+                    <img
+                      src={mockup.image}
+                      alt={`${project.title} ${mockup.label} mockup`}
+                      loading={index === 0 ? "eager" : "lazy"}
+                      decoding="async"
+                      className="
+                        block
+                        h-full
+                        w-full
+                        object-cover
+                        transition-transform
+                        duration-700
+                        ease-[cubic-bezier(0.22,1,0.36,1)]
+                        group-hover:scale-[1.02]
+                      "
                     />
-                  </button>
-                ))}
-              </div>
-
-              <span className="text-sm tabular-nums text-black/40">
-                {String(activeSlide + 1).padStart(2, "0")} /{" "}
-                {String(slides.length).padStart(2, "0")}
-              </span>
-            </motion.div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </motion.div>
         </section>
 
