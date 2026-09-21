@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import profileImage from "../assets/images/profile.jpg";
+import profileImage2 from "../assets/images/CJEP.png";
 
 const founders = [
   {
@@ -13,7 +14,7 @@ const founders = [
     education: "Computer Engineering · University of Pangasinan – PHINMA",
     based: "Pangasinan, Philippines",
     focus: "IT · Security · Infrastructure",
-    image: "/team/cofounder.jpg",
+    image: profileImage2,
   },
   {
     id: "carl",

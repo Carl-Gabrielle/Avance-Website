@@ -94,6 +94,7 @@ function About() {
               className="mb-5 flex items-center gap-3"
             >
               <span className="h-1.5 w-1.5 rounded-full bg-[#a8cf32]" />
+
               <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#7f941f]">
                 How we work
               </span>
@@ -111,8 +112,12 @@ function About() {
             </motion.h2>
           </div>
 
-          <motion.div variants={fadeUp} className="max-w-md lg:justify-self-end">
+          <motion.div
+            variants={fadeUp}
+            className="max-w-md lg:justify-self-end"
+          >
             <div className="mb-3 h-px w-10 bg-[#a8cf32]" />
+
             <p className="text-[15px] leading-relaxed text-[#5f5f5c] sm:text-[15.5px]">
               We keep the process focused and collaborative. Every project
               starts with understanding the problem, then moves through
@@ -137,39 +142,65 @@ function About() {
                 <motion.div
                   key={service.title}
                   variants={fadeUp}
-                  whileHover={{ y: -5 }}
-                  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                  whileHover={{ y: -4 }}
+                  transition={{
+                    duration: 0.3,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
                   className={`
-                    group relative flex flex-col overflow-hidden rounded-2xl
-                    border border-black/[0.04] p-6 sm:p-7
+                    group relative overflow-hidden rounded-2xl
+                    border border-black/[0.04]
+                    p-5 sm:p-6
                     shadow-[0_2px_8px_rgba(0,0,0,0.03)]
                     transition-all duration-300
                     hover:shadow-[0_16px_40px_-12px_rgba(0,0,0,0.1)]
                     ${service.background}
                   `}
                 >
-                  {/* Icon */}
-                  <div
-                    className={`
-                      flex h-10 w-10 items-center justify-center rounded-xl
-                      ${service.iconBackground} ${service.iconColor}
-                      transition-transform duration-300 group-hover:-translate-y-0.5
-                    `}
-                  >
-                    <Icon size={17} strokeWidth={1.6} />
+                  {/* Horizontal Card Content */}
+                  <div className="flex items-start gap-4">
+
+                    {/* Icon */}
+                    <div
+                      className={`
+                        flex h-10 w-10 shrink-0 items-center justify-center
+                        rounded-xl
+                        ${service.iconBackground}
+                        ${service.iconColor}
+                        transition-transform duration-300
+                        group-hover:-translate-y-0.5
+                      `}
+                    >
+                      <Icon size={17} strokeWidth={1.6} />
+                    </div>
+
+                    {/* Content */}
+                    <div className="min-w-0 pt-0.5">
+                      <h3
+                        className="
+                          text-[1.1rem]
+                          font-semibold
+                          tracking-[-0.03em]
+                          text-[#111]
+                        "
+                      >
+                        {service.title}
+                      </h3>
+
+                      <p
+                        className="
+                          mt-1.5
+                          text-[13px]
+                          leading-[1.55]
+                          text-black/50
+                        "
+                      >
+                        {service.description}
+                      </p>
+                    </div>
                   </div>
 
-                  {/* Content */}
-                  <div className="mt-6">
-                    <h3 className="text-[1.25rem] font-semibold tracking-[-0.03em] text-[#111]">
-                      {service.title}
-                    </h3>
-                    <p className="mt-2.5 text-[13.5px] leading-[1.55] text-black/50">
-                      {service.description}
-                    </p>
-                  </div>
-
-                  {/* Accent bar */}
+                  {/* Accent Bar */}
                   <div
                     className={`
                       absolute bottom-0 left-0 h-[3px] w-0
@@ -193,6 +224,7 @@ function About() {
           className="mt-10 flex max-w-2xl items-start gap-3.5 sm:mt-12"
         >
           <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#a8cf32]" />
+
           <p className="text-[13.5px] leading-relaxed text-[#858582] sm:text-[14px]">
             No unnecessary layers or complicated process. Just clear thinking,
             strong design, and technology used where it matters.
