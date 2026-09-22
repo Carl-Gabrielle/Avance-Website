@@ -38,16 +38,21 @@ function Team() {
       className="
         relative
         overflow-hidden
+        bg-[#f7f8fa]
         px-5
-        py-16
+        py-10
         text-[#16170f]
-        sm:px-8
-        sm:py-20
-        lg:px-12
-        lg:py-24
+        sm:px-7
+        sm:py-12
+        md:px-10
+        lg:px-10
+        lg:py-14
       "
     >
-      {/* Ambient background */}
+      {/* ================================================== */}
+      {/* AMBIENT BACKGROUND */}
+      {/* ================================================== */}
+
       <div
         aria-hidden="true"
         className="
@@ -78,14 +83,29 @@ function Team() {
         "
       />
 
-      <div className="relative mx-auto max-w-[1200px]">
-        {/* =================================
-            HEADER
-        ================================= */}
+      {/* ================================================== */}
+      {/* MAIN CONTAINER */}
+      {/* ================================================== */}
+
+      <div className="relative mx-auto w-full max-w-[1440px]">
+
+        {/* ================================================== */}
+        {/* HEADER */}
+        {/* ================================================== */}
+
         <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
+          initial={{
+            opacity: 0,
+            y: 14,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{
+            once: true,
+            amount: 0.2,
+          }}
           transition={{
             duration: 0.6,
             ease: [0.22, 1, 0.36, 1],
@@ -93,30 +113,43 @@ function Team() {
           className="max-w-[680px]"
         >
           {/* Eyebrow */}
+
           <div className="flex items-center gap-3">
             <span className="h-1.5 w-1.5 rounded-full bg-[#9fbe3c]" />
 
-            <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-black/40">
+            <span
+              className="
+                text-[10px]
+                font-semibold
+                uppercase
+                tracking-[0.2em]
+                text-black/40
+              "
+            >
               A little about us
             </span>
           </div>
 
           {/* Heading */}
+
           <h2
             className="
               mt-5
-              text-[clamp(2.8rem,6vw,5rem)]
+              text-[clamp(2.5rem,5vw,4rem)]
               font-semibold
-              leading-[0.88]
-              tracking-[-0.065em]
+              leading-[0.92]
+              tracking-[-0.06em]
             "
           >
             The people
             <br />
-            <span className="text-[#70833e]">behind the work.</span>
+            <span className="text-[#70833e]">
+              behind the work.
+            </span>
           </h2>
 
           {/* Description */}
+
           <p
             className="
               mt-6
@@ -135,10 +168,20 @@ function Team() {
           </p>
         </motion.div>
 
-        {/* =================================
-            TEAM MEMBERS
-        ================================= */}
-        <div className="mt-16 space-y-24 sm:mt-20 sm:space-y-28 lg:mt-24 lg:space-y-32">
+        {/* ================================================== */}
+        {/* TEAM MEMBERS */}
+        {/* ================================================== */}
+
+        <div
+          className="
+            mt-10
+            space-y-20
+            sm:mt-12
+            sm:space-y-24
+            lg:mt-14
+            lg:space-y-28
+          "
+        >
           {founders.map((founder, index) => {
             const reversed = index % 2 === 1;
 
@@ -149,16 +192,18 @@ function Team() {
                   grid
                   items-center
                   gap-10
-                  lg:grid-cols-[300px_minmax(0,1fr)]
-                  lg:gap-16
-                  xl:grid-cols-[320px_minmax(0,1fr)]
+                  lg:grid-cols-[320px_minmax(0,1fr)]
+                  lg:gap-14
+                  xl:grid-cols-[340px_minmax(0,1fr)]
                   xl:gap-20
                   ${reversed ? "lg:[direction:rtl]" : ""}
                 `}
               >
-                {/* =================================
-                    PHOTO
-                ================================= */}
+
+                {/* ================================================== */}
+                {/* PHOTO */}
+                {/* ================================================== */}
+
                 <motion.div
                   initial={{
                     opacity: 0,
@@ -182,11 +227,14 @@ function Team() {
                     w-full
                     max-w-[300px]
                     lg:mx-0
-                    xl:max-w-[320px]
+                    lg:max-w-[320px]
+                    xl:max-w-[340px]
                   "
                 >
                   <div className="relative">
+
                     {/* Offset panel */}
+
                     <div
                       aria-hidden="true"
                       className={`
@@ -203,6 +251,7 @@ function Team() {
                     />
 
                     {/* Lime detail */}
+
                     <div
                       aria-hidden="true"
                       className="
@@ -220,6 +269,7 @@ function Team() {
                     />
 
                     {/* Image */}
+
                     <div
                       className="
                         relative
@@ -253,9 +303,12 @@ function Team() {
                         "
                       />
                     </div>
-
                   </div>
                 </motion.div>
+
+                {/* ================================================== */}
+                {/* CONTENT */}
+                {/* ================================================== */}
 
                 <motion.div
                   initial={{
@@ -281,7 +334,9 @@ function Team() {
                     ${reversed ? "lg:pr-2" : "lg:pl-2"}
                   `}
                 >
-                  {/* Quote */}
+
+                  {/* QUOTE */}
+
                   <div className="relative max-w-[650px]">
                     <span
                       aria-hidden="true"
@@ -311,7 +366,8 @@ function Team() {
                     </blockquote>
                   </div>
 
-                  {/* Name + Role */}
+                  {/* NAME + ROLE */}
+
                   <div className="mt-6">
                     <h3
                       className="
@@ -325,12 +381,20 @@ function Team() {
                       {founder.name}
                     </h3>
 
-                    <p className="mt-1.5 text-[13px] font-medium text-[#70833e]">
+                    <p
+                      className="
+                        mt-1.5
+                        text-[13px]
+                        font-medium
+                        text-[#70833e]
+                      "
+                    >
                       {founder.role}
                     </p>
                   </div>
 
-                  {/* Bio */}
+                  {/* BIO */}
+
                   <p
                     className="
                       mt-4
@@ -343,9 +407,10 @@ function Team() {
                     {founder.bio}
                   </p>
 
-                  {/* =================================
-                      DETAILS
-                  ================================= */}
+                  {/* ================================================== */}
+                  {/* DETAILS */}
+                  {/* ================================================== */}
+
                   <div
                     className="
                       mt-6
@@ -367,7 +432,9 @@ function Team() {
                         sm:grid-cols-[minmax(0,2fr)_minmax(170px,0.9fr)_minmax(210px,1.15fr)]
                       "
                     >
-                      {/* Education */}
+
+                      {/* EDUCATION */}
+
                       <div
                         className="
                           min-w-0
@@ -405,7 +472,8 @@ function Team() {
                         </span>
                       </div>
 
-                      {/* Based */}
+                      {/* BASED */}
+
                       <div
                         className="
                           min-w-0
@@ -444,7 +512,8 @@ function Team() {
                         </span>
                       </div>
 
-                      {/* Focus */}
+                      {/* FOCUS */}
+
                       <div
                         className="
                           min-w-0
@@ -481,8 +550,10 @@ function Team() {
                           {founder.focus}
                         </span>
                       </div>
+
                     </div>
                   </div>
+
                 </motion.div>
               </div>
             );

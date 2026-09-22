@@ -38,16 +38,17 @@ function Work() {
       id="work"
       className="
         bg-[#f7f8fa]
-        px-4
+        px-5
         py-10
         text-[#111111]
-        sm:px-6
+        sm:px-7
         sm:py-12
-        lg:px-8
+        md:px-10
+        lg:px-10
         lg:py-14
       "
     >
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto w-full max-w-[1440px]">
 
         {/* ================================================== */}
         {/* SECTION HEADER */}
@@ -110,12 +111,13 @@ function Work() {
           viewport={{ once: true, amount: 0.12 }}
           variants={staggerContainer}
           className="
-            mt-7
+            mt-10
             grid
             grid-cols-1
             gap-4
-            sm:mt-8
+            sm:mt-12
             sm:gap-5
+            lg:mt-14
             lg:grid-cols-2
           "
         >
@@ -157,9 +159,9 @@ function Work() {
                 <div
                   className="
                     relative
+                    aspect-[16/9.5]
                     overflow-hidden
                     rounded-[15px]
-                    aspect-[16/9.5]
                     sm:aspect-[16/9]
                   "
                 >
@@ -180,7 +182,7 @@ function Work() {
                     "
                   />
 
-                  {/* SUBTLE IMAGE OVERLAY */}
+                  {/* IMAGE OVERLAY */}
 
                   <div
                     className="
@@ -257,15 +259,12 @@ function Work() {
                     pb-1
                     pt-4
                     sm:px-1.5
-                    sm:pt-4.5
                   "
                 >
 
                   {/* PROJECT DETAILS */}
 
                   <div className="min-w-0">
-
-                    
 
                     <h3
                       className="
@@ -294,7 +293,7 @@ function Work() {
 
                   </div>
 
-                  {/* VIEW CASE STUDY BUTTON */}
+                  {/* VIEW CASE STUDY */}
 
                   <span
                     className="
@@ -323,8 +322,6 @@ function Work() {
                       lg:px-5
                       lg:py-3
                       lg:text-[9px]
-                      xl:px-5.5
-                      xl:py-3
                     "
                   >
                     <span>View case study</span>

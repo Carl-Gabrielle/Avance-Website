@@ -184,16 +184,20 @@ function Services() {
       className="
         bg-[#f7f8fa]
         px-5
-        py-12
+        py-10
         text-[#111111]
-        sm:px-8
-        sm:py-16
-        lg:py-20
+        sm:px-7
+        sm:py-12
+        md:px-10
+        lg:px-10
+        lg:py-14
       "
     >
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto w-full max-w-[1440px]">
 
+        {/* ================================================== */}
         {/* HEADER */}
+        {/* ================================================== */}
 
         <motion.div
           initial="hidden"
@@ -203,14 +207,14 @@ function Services() {
             amount: 0.3,
           }}
           variants={containerVariants}
-          className="mb-9 sm:mb-11 lg:mb-12"
+          className="mb-10 sm:mb-12 lg:mb-14"
         >
           <motion.div variants={fadeUp}>
 
             {/* Eyebrow */}
 
             <div className="mb-5 flex items-center gap-2">
-              <span className="h-2 w-2 rounded-full bg-[#a8cf32]" />
+              <span className="h-1.5 w-1.5 rounded-full bg-[#a8cf32]" />
 
               <span className="text-[11px] font-medium uppercase tracking-[0.16em] text-[#777777]">
                 What we do
@@ -222,13 +226,11 @@ function Services() {
             <h2
               className="
                 max-w-3xl
-                text-[42px]
+                text-[clamp(2.3rem,5vw,4rem)]
                 font-normal
                 leading-[1.02]
                 tracking-[-0.045em]
                 text-[#3f4657]
-                sm:text-[52px]
-                lg:text-[58px]
               "
             >
               Built around{" "}
@@ -243,7 +245,7 @@ function Services() {
               className="
                 mt-5
                 max-w-2xl
-                text-sm
+                text-[14px]
                 leading-6
                 text-[#777777]
                 sm:text-[15px]
@@ -256,7 +258,9 @@ function Services() {
           </motion.div>
         </motion.div>
 
+        {/* ================================================== */}
         {/* SERVICE CARDS */}
+        {/* ================================================== */}
 
         <motion.div
           initial="hidden"
@@ -266,7 +270,7 @@ function Services() {
             amount: 0.15,
           }}
           variants={containerVariants}
-          className="grid gap-5 md:grid-cols-3"
+          className="grid gap-4 sm:gap-5 md:grid-cols-3"
         >
           {services.map((service) => {
             const Icon = service.icon;
@@ -292,12 +296,23 @@ function Services() {
                   shadow-[0_4px_25px_rgba(0,0,0,0.025)]
                 "
               >
-                {/* VISUAL */}
 
-                <div className="relative h-60 overflow-hidden rounded-[16px] sm:h-64">
+                {/* ================================================== */}
+                {/* VISUAL */}
+                {/* ================================================== */}
+
+                <div
+                  className="
+                    relative
+                    h-60
+                    overflow-hidden
+                    rounded-[16px]
+                    sm:h-64
+                  "
+                >
                   <ServiceVisual type={service.type} />
 
-                  {/* Service label */}
+                  {/* SERVICE LABEL */}
 
                   <div className="absolute left-4 top-4">
                     <div
@@ -317,13 +332,21 @@ function Services() {
                     >
                       <span className="h-1.5 w-1.5 rounded-full bg-[#a8cf32]" />
 
-                      <span className="text-[10px] font-medium uppercase tracking-[0.12em] text-[#222222]">
+                      <span
+                        className="
+                          text-[10px]
+                          font-medium
+                          uppercase
+                          tracking-[0.12em]
+                          text-[#222222]
+                        "
+                      >
                         {service.label}
                       </span>
                     </div>
                   </div>
 
-                  {/* Icon */}
+                  {/* ICON */}
 
                   <motion.div
                     whileHover={{
@@ -357,7 +380,9 @@ function Services() {
                   </motion.div>
                 </div>
 
+                {/* ================================================== */}
                 {/* CONTENT */}
+                {/* ================================================== */}
 
                 <div className="px-3 pb-5 pt-5 sm:px-4 sm:pb-6 sm:pt-6">
                   <h3

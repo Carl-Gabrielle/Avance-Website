@@ -21,7 +21,7 @@ function CaseStudy() {
   if (!project) {
     return (
       <div className="min-h-screen bg-[#fafaf8] text-[#111111]">
-        <main className="flex min-h-[70vh] items-center justify-center px-5">
+        <main className="flex min-h-[70vh] items-center justify-center px-5 sm:px-7 md:px-10 lg:px-10">
           <div className="text-center">
             <p className="mb-5 text-sm text-black/45">
               Project not found
@@ -125,9 +125,22 @@ function CaseStudy() {
         {/* =========================================================
             HEADER
         ========================================================= */}
-        <section className="px-5 pb-12 pt-24 sm:px-8 sm:pb-16 sm:pt-28">
-          <div className="mx-auto max-w-7xl">
+
+        <section
+          className="
+            px-5
+            pb-12
+            pt-24
+            sm:px-7
+            sm:pb-16
+            sm:pt-28
+            md:px-10
+            lg:px-10
+          "
+        >
+          <div className="mx-auto w-full max-w-[1440px]">
             {/* Back */}
+
             <motion.div
               initial={{
                 opacity: 0,
@@ -145,11 +158,27 @@ function CaseStudy() {
             >
               <Link
                 to="/#projects"
-                className="group mb-10 inline-flex items-center gap-2 text-sm font-medium text-black/45 transition-colors hover:text-black sm:mb-8"
+                className="
+                  group
+                  mb-10
+                  inline-flex
+                  items-center
+                  gap-2
+                  text-sm
+                  font-medium
+                  text-black/45
+                  transition-colors
+                  hover:text-black
+                  sm:mb-8
+                "
               >
                 <ArrowLeft
                   size={16}
-                  className="transition-transform duration-200 group-hover:-translate-x-1"
+                  className="
+                    transition-transform
+                    duration-200
+                    group-hover:-translate-x-1
+                  "
                 />
 
                 Back to home
@@ -157,6 +186,7 @@ function CaseStudy() {
             </motion.div>
 
             {/* Title */}
+
             <motion.h1
               initial={{
                 opacity: 0,
@@ -183,6 +213,7 @@ function CaseStudy() {
             </motion.h1>
 
             {/* Description + Button */}
+
             <motion.div
               initial={{
                 opacity: 0,
@@ -197,9 +228,27 @@ function CaseStudy() {
                 delay: shouldReduceMotion ? 0 : 0.28,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="mt-8 flex flex-col gap-6 sm:mt-10 sm:flex-row sm:items-end sm:justify-between"
+              className="
+                mt-8
+                flex
+                flex-col
+                gap-6
+                sm:mt-10
+                sm:flex-row
+                sm:items-end
+                sm:justify-between
+              "
             >
-              <p className="max-w-2xl text-base leading-7 text-black/55 sm:text-lg sm:leading-8">
+              <p
+                className="
+                  max-w-2xl
+                  text-base
+                  leading-7
+                  text-black/55
+                  sm:text-lg
+                  sm:leading-8
+                "
+              >
                 {project.shortDescription}
               </p>
 
@@ -250,13 +299,21 @@ function CaseStudy() {
         {/* =========================================================
             PROJECT THUMBNAIL
         ========================================================= */}
-        <section className="px-5 sm:px-8">
+
+        <section
+          className="
+            px-5
+            sm:px-7
+            md:px-10
+            lg:px-10
+          "
+        >
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={sectionViewport}
             variants={imageReveal}
-            className="mx-auto max-w-7xl"
+            className="mx-auto w-full max-w-[1440px]"
           >
             <motion.div
               whileHover={
@@ -270,12 +327,24 @@ function CaseStudy() {
                 duration: 0.4,
                 ease: "easeOut",
               }}
-              className="relative overflow-hidden rounded-2xl bg-[#e9e9e4]"
+              className="
+                relative
+                overflow-hidden
+                rounded-2xl
+                bg-[#e9e9e4]
+              "
             >
               {project.images?.hero ? (
                 <div className="relative aspect-[16/8] w-full overflow-hidden">
                   <video
-                    className="absolute inset-0 h-full w-full object-cover object-top"
+                    className="
+                      absolute
+                      inset-0
+                      h-full
+                      w-full
+                      object-cover
+                      object-top
+                    "
                     src={archThumbnail}
                     autoPlay
                     muted
@@ -290,7 +359,16 @@ function CaseStudy() {
                 </div>
               ) : (
                 <div className="relative aspect-[16/8] overflow-hidden">
-                  <div className="absolute inset-[5%] overflow-hidden rounded-xl bg-white shadow-[0_20px_60px_rgba(0,0,0,0.07)]">
+                  <div
+                    className="
+                      absolute
+                      inset-[5%]
+                      overflow-hidden
+                      rounded-xl
+                      bg-white
+                      shadow-[0_20px_60px_rgba(0,0,0,0.07)]
+                    "
+                  >
                     <div className="flex h-9 items-center gap-1.5 border-b border-black/5 px-4">
                       <span className="h-2.5 w-2.5 rounded-full bg-black/10" />
                       <span className="h-2.5 w-2.5 rounded-full bg-black/10" />
@@ -330,16 +408,27 @@ function CaseStudy() {
         {/* =========================================================
             PROJECT INFORMATION + CASE STUDY
         ========================================================= */}
-        <section className="px-5 py-16 sm:px-8 sm:py-20">
+
+        <section
+          className="
+            px-5
+            py-16
+            sm:px-7
+            sm:py-20
+            md:px-10
+            lg:px-10
+          "
+        >
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={sectionViewport}
             variants={staggerContainer}
-            className="mx-auto max-w-7xl"
+            className="mx-auto w-full max-w-[1440px]"
           >
             <div className="grid gap-14 lg:grid-cols-[280px_1fr] lg:gap-20">
               {/* Project Info */}
+
               <motion.aside variants={reveal}>
                 <p className="mb-7 text-xs font-medium uppercase tracking-[0.12em] text-black/35">
                   Project information
@@ -389,6 +478,7 @@ function CaseStudy() {
               </motion.aside>
 
               {/* Narrative */}
+
               <motion.div
                 variants={staggerContainer}
                 className="max-w-3xl space-y-12"
@@ -442,15 +532,26 @@ function CaseStudy() {
         {/* =========================================================
             MOCKUP SHOWCASE
         ========================================================= */}
-        <section className="px-5 pb-20 sm:px-8 sm:pb-24">
+
+        <section
+          className="
+            px-5
+            pb-20
+            sm:px-7
+            sm:pb-24
+            md:px-10
+            lg:px-10
+          "
+        >
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={sectionViewport}
             variants={staggerContainer}
-            className="mx-auto max-w-7xl"
+            className="mx-auto w-full max-w-[1440px]"
           >
             {/* Section heading */}
+
             <motion.div
               variants={reveal}
               className="mb-8"
@@ -465,6 +566,7 @@ function CaseStudy() {
             </motion.div>
 
             {/* 2 × 2 Mockup Grid */}
+
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
               {mockups.map((mockup, index) => (
                 <motion.div
@@ -481,7 +583,12 @@ function CaseStudy() {
                     duration: 0.35,
                     ease: [0.22, 1, 0.36, 1],
                   }}
-                  className="group overflow-hidden rounded-2xl bg-[#eeeeea]"
+                  className="
+                    group
+                    overflow-hidden
+                    rounded-2xl
+                    bg-[#eeeeea]
+                  "
                 >
                   <div className="relative aspect-[16/10] overflow-hidden">
                     <img
@@ -510,6 +617,7 @@ function CaseStudy() {
         {/* =========================================================
             CTA
         ========================================================= */}
+
         <CTA />
       </main>
 
