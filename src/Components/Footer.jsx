@@ -586,41 +586,43 @@ function Footer() {
               {/* Facebook */}
 
               {socialLinks.map((social) => (
-                <motion.a
-                  key={social.label}
-                  href={social.href}
-                  aria-label={social.label}
-                  whileHover={{
-                    y: -2,
-                  }}
-                  whileTap={{
-                    scale: 0.95,
-                  }}
-                  transition={{
-                    duration: 0.2,
-                    ease: "easeOut",
-                  }}
-                  className="
-                    grid
-                    h-9
-                    w-9
-                    place-items-center
-                    rounded-full
-                    border
-                    border-black/[0.07]
-                    bg-white
-                    text-[#777777]
-                    transition-all
-                    duration-200
-                    hover:border-[#d8ff63]
-                    hover:bg-[#d8ff63]
-                    hover:text-[#111111]
-                  "
-                >
-                  <span className="text-sm font-bold leading-none">
-                    f
-                  </span>
-                </motion.a>
+              <motion.a
+            key={social.label}
+            href="https://www.facebook.com/profile.php?id=61594498439154"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={social.label}
+            whileHover={{
+              y: -2,
+            }}
+            whileTap={{
+              scale: 0.95,
+            }}
+            transition={{
+              duration: 0.2,
+              ease: "easeOut",
+            }}
+            className="
+              grid
+              h-9
+              w-9
+              place-items-center
+              rounded-full
+              border
+              border-black/[0.07]
+              bg-white
+              text-[#777777]
+              transition-all
+              duration-200
+              hover:border-[#d8ff63]
+              hover:bg-[#d8ff63]
+              hover:text-[#111111]
+            "
+          >
+            <span className="text-sm font-bold leading-none">
+              f
+            </span>
+          </motion.a>
               ))}
 
               {/* Divider */}
