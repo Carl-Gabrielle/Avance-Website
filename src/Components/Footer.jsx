@@ -478,6 +478,52 @@ function Footer() {
                 </span>
               </div>
 
+              {/* Avance */}
+              <div className="flex items-start gap-3">
+                <span
+                  className="
+                    grid
+                    h-8
+                    w-8
+                    shrink-0
+                    place-items-center
+                    rounded-full
+                    border
+                    border-black/[0.07]
+                    bg-white
+                  "
+                >
+                  f
+                </span>
+
+                <span>
+                  <span
+                    className="
+                      block
+                      text-[9px]
+                      font-bold
+                      uppercase
+                      tracking-[0.12em]
+                      text-[#999999]
+                    "
+                  >
+                    Facebook
+                  </span>
+
+                  <span
+                    className="
+                      mt-1
+                      block
+                      text-sm
+                      font-medium
+                      text-[#444444]
+                    "
+                  >
+                    Avance - Web Design &amp; Development
+                  </span>
+                </span>
+              </div>
+
               {/* Location */}
 
               <div className="flex items-start gap-3">
@@ -562,16 +608,6 @@ function Footer() {
                 "
               >
                 © {new Date().getFullYear()} Avance
-              </span>
-
-              <span
-                className="
-                  text-[9px]
-                  font-medium
-                  text-[#b0b0b0]
-                "
-              >
-                Designed & built with intention.
               </span>
             </motion.div>
 
