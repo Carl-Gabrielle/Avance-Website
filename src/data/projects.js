@@ -33,7 +33,7 @@ export const projects = [
       "Frontend Development",
     ],
 
-    websiteUrl: "https://arch-website-v1.vercel.app/",
+    websiteUrl: "https://stacruzarchitects.avancewebdev.com",
 
     images: {
       hero: "/projects/architecture/hero.webp",
